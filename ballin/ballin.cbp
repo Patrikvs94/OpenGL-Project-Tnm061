@@ -14,12 +14,13 @@
 				<Compiler>
 					<Add option="-std=c++11" />
 					<Add option="-g" />
+					<Add directory="." />
 				</Compiler>
 				<Linker>
 					<Add library="glfw3" />
 					<Add library="opengl32" />
 					<Add library="gdi32" />
-					<Add directory="GLFW" />
+					<Add directory="./GLFW" />
 				</Linker>
 			</Target>
 			<Target title="Release">
