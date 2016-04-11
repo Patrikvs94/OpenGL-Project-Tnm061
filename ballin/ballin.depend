@@ -15,3 +15,7 @@
 	<GL/gl.h>
 	<GL/glu.h>
 
+1460384803 source:/Users/olasteen/GitHub/TNM061---OpenGL-projekt/ballin/main.cpp
+	<iostream>
+	<GLFW/glfw3.h>
+
