@@ -26,12 +26,6 @@ int main(int argc, char *argv[]) {
 	GLFWwindow *window;    // GLFW struct to hold information about the window
 
     // Initialise GLFW
-    /*
-    if(!glfwInit())
-    {
-        exit(EXIT_FAILURE);
-    }
-    */
     glfwInit();
 
     // Determine the desktop size

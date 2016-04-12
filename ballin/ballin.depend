@@ -19,3 +19,19 @@
 	<iostream>
 	<GLFW/glfw3.h>
 
+1460367154 source:c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\main.cpp
+	<iostream>
+	<GLFW/glfw3.h>
+
+1460364589 c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\glfw\glfw3.h
+	<stddef.h>
+	<OpenGL/gl3.h>
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+	<GL/glcorearb.h>
+	<GLES/gl.h>
+	<GLES2/gl2.h>
+	<GLES3/gl3.h>
+	<GL/gl.h>
+	<GL/glu.h>
+
