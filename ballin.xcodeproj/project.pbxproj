@@ -11,6 +11,7 @@
 		369CE8BD1CBBFDFF00A1F101 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 369CE8BC1CBBFDFF00A1F101 /* OpenGL.framework */; };
 		36DCC9B51CBC008D004EFE3F /* libGLEW.1.13.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 36DCC9B01CBC0045004EFE3F /* libGLEW.1.13.0.dylib */; };
 		36DCC9B61CBC009B004EFE3F /* libglfw3.3.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 36DCC9B21CBC0059004EFE3F /* libglfw3.3.1.dylib */; };
+		36ED50EB1CBD377400C318FC /* Matrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 36ED50E91CBD377400C318FC /* Matrix.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -32,6 +33,8 @@
 		36DCC9AE1CBC002F004EFE3F /* Cellar */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Cellar; path = ../../../../usr/local/Cellar; sourceTree = "<group>"; };
 		36DCC9B01CBC0045004EFE3F /* libGLEW.1.13.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.1.13.0.dylib; path = ../../../../usr/local/Cellar/glew/1.13.0/lib/libGLEW.1.13.0.dylib; sourceTree = "<group>"; };
 		36DCC9B21CBC0059004EFE3F /* libglfw3.3.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw3.3.1.dylib; path = ../../../../usr/local/Cellar/glfw3/3.1.2/lib/libglfw3.3.1.dylib; sourceTree = "<group>"; };
+		36ED50E91CBD377400C318FC /* Matrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Matrix.cpp; path = ballin/Matrix.cpp; sourceTree = "<group>"; };
+		36ED50EA1CBD377400C318FC /* Matrix.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Matrix.hpp; path = ballin/Matrix.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +54,8 @@
 		36346BBF1CBBFC5700891BC3 = {
 			isa = PBXGroup;
 			children = (
+				36ED50E91CBD377400C318FC /* Matrix.cpp */,
+				36ED50EA1CBD377400C318FC /* Matrix.hpp */,
 				36DCC9B21CBC0059004EFE3F /* libglfw3.3.1.dylib */,
 				36DCC9B01CBC0045004EFE3F /* libGLEW.1.13.0.dylib */,
 				36DCC9AE1CBC002F004EFE3F /* Cellar */,
@@ -132,6 +137,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36ED50EB1CBD377400C318FC /* Matrix.cpp in Sources */,
 				36346BCC1CBBFC5700891BC3 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
