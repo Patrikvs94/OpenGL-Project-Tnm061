@@ -27,8 +27,8 @@ matrixStack::~matrixStack(){
         toBeDeleted=current;
     }
     
-
 }
+
 
 void matrixStack::rotX(float angle){
     Matrix rx;
@@ -79,4 +79,12 @@ void matrixStack::scale(float x, float y, float z){
     s(2,2)= y;
     s(3,3)= z;
     *current*=s;
+}
+
+int matrixStack::getDepth(){
+    int depth = 0;
+
+    //STUFF
+
+    return depth;
 }

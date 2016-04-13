@@ -39,7 +39,11 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="Matrix.cpp" />
+		<Unit filename="Matrix.hpp" />
 		<Unit filename="main.cpp" />
+		<Unit filename="matrixStack.cpp" />
+		<Unit filename="matrixStack.hpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />
