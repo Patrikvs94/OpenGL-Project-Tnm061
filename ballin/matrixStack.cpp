@@ -7,9 +7,9 @@ matrixStack::matrixStack(){
 
 void matrixStack::push(){
     Matrix *temp = current;
-    Matrix *newMatrix = new Matrix(*current);
+    Matrix *newMatrix = new Matrix(*current); // creates new "current" matrix
     current = newMatrix;
-    current->prev = temp;
+    current->prev = temp; // redirects prev of current to old current
 }
 
 void matrixStack::pop(){
@@ -22,11 +22,11 @@ matrixStack::~matrixStack(){
     Matrix *toBeDeleted=current;
     while(toBeDeleted!=nullptr)
     {
-        current=current->prev;
-        delete toBeDeleted;
-        toBeDeleted=current;
+        current=current->prev; // gets previous matrix in stack
+        delete toBeDeleted; //deletes matrix at top of stack
+        toBeDeleted=current;    //shifts pointer to previous matrix
     }
-    
+
 }
 
 
