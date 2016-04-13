@@ -8,6 +8,7 @@
 
 class Matrix
 {
+    friend class matrixStack;
     
 private:
     // array containing values of matrix
@@ -23,6 +24,7 @@ public:
     
     //Matrix multiplication
     Matrix& operator*(const Matrix& M);
+    Matrix& operator*=(const Matrix& M);
     
     //gives value at (row,col) 1 <= row,col <=4
     const float& operator()(const int row, const int col) const;

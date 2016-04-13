@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		36346BCC1CBBFC5700891BC3 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 36346BCB1CBBFC5700891BC3 /* main.cpp */; };
 		369CE8BD1CBBFDFF00A1F101 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 369CE8BC1CBBFDFF00A1F101 /* OpenGL.framework */; };
+		36C5B45F1CBE9565007CB34D /* matrixStack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 36C5B45D1CBE9565007CB34D /* matrixStack.cpp */; };
 		36DCC9B51CBC008D004EFE3F /* libGLEW.1.13.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 36DCC9B01CBC0045004EFE3F /* libGLEW.1.13.0.dylib */; };
 		36DCC9B61CBC009B004EFE3F /* libglfw3.3.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 36DCC9B21CBC0059004EFE3F /* libglfw3.3.1.dylib */; };
 		36ED50EB1CBD377400C318FC /* Matrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 36ED50E91CBD377400C318FC /* Matrix.cpp */; };
@@ -30,6 +31,8 @@
 		36346BC81CBBFC5700891BC3 /* ballin */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ballin; sourceTree = BUILT_PRODUCTS_DIR; };
 		36346BCB1CBBFC5700891BC3 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		369CE8BC1CBBFDFF00A1F101 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		36C5B45D1CBE9565007CB34D /* matrixStack.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = matrixStack.cpp; path = ballin/matrixStack.cpp; sourceTree = "<group>"; };
+		36C5B45E1CBE9565007CB34D /* matrixStack.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = matrixStack.hpp; path = ballin/matrixStack.hpp; sourceTree = "<group>"; };
 		36DCC9AE1CBC002F004EFE3F /* Cellar */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Cellar; path = ../../../../usr/local/Cellar; sourceTree = "<group>"; };
 		36DCC9B01CBC0045004EFE3F /* libGLEW.1.13.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.1.13.0.dylib; path = ../../../../usr/local/Cellar/glew/1.13.0/lib/libGLEW.1.13.0.dylib; sourceTree = "<group>"; };
 		36DCC9B21CBC0059004EFE3F /* libglfw3.3.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw3.3.1.dylib; path = ../../../../usr/local/Cellar/glfw3/3.1.2/lib/libglfw3.3.1.dylib; sourceTree = "<group>"; };
@@ -54,6 +57,8 @@
 		36346BBF1CBBFC5700891BC3 = {
 			isa = PBXGroup;
 			children = (
+				36C5B45D1CBE9565007CB34D /* matrixStack.cpp */,
+				36C5B45E1CBE9565007CB34D /* matrixStack.hpp */,
 				36ED50E91CBD377400C318FC /* Matrix.cpp */,
 				36ED50EA1CBD377400C318FC /* Matrix.hpp */,
 				36DCC9B21CBC0059004EFE3F /* libglfw3.3.1.dylib */,
@@ -137,6 +142,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36C5B45F1CBE9565007CB34D /* matrixStack.cpp in Sources */,
 				36ED50EB1CBD377400C318FC /* Matrix.cpp in Sources */,
 				36346BCC1CBBFC5700891BC3 /* main.cpp in Sources */,
 			);
