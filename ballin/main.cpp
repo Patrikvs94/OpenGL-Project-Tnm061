@@ -101,7 +101,7 @@ int main(int argc, char *argv[]) {
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
     // Open a square window (aspect 1:1) to fill half the screen height
-    window = glfwCreateWindow(vidmode->height/2, vidmode->height/2, "GLprimer", NULL, NULL);
+    window = glfwCreateWindow(vidmode->width/2, vidmode->height/2, "GLprimer", NULL, NULL);
     if (!window)
     {
         glfwTerminate(); // No window was opened, so we can't continue in any useful way
@@ -206,22 +206,6 @@ int main(int argc, char *argv[]) {
                 MVstack.rotY(time);
                 MVstack.rotX(-M_PI/2); // Orient the poles along Y axis instead of Z
                 MVstack.scale(0.5f); // Scale unit sphere to radius 0.5
-                // Update the transformation matrix in the shader
-                glUniformMatrix4fv( location_MV, 1, GL_FALSE, MVstack.getCurrentMatrix() );
-                // Render the geometry to draw the sun
-                glBindTexture(GL_TEXTURE_2D, earthTexture.texID);
-                earthSphere.render();
-
-            MVstack.pop(); // Restore the matrix we saved above
-
-            // Earth
-            MVstack.rotY(0.2f*time); // Earth orbit rotation
-            MVstack.translate(1.0f, 0.0f, 0.0f); // Earth orbit radius
-            MVstack.push(); // Save the matrix before the Earth's rotation
-
-                MVstack.rotY(10.0f*time); // Earth's rotation around its axis
-                MVstack.rotX(-M_PI/2); // Orient the poles along Y axis instead of Z
-                MVstack.scale(0.2f); // Scale unit sphere to radius 0.1
                 // Update the transformation matrix in the shader
                 glUniformMatrix4fv( location_MV, 1, GL_FALSE, MVstack.getCurrentMatrix() );
                 // Render the geometry to draw the sun

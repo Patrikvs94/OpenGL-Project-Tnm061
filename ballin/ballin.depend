@@ -59,17 +59,19 @@
 	<GLFW/glfw3.h>
 	<cmath>
 
-1460730991 c:\users\emma\dropbox\github\tnm061---opengl-projekt\ballin\matrixstack.hpp
-	"Matrix.hpp"
+1460731784 c:\users\emma\dropbox\github\tnm061---opengl-projekt\ballin\matrixstack.hpp
 	<cmath>
+	<cstdlib>
+	<cstdio>
+	<GLFW/glfw3.h>
 
 1460723271 c:\users\emma\dropbox\github\tnm061---opengl-projekt\ballin\matrix.hpp
 
 1460723271 source:c:\users\emma\dropbox\github\tnm061---opengl-projekt\ballin\matrix.cpp
 	"Matrix.hpp"
 
-1460730977 source:c:\users\emma\dropbox\github\tnm061---opengl-projekt\ballin\matrixstack.cpp
-	"matrixStack.hpp"
+1460731764 source:c:\users\emma\dropbox\github\tnm061---opengl-projekt\ballin\matrixstack.cpp
+	"MatrixStack.hpp"
 
 1460731005 source:c:\users\emma\dropbox\github\tnm061---opengl-projekt\ballin\rotator.cpp
 	"Rotator.hpp"
