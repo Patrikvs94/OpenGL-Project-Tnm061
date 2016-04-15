@@ -41,9 +41,17 @@
 		</Compiler>
 		<Unit filename="Matrix.cpp" />
 		<Unit filename="Matrix.hpp" />
+		<Unit filename="Shader.cpp" />
+		<Unit filename="Shader.hpp" />
+		<Unit filename="TriangleSoup.cpp" />
+		<Unit filename="TriangleSoup.hpp" />
+		<Unit filename="Utilities.cpp" />
+		<Unit filename="Utilities.hpp" />
+		<Unit filename="fragment.glsl" />
 		<Unit filename="main.cpp" />
 		<Unit filename="matrixStack.cpp" />
 		<Unit filename="matrixStack.hpp" />
+		<Unit filename="vertex.glsl" />
 		<Extensions>
 			<code_completion />
 			<envvars />
