@@ -1,1 +1,4 @@
 *.layout
+ballin/obj
+ballin/bin
+ballin.xcodeproj/
