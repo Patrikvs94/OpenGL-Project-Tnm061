@@ -51,20 +51,11 @@
  * A callback function would require P to be changed indirectly
  * in some manner, which is somewhat awkward in this case.
  */
-void setupViewport(GLFWwindow *window, GLfloat *P) {
 
-    int width, height;
+//Function to create a 4x4 perspective matrix
+void mat4perspective(float M[], float vfov, float aspect, float znear, float zfar);
 
-    // Get window size. It may start out different from the requested
-    // size, and will change if the user resizes the window.
-    glfwGetWindowSize( window, &width, &height );
-
-    // Ugly hack: adjust perspective matrix for non-square aspect ratios
-    P[0] = P[5]*height/width;
-
-    // Set viewport. This is the pixel rectangle we want to draw into.
-    glViewport( 0, 0, width, height ); // The entire window
-}
+void setupViewport(GLFWwindow *window, GLfloat *P);
 
 
 /*
@@ -72,9 +63,9 @@ void setupViewport(GLFWwindow *window, GLfloat *P) {
  */
 int main(int argc, char *argv[]) {
 
-	TriangleSoup earthSphere;
+	TriangleSoup sphere;
     Texture earthTexture;
-    Shader earthShader;
+    Shader shader;
 
  	GLint location_time, location_MV, location_P, location_tex; // Shader uniforms
     float time;
@@ -84,8 +75,6 @@ int main(int argc, char *argv[]) {
 
     const GLFWvidmode *vidmode;  // GLFW struct to hold information about the display
 	GLFWwindow *window;    // GLFW struct to hold information about the window
-
-	MouseRotator rotator;
 
     // Initialise GLFW
     glfwInit();
@@ -112,8 +101,6 @@ int main(int argc, char *argv[]) {
     // (This step is strictly required, or things will simply not work)
     glfwMakeContextCurrent(window);
 
-	rotator.init(window);
-
     // Load the extensions for GLSL - note that this has to be done
     // *after* the window has been opened, or we won't have a GL context
     // to query for those extensions and connect to instances of them.
@@ -127,34 +114,31 @@ int main(int argc, char *argv[]) {
     glfwSwapInterval(0); // Do not wait for screen refresh between frames
 
 	// Perspective projection matrix
-	// This is the standard gluPerspective() form of the
-    // matrix, with d=4, near=3, far=7 and aspect=1.
-    GLfloat P[16] = {
-		4.0f, 0.0f, 0.0f, 0.0f,
-		0.0f, 4.0f, 0.0f, 0.0f,
-  		0.0f, 0.0f, -2.5f, -1.0f,
-		0.0f, 0.0f, -10.5f, 0.0f
-	};
+    GLfloat P[16];
+    float aspectRatio = (vidmode->width)/(vidmode->height);
+
+    //Create perspective matrix with fov = 1 rad, aspect = 1, znear = 3 and zfar = 10.
+	mat4perspective(P, 1.0f, aspectRatio, 3.0f, 10.0f);
 
     // Intialize the matrix to an identity transformation
     MVstack.init();
 
 	// Create geometry for rendering
-	earthSphere.createSphere(1.0, 30);
+	sphere.createSphere(0.7, 30);
 	// soupReadOBJ(&myShape, MESHFILENAME);
-	earthSphere.printInfo();
+	sphere.printInfo();
 
 	// Create a shader program object from GLSL code in two files
-	earthShader.createShader("vertexshader.glsl", "fragmentshader.glsl");
+	shader.createShader("vertexshader.glsl", "fragmentshader.glsl");
 
 	glEnable(GL_TEXTURE_2D);
     // Read the texture data from file and upload it to the GPU
 	earthTexture.createTexture("textures/earth.tga");
 
-	location_MV = glGetUniformLocation( earthShader.programID, "MV" );
-	location_P = glGetUniformLocation( earthShader.programID, "P" );
-	location_time = glGetUniformLocation( earthShader.programID, "time" );
-	location_tex = glGetUniformLocation( earthShader.programID, "tex" );
+	location_MV = glGetUniformLocation( shader.programID, "MV" );
+	location_P = glGetUniformLocation( shader.programID, "P" );
+	location_time = glGetUniformLocation( shader.programID, "time" );
+	location_tex = glGetUniformLocation( shader.programID, "tex" );
 
     // Main loop
     while(!glfwWindowShouldClose(window))
@@ -173,12 +157,11 @@ int main(int argc, char *argv[]) {
         // Set up the viewport
         setupViewport(window, P);
 
-		// Handle mouse input
-		rotator.poll(window);
-		//printf("phi = %6.2f, theta = %6.2f\n", rotator.phi, rotator.theta);
+		// Handle keyboard input
+
 
 		// Activate our shader program.
-		glUseProgram( earthShader.programID );
+		glUseProgram( shader.programID );
 
         // Copy the projection matrix P into the shader.
 		glUniformMatrix4fv( location_P, 1, GL_FALSE, P );
@@ -195,22 +178,21 @@ int main(int argc, char *argv[]) {
 
             // Modify MV according to user input
             // First, do the view transformations ("camera motion")
-            MVstack.translate(0.0f, 0.0f, -5.0f);
-            MVstack.rotX(rotator.theta);
-            MVstack.rotY(rotator.phi);
+            MVstack.translate(0.0f, -0.5f, -5.0f);
+            MVstack.rotX(M_PI/6);
 
             // Then, do the model transformations ("object motion")
             MVstack.push(); // Save the current matrix on the stack
 
-                // Sun
-                MVstack.rotY(time);
+                // Ball
+                //MVstack.rotY(time);
                 MVstack.rotX(-M_PI/2); // Orient the poles along Y axis instead of Z
                 MVstack.scale(0.5f); // Scale unit sphere to radius 0.5
                 // Update the transformation matrix in the shader
                 glUniformMatrix4fv( location_MV, 1, GL_FALSE, MVstack.getCurrentMatrix() );
                 // Render the geometry to draw the sun
                 glBindTexture(GL_TEXTURE_2D, earthTexture.texID);
-                earthSphere.render();
+                sphere.render();
 
             MVstack.pop(); // Restore the matrix we saved above
 
@@ -237,4 +219,37 @@ int main(int argc, char *argv[]) {
     glfwTerminate();
 
     return 0;
+}
+
+/*--------- FUNCTION DEFINITIONS -----------------------*/
+
+//vfov is the vertical field of view (in the y direction)
+//aspect is the aspect ratio of the viewport (width/height)
+//znear is the distance to near clip plane (znear > 0)
+//zfar is the distance to the far clip plane (zfar > znear)
+void mat4perspective(float M[], float vfov, float aspect, float znear, float zfar){
+
+    float f = 1/tan(vfov/2); //cot(vfov/2)
+    float A = -(zfar+znear)/(zfar-znear);
+    float B = -(2*znear*zfar)/(zfar-znear);
+
+    M[0] = f/aspect; M[4] = 0; M[8]  = 0;  M[12] = 0;
+    M[1] = 0;        M[5] = f; M[9]  = 0;  M[13] = 0;
+    M[2] = 0;        M[6] = 0; M[10] = A;  M[14] = B;
+    M[3] = 0;        M[7] = 0; M[11] = -1; M[15] = 0;
+}
+
+void setupViewport(GLFWwindow *window, GLfloat *P) {
+
+    int width, height;
+
+    // Get window size. It may start out different from the requested
+    // size, and will change if the user resizes the window.
+    glfwGetWindowSize( window, &width, &height );
+
+    // Ugly hack: adjust perspective matrix for non-square aspect ratios
+    P[0] = P[5]*height/width;
+
+    // Set viewport. This is the pixel rectangle we want to draw into.
+    glViewport( 0, 0, width, height ); // The entire window
 }
