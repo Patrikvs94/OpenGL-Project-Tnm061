@@ -95,3 +95,111 @@
 	<cstring>
 	"TriangleSoup.hpp"
 
+1461227163 source:c:\users\karim\desktop\tnm061---opengl-projekt\ballin\main.cpp
+	<iostream>
+	<cstdio>
+	<cstdlib>
+	<cmath>
+	<GLFW/glfw3.h>
+	<GL/glext.h>
+	"tnm061.hpp"
+	"Shader.hpp"
+	"Texture.hpp"
+	"TriangleSoup.hpp"
+	"Rotator.hpp"
+	"MatrixStack.hpp"
+
+1461223832 c:\users\karim\desktop\tnm061---opengl-projekt\ballin\glfw\glfw3.h
+	<stddef.h>
+	<OpenGL/gl3.h>
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+	<GL/glcorearb.h>
+	<GLES/gl.h>
+	<GLES2/gl2.h>
+	<GLES3/gl3.h>
+	<GL/gl.h>
+	<GL/glu.h>
+
+1461223832 c:\users\karim\desktop\tnm061---opengl-projekt\ballin\gl\glext.h
+	<windows.h>
+	<stddef.h>
+	<inttypes.h>
+	<inttypes.h>
+	<inttypes.h>
+	<stdint.h>
+	<stdint.h>
+	<inttypes.h>
+
+1461223832 c:\users\karim\desktop\tnm061---opengl-projekt\ballin\tnm061.hpp
+	<GL/glext.h>
+
+1461223832 c:\users\karim\desktop\tnm061---opengl-projekt\ballin\shader.hpp
+	<GLFW/glfw3.h>
+	"tnm061.hpp"
+	<cstdio>
+
+1461223832 c:\users\karim\desktop\tnm061---opengl-projekt\ballin\texture.hpp
+	<GLFW/glfw3.h>
+	<cstdio>
+	<cstring>
+	<GL/glext.h>
+	"tnm061.hpp"
+
+1461223832 c:\users\karim\desktop\tnm061---opengl-projekt\ballin\trianglesoup.hpp
+	<GLFW/glfw3.h>
+	<GL/glext.h>
+	"tnm061.hpp"
+
+1461223832 c:\users\karim\desktop\tnm061---opengl-projekt\ballin\rotator.hpp
+	<GLFW/glfw3.h>
+	<cmath>
+
+1461223832 c:\users\karim\desktop\tnm061---opengl-projekt\ballin\matrixstack.hpp
+	<cmath>
+	<cstdlib>
+	<cstdio>
+	<GLFW/glfw3.h>
+
+1461223832 source:c:\users\karim\desktop\tnm061---opengl-projekt\ballin\matrix.cpp
+	"Matrix.hpp"
+
+1461223832 c:\users\karim\desktop\tnm061---opengl-projekt\ballin\matrix.hpp
+
+1461223832 source:c:\users\karim\desktop\tnm061---opengl-projekt\ballin\matrixstack.cpp
+	"MatrixStack.hpp"
+
+1461223832 source:c:\users\karim\desktop\tnm061---opengl-projekt\ballin\shader.cpp
+	"Shader.hpp"
+
+1461223832 source:c:\users\karim\desktop\tnm061---opengl-projekt\ballin\trianglesoup.cpp
+	<cstdio>
+	<cstdlib>
+	<cmath>
+	<cstring>
+	"TriangleSoup.hpp"
+
+1461223832 source:c:\users\karim\desktop\tnm061---opengl-projekt\ballin\rotator.cpp
+	"Rotator.hpp"
+
+1461223832 source:c:\users\karim\desktop\tnm061---opengl-projekt\ballin\texture.cpp
+	"Texture.hpp"
+
+1461223832 source:c:\users\karim\desktop\tnm061---opengl-projekt\ballin\tnm061.cpp
+	<stdio.h>
+	<GLFW/glfw3.h>
+	<GL/glext.h>
+	"tnm061.hpp"
+
+1461223832 source:c:\users\karim\desktop\tnm061---opengl-projekt\ballin\element.cpp
+	"Element.h"
+
+1461226143 c:\users\karim\desktop\tnm061---opengl-projekt\ballin\element.h
+
+1461223832 source:c:\users\karim\desktop\tnm061---opengl-projekt\ballin\segment.cpp
+	"Segment.h"
+
+1461223832 c:\users\karim\desktop\tnm061---opengl-projekt\ballin\segment.h
+	"Element.h"
+	"TriangleSoup.hpp"
+

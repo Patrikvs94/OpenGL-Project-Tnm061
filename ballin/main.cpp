@@ -140,6 +140,11 @@ int main(int argc, char *argv[]) {
 	location_time = glGetUniformLocation( shader.programID, "time" );
 	location_tex = glGetUniformLocation( shader.programID, "tex" );
 
+    float transX = 0.0f;
+    float transY = 0.0f;
+    float transZ = 0.0f;
+    int i = 0;
+    float maxHeight = 0.0f;
     // Main loop
     while(!glfwWindowShouldClose(window))
     {
@@ -206,6 +211,24 @@ int main(int argc, char *argv[]) {
 
 		// Poll events (read keyboard and mouse input)
 		glfwPollEvents();
+        if(glfwGetKey(window, GLFW_KEY_RIGHT))
+            {
+                transX = 0.0005f;
+                MVstack.translate(transX,transY,transZ);
+
+            }
+        if(glfwGetKey(window, GLFW_KEY_LEFT))
+            {
+                transX = -0.002f;
+                MVstack.translate(transX,transY,transZ);
+            }
+        if(glfwGetKey(window, GLFW_KEY_UP))
+            {
+                transY = 0.002f;
+
+                MVstack.translate(transX,transY,transZ);
+            }
+
 
         // Exit if the ESC key is pressed (and also if the window is closed).
         if(glfwGetKey(window, GLFW_KEY_ESCAPE)) {

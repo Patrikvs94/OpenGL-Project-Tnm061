@@ -10,7 +10,7 @@ class Element
 
     protected:
         //The distance between two lanes
-        static const float laneMargin = 0.0f;
+        static const int laneMargin = 0.0f;
 
     private:
 };
