@@ -7,6 +7,10 @@
 #define M_PI (3.141592653589793)
 #endif
 
+#ifdef __APPLE__
+#define GLFW_INCLUDE_GLCOREARB
+#endif
+
 #include "TriangleSoup.hpp"
 
 /* Constructor: initialize a TriangleSoup object to all zeros */

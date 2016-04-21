@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		361A80C91CC8A657009E9CB2 /* Rotator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 361A80BF1CC8A657009E9CB2 /* Rotator.cpp */; };
+		361A80CA1CC8A657009E9CB2 /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 361A80C11CC8A657009E9CB2 /* Shader.cpp */; };
+		361A80CB1CC8A657009E9CB2 /* Texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 361A80C31CC8A657009E9CB2 /* Texture.cpp */; };
+		361A80CD1CC8A657009E9CB2 /* TriangleSoup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 361A80C71CC8A657009E9CB2 /* TriangleSoup.cpp */; };
+		361A80D01CC8A894009E9CB2 /* tnm061.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 361A80CE1CC8A894009E9CB2 /* tnm061.cpp */; };
 		36346BCC1CBBFC5700891BC3 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 36346BCB1CBBFC5700891BC3 /* main.cpp */; };
 		369CE8BD1CBBFDFF00A1F101 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 369CE8BC1CBBFDFF00A1F101 /* OpenGL.framework */; };
 		36C5B45F1CBE9565007CB34D /* matrixStack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 36C5B45D1CBE9565007CB34D /* matrixStack.cpp */; };
@@ -28,6 +33,16 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		361A80BF1CC8A657009E9CB2 /* Rotator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Rotator.cpp; path = ballin/Rotator.cpp; sourceTree = "<group>"; };
+		361A80C01CC8A657009E9CB2 /* Rotator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Rotator.hpp; path = ballin/Rotator.hpp; sourceTree = "<group>"; };
+		361A80C11CC8A657009E9CB2 /* Shader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Shader.cpp; path = ballin/Shader.cpp; sourceTree = "<group>"; };
+		361A80C21CC8A657009E9CB2 /* Shader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Shader.hpp; path = ballin/Shader.hpp; sourceTree = "<group>"; };
+		361A80C31CC8A657009E9CB2 /* Texture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Texture.cpp; path = ballin/Texture.cpp; sourceTree = "<group>"; };
+		361A80C41CC8A657009E9CB2 /* Texture.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Texture.hpp; path = ballin/Texture.hpp; sourceTree = "<group>"; };
+		361A80C71CC8A657009E9CB2 /* TriangleSoup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TriangleSoup.cpp; sourceTree = "<group>"; };
+		361A80C81CC8A657009E9CB2 /* TriangleSoup.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TriangleSoup.hpp; path = ballin/TriangleSoup.hpp; sourceTree = "<group>"; };
+		361A80CE1CC8A894009E9CB2 /* tnm061.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tnm061.cpp; path = ballin/tnm061.cpp; sourceTree = "<group>"; };
+		361A80CF1CC8A894009E9CB2 /* tnm061.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = tnm061.hpp; path = ballin/tnm061.hpp; sourceTree = "<group>"; };
 		36346BC81CBBFC5700891BC3 /* ballin */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ballin; sourceTree = BUILT_PRODUCTS_DIR; };
 		36346BCB1CBBFC5700891BC3 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		369CE8BC1CBBFDFF00A1F101 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
@@ -57,6 +72,15 @@
 		36346BBF1CBBFC5700891BC3 = {
 			isa = PBXGroup;
 			children = (
+				361A80CE1CC8A894009E9CB2 /* tnm061.cpp */,
+				361A80CF1CC8A894009E9CB2 /* tnm061.hpp */,
+				361A80BF1CC8A657009E9CB2 /* Rotator.cpp */,
+				361A80C01CC8A657009E9CB2 /* Rotator.hpp */,
+				361A80C11CC8A657009E9CB2 /* Shader.cpp */,
+				361A80C21CC8A657009E9CB2 /* Shader.hpp */,
+				361A80C31CC8A657009E9CB2 /* Texture.cpp */,
+				361A80C41CC8A657009E9CB2 /* Texture.hpp */,
+				361A80C81CC8A657009E9CB2 /* TriangleSoup.hpp */,
 				36C5B45D1CBE9565007CB34D /* matrixStack.cpp */,
 				36C5B45E1CBE9565007CB34D /* matrixStack.hpp */,
 				36ED50E91CBD377400C318FC /* Matrix.cpp */,
@@ -81,6 +105,7 @@
 		36346BCA1CBBFC5700891BC3 /* ballin */ = {
 			isa = PBXGroup;
 			children = (
+				361A80C71CC8A657009E9CB2 /* TriangleSoup.cpp */,
 				36346BCB1CBBFC5700891BC3 /* main.cpp */,
 			);
 			path = ballin;
@@ -143,8 +168,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				36C5B45F1CBE9565007CB34D /* matrixStack.cpp in Sources */,
+				361A80D01CC8A894009E9CB2 /* tnm061.cpp in Sources */,
 				36ED50EB1CBD377400C318FC /* Matrix.cpp in Sources */,
 				36346BCC1CBBFC5700891BC3 /* main.cpp in Sources */,
+				361A80CB1CC8A657009E9CB2 /* Texture.cpp in Sources */,
+				361A80C91CC8A657009E9CB2 /* Rotator.cpp in Sources */,
+				361A80CA1CC8A657009E9CB2 /* Shader.cpp in Sources */,
+				361A80CD1CC8A657009E9CB2 /* TriangleSoup.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
