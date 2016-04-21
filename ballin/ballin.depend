@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1460730756 source:c:\users\emma\dropbox\github\tnm061---opengl-projekt\ballin\main.cpp
+1460991540 source:c:\users\emma\dropbox\github\tnm061---opengl-projekt\ballin\main.cpp
 	<iostream>
 	<cstdio>
 	<cstdlib>
@@ -88,7 +88,7 @@
 	<GL/glext.h>
 	"tnm061.hpp"
 
-1460731032 source:c:\users\emma\dropbox\github\tnm061---opengl-projekt\ballin\trianglesoup.cpp
+1461223666 source:c:\users\emma\dropbox\github\tnm061---opengl-projekt\ballin\trianglesoup.cpp
 	<cstdio>
 	<cstdlib>
 	<cmath>
