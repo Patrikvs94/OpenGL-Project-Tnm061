@@ -39,17 +39,20 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="Element.cpp" />
+		<Unit filename="Element.h" />
 		<Unit filename="Matrix.cpp" />
 		<Unit filename="Matrix.hpp" />
 		<Unit filename="Rotator.cpp" />
 		<Unit filename="Rotator.hpp" />
+		<Unit filename="Segment.cpp" />
+		<Unit filename="Segment.h" />
 		<Unit filename="Shader.cpp" />
 		<Unit filename="Shader.hpp" />
 		<Unit filename="Texture.cpp" />
 		<Unit filename="Texture.hpp" />
 		<Unit filename="TriangleSoup.cpp" />
 		<Unit filename="TriangleSoup.hpp" />
-		<Unit filename="Utilities.hpp" />
 		<Unit filename="fragmentshader.glsl" />
 		<Unit filename="main.cpp" />
 		<Unit filename="matrixStack.cpp" />
