@@ -34,12 +34,10 @@
 #endif
 
 // Headers for the other source files that make up this program.
-#include "tnm061.hpp"
-#include "Shader.hpp"
 #include "Texture.hpp"
-#include "TriangleSoup.hpp"
 #include "Rotator.hpp"
-#include "MatrixStack.hpp"
+#include "Segment.h"
+#include "Element.h"
 
 /*
  * setupViewport() - set up the OpenGL viewport.
@@ -134,13 +132,29 @@ int main(int argc, char *argv[]) {
 	player.printInfo();
 
 	// Create a shader program object from GLSL code in two files
+    
+    #ifdef __WIN32__
 	shader.createShader("vertexshader.glsl", "fragmentshader.glsl");
+<<<<<<< HEAD
 
 
 	glEnable(GL_TEXTURE_2D);
 
+=======
+    
+    glEnable(GL_TEXTURE_2D);
     // Read the texture data from file and upload it to the GPU
-	earthTexture.createTexture("textures/earth.tga");
+    earthTexture.createTexture("textures/earth.tga");
+    #endif
+    
+    #ifdef __APPLE__
+    shader.createShader("/Users/olasteen/GitHub/TNM061---OpenGL-projekt/ballin/vertexshader.glsl", "/Users/olasteen/GitHub/TNM061---OpenGL-projekt/ballin/fragmentshader.glsl");
+    
+    glEnable(GL_TEXTURE_2D);
+>>>>>>> origin/master
+    // Read the texture data from file and upload it to the GPU
+    earthTexture.createTexture("/Users/olasteen/GitHub/TNM061---OpenGL-projekt/ballin/textures/earth.tga");
+    #endif
 
 	location_MV = glGetUniformLocation( shader.programID, "MV" );
 	location_P = glGetUniformLocation( shader.programID, "P" );

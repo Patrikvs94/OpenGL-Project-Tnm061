@@ -15,16 +15,22 @@ Segment::Segment()
 
 }
 
-Segment::~Segment()
+//take shader and matrixstack and render entire segment
+void Segment::render(MatrixStack* p, Shader* shader)
 {
-    //dtor
-}
-
-void Segment::render()
-{
+    GLint location_MV = glGetUniformLocation( shader->programID, "MV" );
+    glUniformMatrix4fv( location_MV, 1, GL_FALSE, p->getCurrentMatrix() );
+    localTranslate(p);
+    Blocks[0].render();
+    p->pop();
+    Blocks[1].render();
+    p->pop();
+    Blocks[2].render();
+    p->pop();
     
 }
 
+//adds local translations so matrixstack
 void Segment::localTranslate(MatrixStack* p)
 {
     p->translate(-(xsize + laneMargin), 0.0f, 0.0f);
