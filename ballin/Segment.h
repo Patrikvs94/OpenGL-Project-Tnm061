@@ -3,6 +3,7 @@
 
 #include "Element.h"
 #include "TriangleSoup.hpp"
+#include "matrixStack.hpp"
 
 class Segment : public Element
 {
@@ -16,7 +17,7 @@ class Segment : public Element
         void reInit();              //Fixes a new version of the segment
 
         void render();
-        void localTranslate(matrixStack* p);
+        void localTranslate(MatrixStack* p);
 
     protected:
 
