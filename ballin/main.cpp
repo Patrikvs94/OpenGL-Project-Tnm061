@@ -135,14 +135,8 @@ int main(int argc, char *argv[]) {
     
     #ifdef __WIN32__
 	shader.createShader("vertexshader.glsl", "fragmentshader.glsl");
-<<<<<<< HEAD
-
 
 	glEnable(GL_TEXTURE_2D);
-
-=======
-    
-    glEnable(GL_TEXTURE_2D);
     // Read the texture data from file and upload it to the GPU
     earthTexture.createTexture("textures/earth.tga");
     #endif
@@ -151,7 +145,6 @@ int main(int argc, char *argv[]) {
     shader.createShader("/Users/olasteen/GitHub/TNM061---OpenGL-projekt/ballin/vertexshader.glsl", "/Users/olasteen/GitHub/TNM061---OpenGL-projekt/ballin/fragmentshader.glsl");
     
     glEnable(GL_TEXTURE_2D);
->>>>>>> origin/master
     // Read the texture data from file and upload it to the GPU
     earthTexture.createTexture("/Users/olasteen/GitHub/TNM061---OpenGL-projekt/ballin/textures/earth.tga");
     #endif
