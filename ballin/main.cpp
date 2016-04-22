@@ -57,13 +57,16 @@ void mat4perspective(float M[], float vfov, float aspect, float znear, float zfa
 
 void setupViewport(GLFWwindow *window, GLfloat *P);
 
+float moveRightOnce(float xPos);
+float moveLeftOnce(float xPos);
+
 
 /*
  * main(argc, argv) - the standard C entry point for the program
  */
 int main(int argc, char *argv[]) {
 
-	TriangleSoup sphere;
+	TriangleSoup player;
     Texture earthTexture;
     Shader shader;
 
@@ -124,14 +127,18 @@ int main(int argc, char *argv[]) {
     MVstack.init();
 
 	// Create geometry for rendering
-	sphere.createSphere(0.7, 30);
+	player.createSphere(0.7, 30);
+	//player.readOBJ("meshes/trex.obj");    //If we want a more fancy mesh for the player
+
 	// soupReadOBJ(&myShape, MESHFILENAME);
-	sphere.printInfo();
+	player.printInfo();
 
 	// Create a shader program object from GLSL code in two files
 	shader.createShader("vertexshader.glsl", "fragmentshader.glsl");
 
+
 	glEnable(GL_TEXTURE_2D);
+
     // Read the texture data from file and upload it to the GPU
 	earthTexture.createTexture("textures/earth.tga");
 
@@ -142,13 +149,15 @@ int main(int argc, char *argv[]) {
 
     int i = 0;
     float maxHeight = 0.0f;
+
+    //Staring position of the player
+    float transX = 0.0f;
+    float transY = 0.0f;
+    float transZ = 0.0f;
+
     // Main loop
     while(!glfwWindowShouldClose(window))
     {
-        float transX = 0.0f;
-        float transY = 0.0f;
-        float transZ = 0.0f;
-
         // Calculate and update the frames per second (FPS) display
         fps = tnm061::displayFPS(window);
 
@@ -164,7 +173,18 @@ int main(int argc, char *argv[]) {
         setupViewport(window, P);
 
 		// Handle keyboard input
-
+        if(glfwGetKey(window, GLFW_KEY_RIGHT))
+            {
+                transX = moveRightOnce(transX);
+            }
+        if(glfwGetKey(window, GLFW_KEY_LEFT))
+            {
+                transX = moveLeftOnce(transX);
+            }
+        if(glfwGetKey(window, GLFW_KEY_UP))
+            {
+                transY = 0.005f;
+            }
 
 		// Activate our shader program.
 		glUseProgram( shader.programID );
@@ -191,14 +211,15 @@ int main(int argc, char *argv[]) {
             MVstack.push(); // Save the current matrix on the stack
 
                 // Ball
-                //MVstack.rotY(time);
+                //MVstack.rotX(time);
                 MVstack.rotX(-M_PI/2); // Orient the poles along Y axis instead of Z
-                MVstack.scale(0.5f); // Scale unit sphere to radius 0.5
+                MVstack.scale(0.5f); // Scale player
+                MVstack.translate(transX, transY, transZ);
                 // Update the transformation matrix in the shader
                 glUniformMatrix4fv( location_MV, 1, GL_FALSE, MVstack.getCurrentMatrix() );
                 // Render the geometry to draw the sun
                 glBindTexture(GL_TEXTURE_2D, earthTexture.texID);
-                sphere.render();
+                player.render();
 
             MVstack.pop(); // Restore the matrix we saved above
 
@@ -212,21 +233,6 @@ int main(int argc, char *argv[]) {
 
 		// Poll events (read keyboard and mouse input)
 		glfwPollEvents();
-        if(glfwGetKey(window, GLFW_KEY_RIGHT))
-            {
-                transX = 0.0005f;
-            }
-        if(glfwGetKey(window, GLFW_KEY_LEFT))
-            {
-                transX = -0.002f;
-            }
-        if(glfwGetKey(window, GLFW_KEY_UP))
-            {
-                transY = 0.002f;
-            }
-
-        MVstack.translate(transX, transY, transZ);
-
 
         // Exit if the ESC key is pressed (and also if the window is closed).
         if(glfwGetKey(window, GLFW_KEY_ESCAPE)) {
@@ -273,4 +279,43 @@ void setupViewport(GLFWwindow *window, GLfloat *P) {
 
     // Set viewport. This is the pixel rectangle we want to draw into.
     glViewport( 0, 0, width, height ); // The entire window
+}
+
+/* Testing movement */
+float moveRightOnce(float xPos)
+{
+    bool once = true;
+
+    while(once) //Loop to only move the object once
+    {
+        if(xPos < -1.0f)
+            xPos = 0.0f;
+        else if(xPos > 1.0f)
+            xPos = xPos;
+        else
+            xPos = 5.0f;
+
+        once = false;
+    }
+    return xPos;
+}
+
+float moveLeftOnce(float xPos)
+{
+    bool once = true;
+
+    while(once) //Loop to only move the object once
+    {
+        once = false;
+
+        if(xPos < 0.0f)
+            xPos = xPos;
+        else if(xPos > 0.0f)
+            xPos = 0.0f;
+        else
+            xPos = -5.0f;
+
+
+    }
+    return xPos;
 }

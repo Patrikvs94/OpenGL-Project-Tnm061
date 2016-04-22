@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1461229197 source:c:\users\emma\dropbox\github\tnm061---opengl-projekt\ballin\main.cpp
+1461322405 source:c:\users\emma\dropbox\github\tnm061---opengl-projekt\ballin\main.cpp
 	<iostream>
 	<cstdio>
 	<cstdlib>
@@ -202,4 +202,17 @@
 1461223832 c:\users\karim\desktop\tnm061---opengl-projekt\ballin\segment.h
 	"Element.h"
 	"TriangleSoup.hpp"
+
+1460993272 source:c:\users\emma\dropbox\github\tnm061---opengl-projekt\ballin\element.cpp
+	"Element.h"
+
+1461229197 c:\users\emma\dropbox\github\tnm061---opengl-projekt\ballin\element.h
+
+1461317683 source:c:\users\emma\dropbox\github\tnm061---opengl-projekt\ballin\segment.cpp
+	"Segment.h"
+
+1461317683 c:\users\emma\dropbox\github\tnm061---opengl-projekt\ballin\segment.h
+	"Element.h"
+	"TriangleSoup.hpp"
+	"matrixStack.hpp"
 
