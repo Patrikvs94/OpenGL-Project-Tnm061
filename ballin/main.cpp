@@ -214,7 +214,7 @@ int main(int argc, char *argv[]) {
             // Then, do the model transformations ("object motion")
             MVstack.push(); // Save the current matrix on the stack
         
-            testSegment.render(MVstack, shader);
+            testSegment.render(MVstack, location_MV);
 
                 // Ball
                 //MVstack.rotX(time);
