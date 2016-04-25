@@ -39,29 +39,16 @@
 #include "Segment.h"
 #include "Element.h"
 
-/*
- * setupViewport() - set up the OpenGL viewport.
- * This should be done for each frame, to handle window resizing.
- * The "proper" way would be to set a "resize callback function"
- * using glfwSetWindowSizeCallback() and do these few operations
- * only when something changes, but let's keep it simple.
- * Besides, we want to change P when the aspect ratio changes.
- * A callback function would require P to be changed indirectly
- * in some manner, which is somewhat awkward in this case.
- */
-
-//Function to create a 4x4 perspective matrix
+/* --- FUNCTION DECLARATIONS -------- */
+//Function definitions and explanations is found in the bottom of this file.
 void mat4perspective(float M[], float vfov, float aspect, float znear, float zfar);
-
 void setupViewport(GLFWwindow *window, GLfloat *P);
-
 float moveRightOnce(float xPos);
 float moveLeftOnce(float xPos);
+float jumpOnce(float yPos);
 
+/* ------ MAIN FUNCTION --------------*/
 
-/*
- * main(argc, argv) - the standard C entry point for the program
- */
 int main(int argc, char *argv[]) {
 
 	TriangleSoup player;
@@ -132,7 +119,7 @@ int main(int argc, char *argv[]) {
 	player.printInfo();
 
 	// Create a shader program object from GLSL code in two files
-    
+
     #ifdef __WIN32__
 	shader.createShader("vertexshader.glsl", "fragmentshader.glsl");
 
@@ -140,10 +127,10 @@ int main(int argc, char *argv[]) {
     // Read the texture data from file and upload it to the GPU
     earthTexture.createTexture("textures/earth.tga");
     #endif
-    
+
     #ifdef __APPLE__
     shader.createShader("/Users/olasteen/GitHub/TNM061---OpenGL-projekt/ballin/vertexshader.glsl", "/Users/olasteen/GitHub/TNM061---OpenGL-projekt/ballin/fragmentshader.glsl");
-    
+
     glEnable(GL_TEXTURE_2D);
     // Read the texture data from file and upload it to the GPU
     earthTexture.createTexture("/Users/olasteen/GitHub/TNM061---OpenGL-projekt/ballin/textures/earth.tga");
@@ -181,17 +168,17 @@ int main(int argc, char *argv[]) {
 
 		// Handle keyboard input
         if(glfwGetKey(window, GLFW_KEY_RIGHT) && glfwGetTime()>0.2)
-            {
-                transX = moveRightOnce(transX);
-            }
+        {
+            transX = moveRightOnce(transX);
+        }
         if(glfwGetKey(window, GLFW_KEY_LEFT) && glfwGetTime()>0.2)
-            {
-                transX = moveLeftOnce(transX);
-            }
-        if(glfwGetKey(window, GLFW_KEY_UP))
-            {
-                transY = 0.005f;
-            }
+        {
+            transX = moveLeftOnce(transX);
+        }
+        if(glfwGetKey(window, GLFW_KEY_UP) && glfwGetTime()>0.2)
+        {
+            transY = jumpOnce(transY);
+        }
 
 		// Activate our shader program.
 		glUseProgram( shader.programID );
@@ -257,6 +244,9 @@ int main(int argc, char *argv[]) {
 
 /*--------- FUNCTION DEFINITIONS -----------------------*/
 
+
+//Function to create a 4x4 perspective matrix
+//
 //vfov is the vertical field of view (in the y direction)
 //aspect is the aspect ratio of the viewport (width/height)
 //znear is the distance to near clip plane (znear > 0)
@@ -273,6 +263,50 @@ void mat4perspective(float M[], float vfov, float aspect, float znear, float zfa
     M[3] = 0;        M[7] = 0; M[11] = -1; M[15] = 0;
 }
 
+//Function to move the player right
+float moveRightOnce(float xPos)
+{
+    glfwSetTime(0.0);
+    if(xPos!=2.0f)
+    {
+        xPos+=2.0f;
+    }
+    return xPos;
+}
+
+//Function to move the player left
+float moveLeftOnce(float xPos)
+{
+    glfwSetTime(0.0f);
+    if(xPos!=-2.0f)
+    {
+        xPos-=2.0f;
+    }
+    return xPos;
+}
+
+//Function to jump
+float jumpOnce(float yPos)
+{
+    glfwSetTime(0.0f);
+    if(yPos!=2.0f)
+    {
+        yPos+=2.0f;
+    }
+    return yPos;
+}
+
+/*
+ * Function to set up the OpenGL viewport
+ *
+ * This should be done for each frame, to handle window resizing.
+ * The "proper" way would be to set a "resize callback function"
+ * using glfwSetWindowSizeCallback() and do these few operations
+ * only when something changes, but let's keep it simple.
+ * Besides, we want to change P when the aspect ratio changes.
+ * A callback function would require P to be changed indirectly
+ * in some manner, which is somewhat awkward in this case.
+ */
 void setupViewport(GLFWwindow *window, GLfloat *P) {
 
     int width, height;
@@ -286,25 +320,4 @@ void setupViewport(GLFWwindow *window, GLfloat *P) {
 
     // Set viewport. This is the pixel rectangle we want to draw into.
     glViewport( 0, 0, width, height ); // The entire window
-}
-
-/* Testing movement */
-float moveRightOnce(float xPos)
-{
-    glfwSetTime(0.0);
-    if(xPos!=2.0f)
-    {
-        xPos+=2.0f;
-    }
-    return xPos;
-}
-
-float moveLeftOnce(float xPos)
-{
-    glfwSetTime(0.0f);
-    if(xPos!=-2.0f)
-    {
-        xPos-=2.0f;
-    }
-    return xPos;
 }

@@ -1,17 +1,15 @@
 # depslib dependency file v1.0
-1461322405 source:c:\users\emma\dropbox\github\tnm061---opengl-projekt\ballin\main.cpp
+1461577255 source:c:\users\emma\dropbox\github\tnm061---opengl-projekt\ballin\main.cpp
 	<iostream>
 	<cstdio>
 	<cstdlib>
 	<cmath>
 	<GLFW/glfw3.h>
 	<GL/glext.h>
-	"tnm061.hpp"
-	"Shader.hpp"
 	"Texture.hpp"
-	"TriangleSoup.hpp"
 	"Rotator.hpp"
-	"MatrixStack.hpp"
+	"Segment.h"
+	"Element.h"
 
 1460730458 c:\users\emma\dropbox\github\tnm061---opengl-projekt\ballin\glfw\glfw3.h
 	<stddef.h>
@@ -206,13 +204,14 @@
 1460993272 source:c:\users\emma\dropbox\github\tnm061---opengl-projekt\ballin\element.cpp
 	"Element.h"
 
-1461229197 c:\users\emma\dropbox\github\tnm061---opengl-projekt\ballin\element.h
+1461323009 c:\users\emma\dropbox\github\tnm061---opengl-projekt\ballin\element.h
 
-1461317683 source:c:\users\emma\dropbox\github\tnm061---opengl-projekt\ballin\segment.cpp
+1461323009 source:c:\users\emma\dropbox\github\tnm061---opengl-projekt\ballin\segment.cpp
 	"Segment.h"
 
-1461317683 c:\users\emma\dropbox\github\tnm061---opengl-projekt\ballin\segment.h
+1461323009 c:\users\emma\dropbox\github\tnm061---opengl-projekt\ballin\segment.h
 	"Element.h"
 	"TriangleSoup.hpp"
 	"matrixStack.hpp"
+	"Shader.hpp"
 
