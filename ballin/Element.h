@@ -11,7 +11,7 @@ class Element
 
     protected:
         //The distance between two lanes
-        static const int laneMargin = 0.0f;
+        static const int laneMargin = 2.0f;
 
     private:
 };

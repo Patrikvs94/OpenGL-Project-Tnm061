@@ -210,10 +210,11 @@ int main(int argc, char *argv[]) {
             MVstack.translate(0.0f, -0.5f, -5.0f);
             MVstack.rotX(M_PI/6);
         
-            testSegment.render(MVstack, shader);
 
             // Then, do the model transformations ("object motion")
             MVstack.push(); // Save the current matrix on the stack
+        
+            testSegment.render(MVstack, shader);
 
                 // Ball
                 //MVstack.rotX(time);
