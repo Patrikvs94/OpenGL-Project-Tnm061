@@ -116,7 +116,7 @@ int main(int argc, char *argv[]) {
 	//player.readOBJ("meshes/trex.obj");    //If we want a more fancy mesh for the player
 
 	// soupReadOBJ(&myShape, MESHFILENAME);
-	player.printInfo();
+	//player.printInfo();
 
 	// Create a shader program object from GLSL code in two files
 
@@ -148,6 +148,8 @@ int main(int argc, char *argv[]) {
     float transX = 0.0f;
     float transY = 0.0f;
     float transZ = 0.0f;
+    
+    Segment testSegment;
 
     // Main loop
     while(!glfwWindowShouldClose(window))
@@ -201,11 +203,14 @@ int main(int argc, char *argv[]) {
 
         // Draw the scene
         MVstack.push(); // Save the initial, untouched matrix
+        
 
             // Modify MV according to user input
             // First, do the view transformations ("camera motion")
             MVstack.translate(0.0f, -0.5f, -5.0f);
             MVstack.rotX(M_PI/6);
+        
+            testSegment.render(MVstack, shader);
 
             // Then, do the model transformations ("object motion")
             MVstack.push(); // Save the current matrix on the stack

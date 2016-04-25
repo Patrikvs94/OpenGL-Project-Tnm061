@@ -16,8 +16,8 @@ class Segment : public Element
         void moveToBack(float z);   //Moves the segment to the back of the line
         void reInit();              //Fixes a new version of the segment
 
-        void render(MatrixStack* p, Shader* shader);
-        void localTranslate(MatrixStack* p);
+        void render(MatrixStack& p, Shader& shader);
+        void localTranslate(MatrixStack& p);
 
     protected:
 
