@@ -180,11 +180,11 @@ int main(int argc, char *argv[]) {
         setupViewport(window, P);
 
 		// Handle keyboard input
-        if(glfwGetKey(window, GLFW_KEY_RIGHT))
+        if(glfwGetKey(window, GLFW_KEY_RIGHT) && glfwGetTime()>0.2)
             {
                 transX = moveRightOnce(transX);
             }
-        if(glfwGetKey(window, GLFW_KEY_LEFT))
+        if(glfwGetKey(window, GLFW_KEY_LEFT) && glfwGetTime()>0.2)
             {
                 transX = moveLeftOnce(transX);
             }
@@ -291,38 +291,20 @@ void setupViewport(GLFWwindow *window, GLfloat *P) {
 /* Testing movement */
 float moveRightOnce(float xPos)
 {
-    bool once = true;
-
-    while(once) //Loop to only move the object once
+    glfwSetTime(0.0);
+    if(xPos!=2.0f)
     {
-        if(xPos < -1.0f)
-            xPos = 0.0f;
-        else if(xPos > 1.0f)
-            xPos = xPos;
-        else
-            xPos = 5.0f;
-
-        once = false;
+        xPos+=2.0f;
     }
     return xPos;
 }
 
 float moveLeftOnce(float xPos)
 {
-    bool once = true;
-
-    while(once) //Loop to only move the object once
+    glfwSetTime(0.0f);
+    if(xPos!=-2.0f)
     {
-        once = false;
-
-        if(xPos < 0.0f)
-            xPos = xPos;
-        else if(xPos > 0.0f)
-            xPos = 0.0f;
-        else
-            xPos = -5.0f;
-
-
+        xPos-=2.0f;
     }
     return xPos;
 }
