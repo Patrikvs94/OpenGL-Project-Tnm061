@@ -313,7 +313,8 @@ void setupViewport(GLFWwindow *window, GLfloat *P) {
 
     // Get window size. It may start out different from the requested
     // size, and will change if the user resizes the window.
-    glfwGetWindowSize( window, &width, &height );
+    glfwGetFramebufferSize( window, &width, &height );
+    //glfwGetWindowSize( window, &width, &height );
 
     // Ugly hack: adjust perspective matrix for non-square aspect ratios
     P[0] = P[5]*height/width;
