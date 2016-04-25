@@ -144,7 +144,7 @@ int main(int argc, char *argv[]) {
     int i = 0;
     float maxHeight = 0.0f;
 
-    //Staring position of the player
+    //Starting position of the player
     float transX = 0.0f;
     float transY = 0.0f;
     float transZ = 0.0f;
@@ -166,7 +166,7 @@ int main(int argc, char *argv[]) {
         // Set up the viewport
         setupViewport(window, P);
 
-		// Handle keyboard input
+		// Handle keyboard input (cannot press a key if the time since last press is less than 0,2 sec)
         if(glfwGetKey(window, GLFW_KEY_RIGHT) && glfwGetTime()>0.2)
         {
             transX = moveRightOnce(transX);
@@ -178,6 +178,12 @@ int main(int argc, char *argv[]) {
         if(glfwGetKey(window, GLFW_KEY_UP) && glfwGetTime()>0.2)
         {
             transY = jumpOnce(transY);
+        }
+
+        //If the player has jumped, make it land
+        if(glfwGetTime()>0.2 && transY > 0)
+        {
+            transY = 0.0f;
         }
 
 		// Activate our shader program.
@@ -206,7 +212,6 @@ int main(int argc, char *argv[]) {
 
                 // Ball
                 //MVstack.rotX(time);
-                MVstack.rotX(-M_PI/2); // Orient the poles along Y axis instead of Z
                 MVstack.scale(0.5f); // Scale player
                 MVstack.translate(transX, transY, transZ);
                 // Update the transformation matrix in the shader
