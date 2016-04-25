@@ -17,7 +17,6 @@ class Segment : public Element
         void reInit();              //Fixes a new version of the segment
 
         void render(MatrixStack& p, GLint& location_MV);
-        void localTranslate(MatrixStack& p);
 
     protected:
 

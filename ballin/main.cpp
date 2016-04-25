@@ -148,7 +148,7 @@ int main(int argc, char *argv[]) {
     float transX = 0.0f;
     float transY = 0.0f;
     float transZ = 0.0f;
-    
+
     Segment testSegment;
 
     // Main loop
@@ -203,17 +203,16 @@ int main(int argc, char *argv[]) {
 
         // Draw the scene
         MVstack.push(); // Save the initial, untouched matrix
-        
+
 
             // Modify MV according to user input
             // First, do the view transformations ("camera motion")
             MVstack.translate(0.0f, -0.5f, -5.0f);
             MVstack.rotX(M_PI/6);
-        
 
             // Then, do the model transformations ("object motion")
             MVstack.push(); // Save the current matrix on the stack
-        
+
             testSegment.render(MVstack, location_MV);
 
                 // Ball
