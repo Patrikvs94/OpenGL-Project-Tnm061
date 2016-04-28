@@ -12,6 +12,7 @@
 #define M_PI (3.141592653589793)
 #endif
 
+//Do things based on the operative system
 // In MacOS X, tell GLFW to include the modern OpenGL headers.
 // Windows does not want this, so we make this Mac-only.
 #ifdef __APPLE__
@@ -46,14 +47,20 @@ void setupViewport(GLFWwindow *window, GLfloat *P);
 float moveRightOnce(float xPos);
 float moveLeftOnce(float xPos);
 float jumpOnce(float yPos);
+void getRelevantGlContent();
 
 /* ------ MAIN FUNCTION --------------*/
 
 int main(int argc, char *argv[]) {
 
 	TriangleSoup player;
-    Texture earthTexture;
+    Texture earthTexture, segmentTexture;
     Shader shader;
+
+    //Starting position of the player
+    float transX = 0.0f;
+    float transY = 0.0f;
+    float transZ = 0.0f;
 
  	GLint location_time, location_MV, location_P, location_tex; // Shader uniforms
     float time;
@@ -70,12 +77,9 @@ int main(int argc, char *argv[]) {
     // Determine the desktop size
     vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
 
-	// Make sure we are getting a GL context of at least version 3.3
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	// Exclude old legacy cruft from the context. We don't need it, and we don't want it.
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+    // Make sure we are getting a GL context of at least version 3.3 and exclude
+    // old and irrelevant content (we just put it in a void-function)
+	void getRelevantGlContent();
 
     // Open a square window (aspect 1:1) to fill half the screen height
     window = glfwCreateWindow(vidmode->width/2, vidmode->height/2, "GLprimer", NULL, NULL);
@@ -115,17 +119,17 @@ int main(int argc, char *argv[]) {
 	player.createSphere(0.7, 30);
 	//player.readOBJ("meshes/trex.obj");    //If we want a more fancy mesh for the player
 
-	// soupReadOBJ(&myShape, MESHFILENAME);
 	//player.printInfo();
 
-	// Create a shader program object from GLSL code in two files
-
+    // Create a shader program object from GLSL code in two files
+    {
     #ifdef __WIN32__
 	shader.createShader("vertexshader.glsl", "fragmentshader.glsl");
 
 	glEnable(GL_TEXTURE_2D);
     // Read the texture data from file and upload it to the GPU
     earthTexture.createTexture("textures/earth.tga");
+    segmentTexture.createTexture("textures/moon.tga");
     #endif
 
     #ifdef __APPLE__
@@ -135,21 +139,15 @@ int main(int argc, char *argv[]) {
     // Read the texture data from file and upload it to the GPU
     earthTexture.createTexture("/Users/olasteen/GitHub/TNM061---OpenGL-projekt/ballin/textures/earth.tga");
     #endif
+    }
+
 
 	location_MV = glGetUniformLocation( shader.programID, "MV" );
 	location_P = glGetUniformLocation( shader.programID, "P" );
 	location_time = glGetUniformLocation( shader.programID, "time" );
 	location_tex = glGetUniformLocation( shader.programID, "tex" );
 
-    int i = 0;
-    float maxHeight = 0.0f;
-
-    //Starting position of the player
-    float transX = 0.0f;
-    float transY = 0.0f;
-    float transZ = 0.0f;
-
-    Segment testSegment;
+    Segment testSegment; //The program crashes if I move this to the top of the file
 
     // Main loop
     while(!glfwWindowShouldClose(window))
@@ -213,7 +211,8 @@ int main(int argc, char *argv[]) {
             // Then, do the model transformations ("object motion")
             MVstack.push(); // Save the current matrix on the stack
 
-            testSegment.render(MVstack, location_MV);
+                // Draw a segment
+                testSegment.render(MVstack, location_MV, segmentTexture.texID);
 
                 // Ball
                 //MVstack.rotX(time);
@@ -330,4 +329,14 @@ void setupViewport(GLFWwindow *window, GLfloat *P) {
 
     // Set viewport. This is the pixel rectangle we want to draw into.
     glViewport( 0, 0, width, height ); // The entire window
+}
+
+void getRelevantGlContent()
+{
+    // Make sure we are getting a GL context of at least version 3.3
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	// Exclude old legacy cruft from the context. We don't need it, and we don't want it.
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 }
