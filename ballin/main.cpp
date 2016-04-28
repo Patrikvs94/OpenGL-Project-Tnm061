@@ -121,26 +121,13 @@ int main(int argc, char *argv[]) {
 
 	//player.printInfo();
 
-    // Create a shader program object from GLSL code in two files
-    {
-    #ifdef __WIN32__
+    	// Create a shader program object from GLSL code in two files
 	shader.createShader("vertexshader.glsl", "fragmentshader.glsl");
 
 	glEnable(GL_TEXTURE_2D);
-    // Read the texture data from file and upload it to the GPU
-    earthTexture.createTexture("textures/earth.tga");
-    segmentTexture.createTexture("textures/moon.tga");
-    #endif
-
-    #ifdef __APPLE__
-    shader.createShader("/Users/olasteen/GitHub/TNM061---OpenGL-projekt/ballin/vertexshader.glsl", "/Users/olasteen/GitHub/TNM061---OpenGL-projekt/ballin/fragmentshader.glsl");
-
-    glEnable(GL_TEXTURE_2D);
-    // Read the texture data from file and upload it to the GPU
-    earthTexture.createTexture("/Users/olasteen/GitHub/TNM061---OpenGL-projekt/ballin/textures/earth.tga");
-    #endif
-    }
-
+    	// Read the texture data from file and upload it to the GPU
+    	earthTexture.createTexture("textures/earth.tga");
+    	segmentTexture.createTexture("textures/moon.tga");
 
 	location_MV = glGetUniformLocation( shader.programID, "MV" );
 	location_P = glGetUniformLocation( shader.programID, "P" );
@@ -322,7 +309,8 @@ void setupViewport(GLFWwindow *window, GLfloat *P) {
 
     // Get window size. It may start out different from the requested
     // size, and will change if the user resizes the window.
-    glfwGetWindowSize( window, &width, &height );
+    glfwGetFramebufferSize( window, &width, &height );
+    //glfwGetWindowSize( window, &width, &height );
 
     // Ugly hack: adjust perspective matrix for non-square aspect ratios
     P[0] = P[5]*height/width;
