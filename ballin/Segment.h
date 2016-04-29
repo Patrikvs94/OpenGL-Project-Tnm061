@@ -28,6 +28,12 @@ class Segment : public Element
         static const float xsize;
         static const float ysize;
         static const float zsize;
+
+        float xPos;
+        float yPos;
+        float zPos;
+
+        const float space = 2.0f;
 };
 
 #endif // SEGMENT_H
