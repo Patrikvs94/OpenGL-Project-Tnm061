@@ -2,6 +2,19 @@
 ballin/obj
 ballin/bin
 ballin.xcodeproj/
+<<<<<<< HEAD
+ballin/ballin.layout
+ballin/ballin.depend
+*.o
+*.exe
+=======
 ballin/bin/Debug/ballin.exe
 *.o
 ballin/bin/Debug/ballin.exe
+>>>>>>> origin/master
+ballin/ballin.depend
+*.exe
+ballin/obj/Debug/main.o
+*.depend
+ballin/obj/Debug/main.o
+*.exe
