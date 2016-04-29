@@ -83,7 +83,13 @@ int main(int argc, char *argv[]) {
 
     // Make sure we are getting a GL context of at least version 3.3 and exclude
     // old and irrelevant content (we just put it in a void-function)
-	void getRelevantGlContent();
+	//void getRelevantGlContent();
+    // Make sure we are getting a GL context of at least version 3.3
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    // Exclude old legacy cruft from the context. We don't need it, and we don't want it.
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
     // Open a square window (aspect 1:1) to fill half the screen height
     window = glfwCreateWindow(vidmode->width/2, vidmode->height/2, "GLprimer", NULL, NULL);
@@ -139,13 +145,16 @@ int main(int argc, char *argv[]) {
 	location_time = glGetUniformLocation( shader.programID, "time" );
 	location_tex = glGetUniformLocation( shader.programID, "tex" );
 
+    //Loop used for "initlaizing the Segment-vector"
     for(int i = 0; i < 10; i++)
     {
         Segments.push_back(new Segment());
-        Segments.at(i)->changeZPos(-(Segment::zsize*2  + 1.2f)*i);
+        Segments.at(i)->changeZPos(-(Segment::zsize*2 + 1.2f)*i);
     }
-
+    //Time-variable used for button presses
     double currentTime=glfwGetTime();
+    
+    //Time variable used for moving segments
     double posTime=glfwGetTime();
 
 
@@ -216,12 +225,29 @@ int main(int argc, char *argv[]) {
 
             //We used the known int of 10 for testing purposes
             MVstack.push();
+        
+            //Time during this render-loop
+            double loopTime = glfwGetTime();
+        
+            //Sets z-coordinates for segments
             for(int i=0;i<10;++i)
             {
-                Segments.at(i)->changeZPos(3.0f*(glfwGetTime()-posTime));
+                Segments.at(i)->changeZPos(3.0f*(loopTime-posTime));
             }
+        
+            //Set time for next iteration of loop
             posTime=glfwGetTime();
-
+        
+            //Moves the segment closest to the camera to the back if it reaches z=0
+            if(Segments.at(0)->returnZ()>0.0f)
+            {
+                Segment* temp = Segments.at(0);
+                Segments.erase(Segments.begin());
+                temp->changeZPos((Segments.at(Segments.size()-1)->returnZ()) -(Segment::zsize*2 + 1.2f));
+                Segments.push_back(temp);
+            }
+        
+            //render segments at correct positions
             for(int i = 0; i<10; i++)
             {
                 MVstack.push();
