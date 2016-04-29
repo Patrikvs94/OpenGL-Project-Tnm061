@@ -1,14 +1,25 @@
-//
-//  Player.hpp
-//  ballin
-//
-//  Created by Ola Steen on 2016-04-22.
-//  Copyright © 2016 Ola Steen. All rights reserved.
-//
-
 #ifndef Player_hpp
 #define Player_hpp
 
-#include <stdio.h>
+#include "Element.h"
+#include "TriangleSoup.hpp"
+#include "matrixStack.hpp"
+#include "Shader.hpp"
+
+class Player : public Element
+{
+    public:
+
+        Player();
+
+        void render(MatrixStack& p, GLint& location_MV, GLuint& texture);
+
+    protected:
+
+    private:
+        float jumpHeight;
+
+
+};
 
 #endif /* Player_hpp */
