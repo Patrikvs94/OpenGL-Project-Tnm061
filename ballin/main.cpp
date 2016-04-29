@@ -125,8 +125,7 @@ int main(int argc, char *argv[]) {
     // Intialize the matrix to an identity transformation
     MVstack.init();
 
-	// Create geometry for rendering
-	player.createSphere(1.0, 30);
+    ///Fix this by creating the last constructor in the Player class!
 	//player.readOBJ("meshes/trex.obj");    //If we want a more fancy mesh for the player
 
 	//player.printInfo();
@@ -153,9 +152,12 @@ int main(int argc, char *argv[]) {
     }
     //Time-variable used for button presses
     double currentTime=glfwGetTime();
-    
+
     //Time variable used for moving segments
     double posTime=glfwGetTime();
+
+    /* Testing the Player Class */
+    Player ballin;
 
 
     // Main loop
@@ -179,17 +181,17 @@ int main(int argc, char *argv[]) {
         if(glfwGetKey(window, GLFW_KEY_RIGHT) && glfwGetTime()-currentTime>0.2)
         {
             currentTime=glfwGetTime();
-            transX = moveRight(transX);
+            transX = ballin.moveRight(transX);
         }
         if(glfwGetKey(window, GLFW_KEY_LEFT) && glfwGetTime()-currentTime>0.2)
         {
             currentTime=glfwGetTime();
-            transX = moveLeft(transX);
+            transX = ballin.moveLeft(transX);
         }
         if(glfwGetKey(window, GLFW_KEY_UP) && glfwGetTime()-currentTime>0.2)
         {
             currentTime=glfwGetTime();
-            transY = jump(transY);
+            transY = ballin.jump(transY);
         }
 
         //If the player has jumped, make it land
@@ -214,7 +216,6 @@ int main(int argc, char *argv[]) {
         // Draw the scene
         MVstack.push(); // Save the initial, untouched matrix
 
-
             // Modify MV according to user input
             // First, do the view transformations ("camera motion")
             MVstack.translate(0.0f, -2.0f, -10.0f);
@@ -225,19 +226,19 @@ int main(int argc, char *argv[]) {
 
             //We used the known int of 10 for testing purposes
             MVstack.push();
-        
+
             //Time during this render-loop
             double loopTime = glfwGetTime();
-        
+
             //Sets z-coordinates for segments
             for(int i=0;i<10;++i)
             {
                 Segments.at(i)->changeZPos(3.0f*(loopTime-posTime));
             }
-        
+
             //Set time for next iteration of loop
             posTime=glfwGetTime();
-        
+
             //Moves the segment closest to the camera to the back if it reaches z=0
             if(Segments.at(0)->returnZ()>0.0f)
             {
@@ -246,7 +247,7 @@ int main(int argc, char *argv[]) {
                 temp->changeZPos((Segments.at(Segments.size()-1)->returnZ()) -(Segment::zsize*2 + 1.2f));
                 Segments.push_back(temp);
             }
-        
+
             //render segments at correct positions
             for(int i = 0; i<10; i++)
             {
@@ -260,11 +261,8 @@ int main(int argc, char *argv[]) {
                 // Ball
                 MVstack.translate(transX, transY, transZ);
                 MVstack.rotX(-2*time);
-                // Update the transformation matrix in the shader
-                glUniformMatrix4fv( location_MV, 1, GL_FALSE, MVstack.getCurrentMatrix() );
-                // Render the geometry to draw the sun
-                glBindTexture(GL_TEXTURE_2D, earthTexture.texID);
-                player.render();
+
+                ballin.render(MVstack, location_MV, earthTexture.texID);
 
 
             MVstack.pop(); // Restore the matrix we saved above
@@ -325,28 +323,6 @@ float moveRight(float xPos)
     return xPos;
 }
 
-//Function to move the player left
-float moveLeft(float xPos)
-{
-    if(xPos!=-3.0)
-    {
-        xPos-=3.0;
-    }
-    return xPos;
-}
-
-//Function to jump
-float jump(float yPos)
-{
-    float height = 2.0f;
-
-    if(yPos!=height)
-    {
-        yPos+=height;
-    }
-    return yPos;
-}
-
 /*
  * Function to set up the OpenGL viewport
  *
@@ -374,12 +350,3 @@ void setupViewport(GLFWwindow *window, GLfloat *P) {
     glViewport( 0, 0, width, height ); // The entire window
 }
 
-void getRelevantGlContent()
-{
-    // Make sure we are getting a GL context of at least version 3.3
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	// Exclude old legacy cruft from the context. We don't need it, and we don't want it.
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-}

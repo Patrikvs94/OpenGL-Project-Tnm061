@@ -8,7 +8,7 @@ class Player : public Element
 {
     public:
 
-        Player(float jump = 2.0f);
+        Player();
         Player(TriangleSoup& model, float jump = 2.0f);
 
         float moveRight(float xPos);
@@ -21,7 +21,7 @@ class Player : public Element
     private:
         float jumpHeight;
         float moveLength;
-        TriangleSoup* mesh;
+        TriangleSoup mesh;
 
 
 };

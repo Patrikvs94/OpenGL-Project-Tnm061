@@ -1,8 +1,8 @@
 #include "Player.hpp"
 
-Player::Player(float jump) : moveLength(laneMargin), jumpHeight(jump)
+Player::Player() : moveLength(laneMargin), jumpHeight(2.0)
 {
-    mesh->createSphere(1.0, 30);
+    mesh.createSphere(1.0, 30);
 }
 
 //Move the player one step to the right
@@ -37,5 +37,11 @@ float Player::jump(float yPos)
 
 void Player::render(MatrixStack& p, GLint& location_MV, GLuint& texture)
 {
+    p.push(); //Save the current matrix before performing multiplications
 
+        glUniformMatrix4fv( location_MV, 1, GL_FALSE, p.getCurrentMatrix() );
+        glBindTexture(GL_TEXTURE_2D, texture);
+        mesh.render(); //Draw the player
+
+    p.pop(); //Restore the initial matrix
 }
