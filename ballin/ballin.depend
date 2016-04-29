@@ -216,11 +216,13 @@
 	"matrixStack.hpp"
 	"Shader.hpp"
 
-<<<<<<< HEAD
+1461929496 D
+	<ctime>
+	<vector>
+
 1461935794 source:c:\users\patri\documents\github\tnm061---opengl-projekt\ballin\main.cpp
-=======
-1461922025 source:c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\main.cpp
->>>>>>> origin/master
+
+1461932806 source:c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\main.cpp
 	<iostream>
 	<cstdio>
 	<cstdlib>
@@ -231,15 +233,20 @@
 	"Rotator.hpp"
 	"Segment.h"
 	"Element.h"
-<<<<<<< HEAD
 	<ctime>
 	<vector>
 
-1461921070 c:\users\patri\documents\github\tnm061---opengl-projekt\ballin\glfw\glfw3.h
-=======
-
-1460364589 c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\glfw\glfw3.h
->>>>>>> origin/master
+1461931137 gin/master
+	<iostream>
+	<cstdio>
+	<cstdlib>
+	<cmath>
+	<GLFW/glfw3.h>
+	<GL/glext.h>
+	"Texture.hpp"
+	"Rotator.hpp"
+	"Segment.h"
+	"Element.h"
 	<stddef.h>
 	<OpenGL/gl3.h>
 	<OpenGL/gl.h>
@@ -250,12 +257,6 @@
 	<GLES3/gl3.h>
 	<GL/gl.h>
 	<GL/glu.h>
-
-<<<<<<< HEAD
-1461921070 c:\users\patri\documents\github\tnm061---opengl-projekt\ballin\gl\glext.h
-=======
-1460364589 c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\gl\glext.h
->>>>>>> origin/master
 	<windows.h>
 	<stddef.h>
 	<inttypes.h>
@@ -264,19 +265,47 @@
 	<stdint.h>
 	<stdint.h>
 	<inttypes.h>
-
-<<<<<<< HEAD
-1461921070 c:\users\patri\documents\github\tnm061---opengl-projekt\ballin\texture.hpp
-=======
-1460728593 c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\texture.hpp
->>>>>>> origin/master
 	<GLFW/glfw3.h>
 	<cstdio>
 	<cstring>
 	<GL/glext.h>
 	"tnm061.hpp"
+	"Element.h"
+	"TriangleSoup.hpp"
+	"matrixStack.hpp"
+	"Shader.hpp"
+	<GLFW/glfw3.h>
+	<GL/glext.h>
+	"tnm061.hpp"
+	<cmath>
+	<cstdlib>
+	<cstdio>
+	<GLFW/glfw3.h>
+	<GLFW/glfw3.h>
+	"tnm061.hpp"
+	<cstdio>
+	<stdio.h>
+	<GLFW/glfw3.h>
+	<GL/glext.h>
+	"tnm061.hpp"
+	<cstdio>
+	<cstdlib>
+	<cmath>
+	<cstring>
+	"TriangleSoup.hpp"
 
-<<<<<<< HEAD
+1461921070 c:\users\patri\documents\github\tnm061---opengl-projekt\ballin\glfw\glfw3.h
+
+1460364589 c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\glfw\glfw3.h
+
+1461921070 c:\users\patri\documents\github\tnm061---opengl-projekt\ballin\gl\glext.h
+
+1460364589 c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\gl\glext.h
+
+1461921070 c:\users\patri\documents\github\tnm061---opengl-projekt\ballin\texture.hpp
+
+1460728593 c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\texture.hpp
+
 1461921070 c:\users\patri\documents\github\tnm061---opengl-projekt\ballin\tnm061.hpp
 	<GL/glext.h>
 
@@ -285,7 +314,7 @@
 	<cmath>
 
 1461922569 c:\users\patri\documents\github\tnm061---opengl-projekt\ballin\segment.h
-=======
+
 1460728593 c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\tnm061.hpp
 	<GL/glext.h>
 
@@ -293,46 +322,28 @@
 	<GLFW/glfw3.h>
 	<cmath>
 
-1461917379 c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\segment.h
->>>>>>> origin/master
+1461933046 c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\segment.h
 	"Element.h"
 	"TriangleSoup.hpp"
 	"matrixStack.hpp"
 	"Shader.hpp"
 
-<<<<<<< HEAD
 1461922649 c:\users\patri\documents\github\tnm061---opengl-projekt\ballin\element.h
 
 1461921070 c:\users\patri\documents\github\tnm061---opengl-projekt\ballin\trianglesoup.hpp
-=======
-1461668947 c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\element.h
+
+1461932805 c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\element.h
 
 1461919924 c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\trianglesoup.hpp
->>>>>>> origin/master
-	<GLFW/glfw3.h>
-	<GL/glext.h>
-	"tnm061.hpp"
 
-<<<<<<< HEAD
 1461921070 c:\users\patri\documents\github\tnm061---opengl-projekt\ballin\matrixstack.hpp
-=======
+
 1460728593 c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\matrixstack.hpp
->>>>>>> origin/master
-	<cmath>
-	<cstdlib>
-	<cstdio>
-	<GLFW/glfw3.h>
 
-<<<<<<< HEAD
 1461921070 c:\users\patri\documents\github\tnm061---opengl-projekt\ballin\shader.hpp
-=======
-1460728593 c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\shader.hpp
->>>>>>> origin/master
-	<GLFW/glfw3.h>
-	"tnm061.hpp"
-	<cstdio>
 
-<<<<<<< HEAD
+1460728593 c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\shader.hpp
+
 1461921070 source:c:\users\patri\documents\github\tnm061---opengl-projekt\ballin\element.cpp
 	"Element.h"
 
@@ -358,7 +369,7 @@
 	"Texture.hpp"
 
 1461921070 source:c:\users\patri\documents\github\tnm061---opengl-projekt\ballin\tnm061.cpp
-=======
+
 1461224767 source:c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\element.cpp
 	"Element.h"
 
@@ -373,7 +384,7 @@
 1460728593 source:c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\rotator.cpp
 	"Rotator.hpp"
 
-1461922034 source:c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\segment.cpp
+1461932805 source:c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\segment.cpp
 	"Segment.h"
 	<iostream>
 
@@ -384,30 +395,15 @@
 	"Texture.hpp"
 
 1460728593 source:c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\tnm061.cpp
->>>>>>> origin/master
-	<stdio.h>
-	<GLFW/glfw3.h>
-	<GL/glext.h>
-	"tnm061.hpp"
 
-<<<<<<< HEAD
 1461921070 source:c:\users\patri\documents\github\tnm061---opengl-projekt\ballin\trianglesoup.cpp
-=======
-1461929496 source:c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\trianglesoup.cpp
->>>>>>> origin/master
-	<cstdio>
-	<cstdlib>
-	<cmath>
-	<cstring>
-	"TriangleSoup.hpp"
 
-<<<<<<< HEAD
-=======
-1461931098 source:c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\util.cpp
+1461929496 source:c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\trianglesoup.cpp
+
+1461934038 source:c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\util.cpp
 	"util.h"
 
-1461931137 c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\util.h
+1461934020 c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\util.h
 	"Segment.h"
 	<vector>
 
->>>>>>> origin/master

@@ -34,7 +34,6 @@ class Segment : public Element
         float yPos;
         float zPos;
 
-        const float space = 2.0f;
 };
 
 #endif // SEGMENT_H
