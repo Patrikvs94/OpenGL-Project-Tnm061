@@ -5,19 +5,19 @@ util::util()
 
 }
 
-util::util(std::vector<Segment>* segmentVector, std::vector<TriangleSoup>* obstacleVector)
+util::util(std::vector<Segment*>* segmentVector)//, std::vector<TriangleSoup>* obstacleVector)
 {
-    collisionSegments =  segmentVector;
-    collisionObstacles = obstacleVector;
-
-    init();
+    init(segmentVector);
 
 }
 
 //Sort collision vectors on constructor call
-void util::init()
+void util::init(std::vector<Segment*>* segmentVector)
 {
-
+    for(int i = 0; i < segmentVector->size(); ++i)
+    {
+        collisionSegments.push_back(segmentVector->at(i));
+    }
 }
 
 //MIGHT BE REDUNDANT

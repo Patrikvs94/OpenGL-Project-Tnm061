@@ -15,3 +15,6 @@ ballin/bin/Debug/ballin.exe
 ballin/ballin.depend
 *.exe
 ballin/obj/Debug/main.o
+*.depend
+ballin/obj/Debug/main.o
+*.exe
