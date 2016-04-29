@@ -13,7 +13,6 @@ Segment::Segment()
     Blocks[1].createBox(xsize, ysize, zsize);
     Blocks[2].createBox(xsize, ysize, zsize);
 
-
 }
 
 //take shader and matrixstack and render entire segment

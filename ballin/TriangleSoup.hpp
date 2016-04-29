@@ -19,7 +19,13 @@ private:
     GLuint vertexbuffer; // Buffer ID to bind to GL_ARRAY_BUFFER
     GLuint indexbuffer;  // Buffer ID to bind to GL_ELEMENT_ARRAY_BUFFER
     GLfloat *vertexarray; // Vertex array on interleaved format: x y z nx ny nz s t
-    GLuint *indexarray;   // Element index array
+    GLuint *indexarray;   // Element index array.
+
+    //WHEN USE, REMEMBER THAT ORIGIN IS IN THE CENTER OF THE BOX
+        // => SO coordinate +- Length/2 is the boundaries
+    float yLength; //Value to determine object boundaries.
+    float xLength; //Value to determine object boundaries.
+    float zLength; //Value to determine object boundaries.
 
 public:
 
@@ -49,6 +55,8 @@ void printInfo();
 
 /* Render the geometry in a triangleSoup object */
 void render();
+
+float* getBoundaries();
 
 private:
 

@@ -211,6 +211,7 @@ int main(int argc, char *argv[]) {
                 glBindTexture(GL_TEXTURE_2D, earthTexture.texID);
                 player.render();
 
+
             MVstack.pop(); // Restore the matrix we saved above
 
         MVstack.pop(); // Restore the initial, untouched matrix
