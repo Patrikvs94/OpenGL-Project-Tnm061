@@ -43,6 +43,8 @@
 		<Unit filename="Element.h" />
 		<Unit filename="Matrix.cpp" />
 		<Unit filename="Matrix.hpp" />
+		<Unit filename="Player.cpp" />
+		<Unit filename="Player.hpp" />
 		<Unit filename="Rotator.cpp" />
 		<Unit filename="Rotator.hpp" />
 		<Unit filename="Segment.cpp" />
