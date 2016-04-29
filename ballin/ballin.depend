@@ -313,7 +313,7 @@
 
 1461935794 source:c:\users\patri\documents\github\tnm061---opengl-projekt\ballin\main.cpp
 
-1461934699 source:c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\main.cpp
+1461937823 source:c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\main.cpp
 	<iostream>
 	<cstdio>
 	<cstdlib>
@@ -449,11 +449,15 @@
 
 1461929496 source:c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\trianglesoup.cpp
 
-1461931098 source:c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\util.cpp
+1461937967 source:c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\util.cpp
 	"util.h"
-	"util.h"
+	<typeinfo>
+	<iostream>
 
-1461931137 c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\util.h
+1461936255 c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\util.h
+	"Segment.h"
+	<vector>
+	"Player.hpp"
 
 1461936256 source:c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\player.cpp
 	"Player.hpp"

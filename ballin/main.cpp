@@ -39,6 +39,7 @@
 #include "Rotator.hpp"
 #include "Segment.h"
 #include "Element.h"
+#include "util.h"
 
 #include <ctime>
 #include <vector>
@@ -144,6 +145,7 @@ int main(int argc, char *argv[]) {
 
     double currentTime=glfwGetTime();
     double posTime=glfwGetTime();
+
 
 
 
