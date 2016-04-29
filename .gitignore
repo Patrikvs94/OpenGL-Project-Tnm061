@@ -2,3 +2,7 @@
 ballin/obj
 ballin/bin
 ballin.xcodeproj/
+ballin/ballin.layout
+ballin/ballin.depend
+*.o
+*.exe
