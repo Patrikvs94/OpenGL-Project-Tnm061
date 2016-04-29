@@ -8,7 +8,6 @@ util::util()
 util::util(std::vector<Segment*>* segmentVector)//, std::vector<TriangleSoup>* obstacleVector)
 {
     init(segmentVector);
-
 }
 
 //Sort collision vectors on constructor call
@@ -26,16 +25,19 @@ void util::getRelevantObjects(TriangleSoup* refPoint)
 
 }
 
-bool util::checkCollision(float* player, float* object)
+bool util::checkCollision(Player* player, Element* object)
 {
-
 
 }
 
-//TAKE IN WHATEVER
 void util::updateCollisionVector()
 {
-
+    Segment* temp = collisionSegments.at(0);
+    for(int i = 1; i < collisionSegments.size(); ++i)
+    {
+        collisionSegments.at(i-1) = collisionSegments.at(i);
+    }
+    collisionSegments.at(collisionSegments.size()-1) = temp;
 }
 
 
