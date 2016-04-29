@@ -62,9 +62,7 @@ int main(int argc, char *argv[]) {
     std::vector<Segment*> Segments;
 
     //Starting position of the player
-    float transX = 0.0f;
-    float transY = 0.0f;
-    float transZ = 0.0f;
+    float transX = 0.0f; float transY = 0.0f; float transZ = 0.0f;
 
  	GLint location_time, location_MV, location_P, location_tex; // Shader uniforms
     float time;
@@ -114,13 +112,13 @@ int main(int argc, char *argv[]) {
     float aspectRatio = (vidmode->width)/(vidmode->height);
 
     //Create perspective matrix with fov = 1 rad, aspect = 1, znear = 3 and zfar = 10.
-	mat4perspective(P, 1.0f, aspectRatio, 3.0f, 10.0f);
+	mat4perspective(P, 1.0f, aspectRatio, 3.0f, 100.0f);
 
     // Intialize the matrix to an identity transformation
     MVstack.init();
 
 	// Create geometry for rendering
-	player.createSphere(0.7, 30);
+	player.createSphere(1.0, 30);
 	//player.readOBJ("meshes/trex.obj");    //If we want a more fancy mesh for the player
 
 	//player.printInfo();
@@ -208,8 +206,8 @@ int main(int argc, char *argv[]) {
 
             // Modify MV according to user input
             // First, do the view transformations ("camera motion")
-            MVstack.translate(0.0f, -0.5f, -5.0f);
-            MVstack.rotX(M_PI/6);
+            MVstack.translate(0.0f, -2.0f, -10.0f);
+            MVstack.rotX(M_PI/9);
 
             // Then, do the model transformations ("object motion")
             MVstack.push(); // Save the current matrix on the stack
@@ -235,7 +233,6 @@ int main(int argc, char *argv[]) {
 
                 // Ball
                 //MVstack.rotX(time);
-                MVstack.scale(0.5f); // Scale player
                 MVstack.translate(transX, transY, transZ);
                 // Update the transformation matrix in the shader
                 glUniformMatrix4fv( location_MV, 1, GL_FALSE, MVstack.getCurrentMatrix() );
@@ -295,9 +292,9 @@ void mat4perspective(float M[], float vfov, float aspect, float znear, float zfa
 //Function to move the player right
 float moveRightOnce(float xPos)
 {
-    if(xPos!=2.0f)
+    if(xPos!=3.0)
     {
-        xPos+=2.0f;
+        xPos+=3.0;
     }
     return xPos;
 }
@@ -305,9 +302,9 @@ float moveRightOnce(float xPos)
 //Function to move the player left
 float moveLeftOnce(float xPos)
 {
-    if(xPos!=-2.0f)
+    if(xPos!=-3.0)
     {
-        xPos-=2.0f;
+        xPos-=3.0;
     }
     return xPos;
 }
@@ -315,9 +312,11 @@ float moveLeftOnce(float xPos)
 //Function to jump
 float jumpOnce(float yPos)
 {
-    if(yPos!=2.0f)
+    float height = 2.0f;
+
+    if(yPos!=height)
     {
-        yPos+=2.0f;
+        yPos+=height;
     }
     return yPos;
 }
