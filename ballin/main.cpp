@@ -297,7 +297,6 @@ void mat4perspective(float M[], float vfov, float aspect, float znear, float zfa
 //Function to move the player right
 float moveRightOnce(float xPos)
 {
-    glfwSetTime(0.0);
     if(xPos!=3.0)
     {
         xPos+=3.0;
@@ -308,7 +307,6 @@ float moveRightOnce(float xPos)
 //Function to move the player left
 float moveLeftOnce(float xPos)
 {
-    glfwSetTime(0.0f);
     if(xPos!=-3.0)
     {
         xPos-=3.0;
@@ -321,7 +319,6 @@ float jumpOnce(float yPos)
 {
     float height = 2.0f;
 
-    glfwSetTime(0.0f);
     if(yPos!=height)
     {
         yPos+=height;

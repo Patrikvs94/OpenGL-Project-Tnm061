@@ -1,16 +1,11 @@
 #include "Segment.h"
 #include <iostream>
 
-<<<<<<< HEAD
+
 const float Segment::xsize = 1.0f;  //Note: Same as the radius of the player
 const float Segment::ysize = 0.2f;
 const float Segment::zsize = 4*xsize;
-=======
-const float Segment::xsize = 0.3f;
-const float Segment::ysize = 0.1f;
-const float Segment::zsize = 1.0f;
 
->>>>>>> origin/master
 
 Segment::Segment()
 {
