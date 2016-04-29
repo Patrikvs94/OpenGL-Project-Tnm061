@@ -39,6 +39,7 @@
 #include "Rotator.hpp"
 #include "Segment.h"
 #include "Element.h"
+#include "Player.hpp"
 
 #include <ctime>
 #include <vector>
@@ -47,9 +48,9 @@
 //Function definitions and explanations is found in the bottom of this file.
 void mat4perspective(float M[], float vfov, float aspect, float znear, float zfar);
 void setupViewport(GLFWwindow *window, GLfloat *P);
-float moveRightOnce(float xPos);
-float moveLeftOnce(float xPos);
-float jumpOnce(float yPos);
+float moveRight(float xPos);
+float moveLeft(float xPos);
+float jump(float yPos);
 void getRelevantGlContent();
 
 /* ------ MAIN FUNCTION --------------*/
@@ -123,13 +124,14 @@ int main(int argc, char *argv[]) {
 
 	//player.printInfo();
 
-    	// Create a shader program object from GLSL code in two files
+    // Create a shader program object from GLSL code in two files
 	shader.createShader("vertexshader.glsl", "fragmentshader.glsl");
 
 	glEnable(GL_TEXTURE_2D);
-    	// Read the texture data from file and upload it to the GPU
-    	earthTexture.createTexture("textures/earth.tga");
-    	segmentTexture.createTexture("textures/moon.tga");
+
+    // Read the texture data from file and upload it to the GPU
+    earthTexture.createTexture("textures/earth.tga");
+    segmentTexture.createTexture("textures/moon.tga");
 
 	location_MV = glGetUniformLocation( shader.programID, "MV" );
 	location_P = glGetUniformLocation( shader.programID, "P" );
@@ -144,8 +146,6 @@ int main(int argc, char *argv[]) {
 
     double currentTime=glfwGetTime();
     double posTime=glfwGetTime();
-
-
 
     // Main loop
     while(!glfwWindowShouldClose(window))
@@ -168,17 +168,17 @@ int main(int argc, char *argv[]) {
         if(glfwGetKey(window, GLFW_KEY_RIGHT) && glfwGetTime()-currentTime>0.2)
         {
             currentTime=glfwGetTime();
-            transX = moveRightOnce(transX);
+            transX = moveRight(transX);
         }
         if(glfwGetKey(window, GLFW_KEY_LEFT) && glfwGetTime()-currentTime>0.2)
         {
             currentTime=glfwGetTime();
-            transX = moveLeftOnce(transX);
+            transX = moveLeft(transX);
         }
         if(glfwGetKey(window, GLFW_KEY_UP) && glfwGetTime()-currentTime>0.2)
         {
             currentTime=glfwGetTime();
-            transY = jumpOnce(transY);
+            transY = jump(transY);
         }
 
         //If the player has jumped, make it land
@@ -229,11 +229,9 @@ int main(int argc, char *argv[]) {
             }
             MVstack.pop();
 
-
-
                 // Ball
-                //MVstack.rotX(time);
                 MVstack.translate(transX, transY, transZ);
+                MVstack.rotX(-2*time);
                 // Update the transformation matrix in the shader
                 glUniformMatrix4fv( location_MV, 1, GL_FALSE, MVstack.getCurrentMatrix() );
                 // Render the geometry to draw the sun
@@ -290,7 +288,7 @@ void mat4perspective(float M[], float vfov, float aspect, float znear, float zfa
 }
 
 //Function to move the player right
-float moveRightOnce(float xPos)
+float moveRight(float xPos)
 {
     if(xPos!=3.0)
     {
@@ -300,7 +298,7 @@ float moveRightOnce(float xPos)
 }
 
 //Function to move the player left
-float moveLeftOnce(float xPos)
+float moveLeft(float xPos)
 {
     if(xPos!=-3.0)
     {
@@ -310,7 +308,7 @@ float moveLeftOnce(float xPos)
 }
 
 //Function to jump
-float jumpOnce(float yPos)
+float jump(float yPos)
 {
     float height = 2.0f;
 

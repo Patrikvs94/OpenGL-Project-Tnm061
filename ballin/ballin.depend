@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1461938159 source:c:\users\emma\dropbox\github\tnm061---opengl-projekt\ballin\main.cpp
+1461941816 source:c:\users\emma\dropbox\github\tnm061---opengl-projekt\ballin\main.cpp
 	<iostream>
 	<cstdio>
 	<cstdlib>
@@ -10,6 +10,7 @@
 	"Rotator.hpp"
 	"Segment.h"
 	"Element.h"
+	"Player.hpp"
 	<ctime>
 	<vector>
 
@@ -206,17 +207,17 @@
 1460993272 source:c:\users\emma\dropbox\github\tnm061---opengl-projekt\ballin\element.cpp
 	"Element.h"
 
-1461937099 c:\users\emma\dropbox\github\tnm061---opengl-projekt\ballin\element.h
+1461940098 c:\users\emma\dropbox\github\tnm061---opengl-projekt\ballin\element.h
+	"TriangleSoup.hpp"
+	"matrixStack.hpp"
+	"Shader.hpp"
 
 1461938159 source:c:\users\emma\dropbox\github\tnm061---opengl-projekt\ballin\segment.cpp
 	"Segment.h"
 	<iostream>
 
-1461938159 c:\users\emma\dropbox\github\tnm061---opengl-projekt\ballin\segment.h
+1461940098 c:\users\emma\dropbox\github\tnm061---opengl-projekt\ballin\segment.h
 	"Element.h"
-	"TriangleSoup.hpp"
-	"matrixStack.hpp"
-	"Shader.hpp"
 
 1461929496 D
 	<ctime>
@@ -459,5 +460,11 @@
 	"Player.hpp"
 
 1461936425 c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\player.hpp
+	"Element.h"
+
+1461941703 source:c:\users\emma\dropbox\github\tnm061---opengl-projekt\ballin\player.cpp
+	"Player.hpp"
+
+1461941403 c:\users\emma\dropbox\github\tnm061---opengl-projekt\ballin\player.hpp
 	"Element.h"
 
