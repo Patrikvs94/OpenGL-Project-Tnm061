@@ -40,6 +40,9 @@
 #include "Segment.h"
 #include "Element.h"
 
+#include <ctime>
+#include <vector>
+
 /* --- FUNCTION DECLARATIONS -------- */
 //Function definitions and explanations is found in the bottom of this file.
 void mat4perspective(float M[], float vfov, float aspect, float znear, float zfar);
@@ -56,6 +59,8 @@ int main(int argc, char *argv[]) {
 	TriangleSoup player;
     Texture earthTexture, segmentTexture;
     Shader shader;
+    std::vector<Segment*> Segments;
+    std::vector<float> Positions;
 
     //Starting position of the player
     float transX = 0.0f;
@@ -134,7 +139,20 @@ int main(int argc, char *argv[]) {
 	location_time = glGetUniformLocation( shader.programID, "time" );
 	location_tex = glGetUniformLocation( shader.programID, "tex" );
 
-    Segment testSegment; //The program crashes if I move this to the top of the file
+    for(int i = 0; i < 10; i++)
+    {
+        Segments.push_back(new Segment());
+    }
+    std::cout << Segments.size() << std::endl;
+
+    for(int i = 0; i < 10; i++)
+    {
+        Positions.push_back((-3.2f)*i);
+    }
+    double currentTime=glfwGetTime();
+    double posTime=glfwGetTime();
+
+
 
     // Main loop
     while(!glfwWindowShouldClose(window))
@@ -154,21 +172,24 @@ int main(int argc, char *argv[]) {
         setupViewport(window, P);
 
 		// Handle keyboard input (cannot press a key if the time since last press is less than 0,2 sec)
-        if(glfwGetKey(window, GLFW_KEY_RIGHT) && glfwGetTime()>0.2)
+        if(glfwGetKey(window, GLFW_KEY_RIGHT) && glfwGetTime()-currentTime>0.2)
         {
+            currentTime=glfwGetTime();
             transX = moveRightOnce(transX);
         }
-        if(glfwGetKey(window, GLFW_KEY_LEFT) && glfwGetTime()>0.2)
+        if(glfwGetKey(window, GLFW_KEY_LEFT) && glfwGetTime()-currentTime>0.2)
         {
+            currentTime=glfwGetTime();
             transX = moveLeftOnce(transX);
         }
-        if(glfwGetKey(window, GLFW_KEY_UP) && glfwGetTime()>0.2)
+        if(glfwGetKey(window, GLFW_KEY_UP) && glfwGetTime()-currentTime>0.2)
         {
+            currentTime=glfwGetTime();
             transY = jumpOnce(transY);
         }
 
         //If the player has jumped, make it land
-        if(glfwGetTime()>0.2 && transY > 0)
+        if(glfwGetTime()-currentTime>0.2 && transY > 0.0)
         {
             transY = 0.0f;
         }
@@ -198,8 +219,24 @@ int main(int argc, char *argv[]) {
             // Then, do the model transformations ("object motion")
             MVstack.push(); // Save the current matrix on the stack
 
-                // Draw a segment
-                testSegment.render(MVstack, location_MV, segmentTexture.texID);
+            //We used the known int of 10 for testing purposes
+            MVstack.push();
+            for(int i=0;i<10;++i)
+            {
+                Positions.at(i)+=3.0f*(glfwGetTime()-posTime);
+            }
+            posTime=glfwGetTime();
+
+            for(int i = 0; i<10; i++)
+            {
+                MVstack.push();
+                MVstack.translate(0.0f, 0.0f, Positions.at(i));
+                Segments.at(i)->render(MVstack, location_MV, segmentTexture.texID);
+                MVstack.pop();
+            }
+            MVstack.pop();
+
+
 
                 // Ball
                 //MVstack.rotX(time);
@@ -262,7 +299,6 @@ void mat4perspective(float M[], float vfov, float aspect, float znear, float zfa
 //Function to move the player right
 float moveRightOnce(float xPos)
 {
-    glfwSetTime(0.0);
     if(xPos!=2.0f)
     {
         xPos+=2.0f;
@@ -273,7 +309,6 @@ float moveRightOnce(float xPos)
 //Function to move the player left
 float moveLeftOnce(float xPos)
 {
-    glfwSetTime(0.0f);
     if(xPos!=-2.0f)
     {
         xPos-=2.0f;
@@ -284,7 +319,6 @@ float moveLeftOnce(float xPos)
 //Function to jump
 float jumpOnce(float yPos)
 {
-    glfwSetTime(0.0f);
     if(yPos!=2.0f)
     {
         yPos+=2.0f;

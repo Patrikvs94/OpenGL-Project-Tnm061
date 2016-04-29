@@ -9,9 +9,10 @@ class Element
         Element();
         virtual ~Element();
 
+
     protected:
         //The distance between two lanes
-        static const int laneMargin = 2.0f;
+        static const int laneMargin = 3.0f;
 
     private:
 };

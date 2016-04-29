@@ -18,6 +18,7 @@ class Segment : public Element
 
         void render(MatrixStack& p, GLint& location_MV, GLuint& texture);
 
+
     protected:
 
     private:

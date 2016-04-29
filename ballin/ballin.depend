@@ -216,3 +216,114 @@
 	"matrixStack.hpp"
 	"Shader.hpp"
 
+1461935794 source:c:\users\patri\documents\github\tnm061---opengl-projekt\ballin\main.cpp
+	<iostream>
+	<cstdio>
+	<cstdlib>
+	<cmath>
+	<GLFW/glfw3.h>
+	<GL/glext.h>
+	"Texture.hpp"
+	"Rotator.hpp"
+	"Segment.h"
+	"Element.h"
+	<ctime>
+	<vector>
+
+1461921070 c:\users\patri\documents\github\tnm061---opengl-projekt\ballin\glfw\glfw3.h
+	<stddef.h>
+	<OpenGL/gl3.h>
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+	<GL/glcorearb.h>
+	<GLES/gl.h>
+	<GLES2/gl2.h>
+	<GLES3/gl3.h>
+	<GL/gl.h>
+	<GL/glu.h>
+
+1461921070 c:\users\patri\documents\github\tnm061---opengl-projekt\ballin\gl\glext.h
+	<windows.h>
+	<stddef.h>
+	<inttypes.h>
+	<inttypes.h>
+	<inttypes.h>
+	<stdint.h>
+	<stdint.h>
+	<inttypes.h>
+
+1461921070 c:\users\patri\documents\github\tnm061---opengl-projekt\ballin\texture.hpp
+	<GLFW/glfw3.h>
+	<cstdio>
+	<cstring>
+	<GL/glext.h>
+	"tnm061.hpp"
+
+1461921070 c:\users\patri\documents\github\tnm061---opengl-projekt\ballin\tnm061.hpp
+	<GL/glext.h>
+
+1461921070 c:\users\patri\documents\github\tnm061---opengl-projekt\ballin\rotator.hpp
+	<GLFW/glfw3.h>
+	<cmath>
+
+1461922569 c:\users\patri\documents\github\tnm061---opengl-projekt\ballin\segment.h
+	"Element.h"
+	"TriangleSoup.hpp"
+	"matrixStack.hpp"
+	"Shader.hpp"
+
+1461922649 c:\users\patri\documents\github\tnm061---opengl-projekt\ballin\element.h
+
+1461921070 c:\users\patri\documents\github\tnm061---opengl-projekt\ballin\trianglesoup.hpp
+	<GLFW/glfw3.h>
+	<GL/glext.h>
+	"tnm061.hpp"
+
+1461921070 c:\users\patri\documents\github\tnm061---opengl-projekt\ballin\matrixstack.hpp
+	<cmath>
+	<cstdlib>
+	<cstdio>
+	<GLFW/glfw3.h>
+
+1461921070 c:\users\patri\documents\github\tnm061---opengl-projekt\ballin\shader.hpp
+	<GLFW/glfw3.h>
+	"tnm061.hpp"
+	<cstdio>
+
+1461921070 source:c:\users\patri\documents\github\tnm061---opengl-projekt\ballin\element.cpp
+	"Element.h"
+
+1461921070 source:c:\users\patri\documents\github\tnm061---opengl-projekt\ballin\matrix.cpp
+	"Matrix.hpp"
+
+1461921070 c:\users\patri\documents\github\tnm061---opengl-projekt\ballin\matrix.hpp
+
+1461921070 source:c:\users\patri\documents\github\tnm061---opengl-projekt\ballin\matrixstack.cpp
+	"MatrixStack.hpp"
+
+1461921070 source:c:\users\patri\documents\github\tnm061---opengl-projekt\ballin\rotator.cpp
+	"Rotator.hpp"
+
+1461921298 source:c:\users\patri\documents\github\tnm061---opengl-projekt\ballin\segment.cpp
+	"Segment.h"
+	<iostream>
+
+1461921070 source:c:\users\patri\documents\github\tnm061---opengl-projekt\ballin\shader.cpp
+	"Shader.hpp"
+
+1461921070 source:c:\users\patri\documents\github\tnm061---opengl-projekt\ballin\texture.cpp
+	"Texture.hpp"
+
+1461921070 source:c:\users\patri\documents\github\tnm061---opengl-projekt\ballin\tnm061.cpp
+	<stdio.h>
+	<GLFW/glfw3.h>
+	<GL/glext.h>
+	"tnm061.hpp"
+
+1461921070 source:c:\users\patri\documents\github\tnm061---opengl-projekt\ballin\trianglesoup.cpp
+	<cstdio>
+	<cstdlib>
+	<cmath>
+	<cstring>
+	"TriangleSoup.hpp"
+

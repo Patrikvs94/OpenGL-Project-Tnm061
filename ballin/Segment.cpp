@@ -2,7 +2,7 @@
 #include <iostream>
 
 const float Segment::xsize = 0.3f;
-const float Segment::ysize = 0.05f;
+const float Segment::ysize = 0.1f;
 const float Segment::zsize = 1.0f;
 
 
