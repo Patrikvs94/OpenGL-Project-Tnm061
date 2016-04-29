@@ -2,9 +2,6 @@
 #define Player_hpp
 
 #include "Element.h"
-#include "TriangleSoup.hpp"
-#include "matrixStack.hpp"
-#include "Shader.hpp"
 
 class Player : public Element
 {

@@ -2,9 +2,6 @@
 #define SEGMENT_H
 
 #include "Element.h"
-#include "TriangleSoup.hpp"
-#include "matrixStack.hpp"
-#include "Shader.hpp"
 
 class Segment : public Element
 {

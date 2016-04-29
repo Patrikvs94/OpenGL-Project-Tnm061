@@ -218,25 +218,15 @@
 	"matrixStack.hpp"
 	"Shader.hpp"
 
-<<<<<<< HEAD
-1461934038 D
-=======
-1460728593 D
+1461929496 D
 	<ctime>
 	<vector>
->>>>>>> origin/master
 	<ctime>
 	<vector>
 
-1461935794 source:c:\users\patri\documents\github\tnm061---opengl-projekt\ballin\main.cpp
-
-<<<<<<< HEAD
-1461934699 source:c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\main.cpp
-=======
-1461922025 source:c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\main.cpp
-
-1461929496 gin/master
->>>>>>> origin/master
+1461931137 gin/master
+	<ctime>
+	<vector>
 	<iostream>
 	<cstdio>
 	<cstdlib>
@@ -247,11 +237,6 @@
 	"Rotator.hpp"
 	"Segment.h"
 	"Element.h"
-<<<<<<< HEAD
-	<ctime>
-	<vector>
-
-1461931098 gin/master
 	<iostream>
 	<cstdio>
 	<cstdlib>
@@ -264,8 +249,6 @@
 	"Element.h"
 	<ctime>
 	<vector>
-=======
->>>>>>> origin/master
 	<iostream>
 	<cstdio>
 	<cstdlib>
@@ -323,6 +306,26 @@
 	<cstring>
 	"TriangleSoup.hpp"
 	"util.h"
+	"Segment.h"
+	<iostream>
+	"Segment.h"
+	<vector>
+
+1461935794 source:c:\users\patri\documents\github\tnm061---opengl-projekt\ballin\main.cpp
+
+1461934699 source:c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\main.cpp
+	<iostream>
+	<cstdio>
+	<cstdlib>
+	<cmath>
+	<GLFW/glfw3.h>
+	<GL/glext.h>
+	"Texture.hpp"
+	"Rotator.hpp"
+	"Segment.h"
+	"Element.h"
+	<ctime>
+	<vector>
 
 1461931137 "
 
@@ -351,11 +354,7 @@
 	"matrixStack.hpp"
 	"Shader.hpp"
 
-<<<<<<< HEAD
-1461933046 p"
-=======
-1461937674 p"
->>>>>>> origin/master
+1461934699 p"
 
 1460728593 c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\tnm061.hpp
 	<GL/glext.h>
@@ -364,15 +363,8 @@
 	<GLFW/glfw3.h>
 	<cmath>
 
-<<<<<<< HEAD
-1461934699 c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\segment.h
+1461936412 c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\segment.h
 	"Element.h"
-	"TriangleSoup.hpp"
-	"matrixStack.hpp"
-	"Shader.hpp"
-=======
-1461917379 c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\segment.h
->>>>>>> origin/master
 
 1461922649 c:\users\patri\documents\github\tnm061---opengl-projekt\ballin\element.h
 
@@ -381,11 +373,10 @@
 	<GL/glext.h>
 	"tnm061.hpp"
 
-<<<<<<< HEAD
-1461932805 c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\element.h
-=======
-1461668947 c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\element.h
->>>>>>> origin/master
+1461936416 c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\element.h
+	"TriangleSoup.hpp"
+	"matrixStack.hpp"
+	"Shader.hpp"
 
 1461919924 c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\trianglesoup.hpp
 
@@ -437,11 +428,7 @@
 1460728593 source:c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\rotator.cpp
 	"Rotator.hpp"
 
-<<<<<<< HEAD
 1461934699 source:c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\segment.cpp
-=======
-1461922034 source:c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\segment.cpp
->>>>>>> origin/master
 	"Segment.h"
 	<iostream>
 
@@ -462,23 +449,15 @@
 
 1461929496 source:c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\trianglesoup.cpp
 
-<<<<<<< HEAD
-1461934698 source:c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\util.cpp
-	"util.h"
-
-1461934698 c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\util.h
-=======
 1461931098 source:c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\util.cpp
+	"util.h"
 	"util.h"
 
 1461931137 c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\util.h
->>>>>>> origin/master
-	"Segment.h"
-	<vector>
 
-1461668947 source:c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\player.cpp
+1461936256 source:c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\player.cpp
 	"Player.hpp"
 
-1461668947 c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\player.hpp
-	<stdio.h>
+1461936425 c:\users\adamr\documents\github\tnm061---opengl-projekt\ballin\player.hpp
+	"Element.h"
 

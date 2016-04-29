@@ -1,7 +1,9 @@
 #ifndef ELEMENT_H
 #define ELEMENT_H
 
-
+#include "TriangleSoup.hpp"
+#include "matrixStack.hpp"
+#include "Shader.hpp"
 
 class Element
 {
