@@ -60,7 +60,6 @@ int main(int argc, char *argv[]) {
     Texture earthTexture, segmentTexture;
     Shader shader;
     std::vector<Segment*> Segments;
-    std::vector<float> Positions;
 
     //Starting position of the player
     float transX = 0.0f;
@@ -142,13 +141,9 @@ int main(int argc, char *argv[]) {
     for(int i = 0; i < 10; i++)
     {
         Segments.push_back(new Segment());
+        Segments.at(i)->changeZPos(-(Segment::zsize*2  + 1.2f)*i);
     }
-    std::cout << Segments.size() << std::endl;
 
-    for(int i = 0; i < 10; i++)
-    {
-        Positions.push_back((-3.2f)*i);
-    }
     double currentTime=glfwGetTime();
     double posTime=glfwGetTime();
 
@@ -223,14 +218,14 @@ int main(int argc, char *argv[]) {
             MVstack.push();
             for(int i=0;i<10;++i)
             {
-                Positions.at(i)+=3.0f*(glfwGetTime()-posTime);
+                Segments.at(i)->changeZPos(3.0f*(glfwGetTime()-posTime));
             }
             posTime=glfwGetTime();
 
             for(int i = 0; i<10; i++)
             {
                 MVstack.push();
-                MVstack.translate(0.0f, 0.0f, Positions.at(i));
+                MVstack.translate(0.0f, 0.0f, Segments.at(i)->returnZ());
                 Segments.at(i)->render(MVstack, location_MV, segmentTexture.texID);
                 MVstack.pop();
             }

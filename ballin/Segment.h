@@ -17,7 +17,13 @@ class Segment : public Element
         void reInit();              //Fixes a new version of the segment
 
         void render(MatrixStack& p, GLint& location_MV, GLuint& texture);
+        void changeZPos(float posChange);
+        float returnZ();
 
+        //Block dimensions
+        static const float xsize;
+        static const float ysize;
+        static const float zsize;
 
     protected:
 
@@ -25,10 +31,7 @@ class Segment : public Element
         //Array with three blocks of class TriangleSoup
         TriangleSoup Blocks[3];
 
-        //Block dimensions
-        static const float xsize;
-        static const float ysize;
-        static const float zsize;
+
 
         float xPos;
         float yPos;

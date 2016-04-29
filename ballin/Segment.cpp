@@ -12,6 +12,7 @@ Segment::Segment()
     Blocks[0].createBox(xsize, ysize, zsize);
     Blocks[1].createBox(xsize, ysize, zsize);
     Blocks[2].createBox(xsize, ysize, zsize);
+    xPos=0.0f; yPos=0.0f; zPos=0.0f;
 
 }
 
@@ -37,4 +38,18 @@ void Segment::render(MatrixStack& p, GLint& location_MV, GLuint& texture)
 
     p.pop(); //Restore the initial matrix
 }
+void Segment::changeZPos(float posChange)
+{
+    zPos += posChange;
+}
+
+float Segment::returnZ()
+{
+    return zPos;
+}
+
+
+
+
+
 

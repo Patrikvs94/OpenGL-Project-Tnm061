@@ -220,6 +220,7 @@
 	<ctime>
 	<vector>
 
+1461937379 source:c:\users\patri\documents\github\tnm061---opengl-projekt\ballin\main.cpp
 	<iostream>
 	<cstdio>
 	<cstdlib>
@@ -312,6 +313,7 @@
 	<GLFW/glfw3.h>
 	<cmath>
 
+1461937674 c:\users\patri\documents\github\tnm061---opengl-projekt\ballin\segment.h
 	"Element.h"
 	"TriangleSoup.hpp"
 	"matrixStack.hpp"
@@ -359,6 +361,7 @@
 1461921070 source:c:\users\patri\documents\github\tnm061---opengl-projekt\ballin\rotator.cpp
 	"Rotator.hpp"
 
+1461937360 source:c:\users\patri\documents\github\tnm061---opengl-projekt\ballin\segment.cpp
 	"Segment.h"
 	<iostream>
 
