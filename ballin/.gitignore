@@ -1,9 +1,0 @@
-*.layout
-*.o
-*.exe
-*.depend
-*.xcodeproj
-
-ballin/bin
-ballin/obj
-ballin/ballin.xcodeproj
