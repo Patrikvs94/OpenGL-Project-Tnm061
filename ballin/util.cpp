@@ -1,4 +1,6 @@
 #include "util.h"
+#include <typeinfo>
+#include <iostream>
 
 util::util()
 {
@@ -27,7 +29,8 @@ void util::getRelevantObjects(TriangleSoup* refPoint)
 
 bool util::checkCollision(Player* player, Element* object)
 {
-
+    //FETASTE DEBUG
+    std::cout << typeid(object).name() << std::endl;
 }
 
 void util::updateCollisionVector()
