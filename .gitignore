@@ -18,3 +18,5 @@ ballin/obj/Debug/main.o
 *.depend
 ballin/obj/Debug/main.o
 *.exe
+*.o
+*.exe
