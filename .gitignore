@@ -2,3 +2,6 @@
 ballin/obj
 ballin/bin
 ballin.xcodeproj/
+ballin/bin/Debug/ballin.exe
+*.o
+ballin/bin/Debug/ballin.exe

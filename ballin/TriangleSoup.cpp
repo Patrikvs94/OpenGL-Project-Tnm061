@@ -58,60 +58,67 @@ void TriangleSoup::clean() {
 	ntris = 0;
 }
 
-
-/* Create a simple box geometry */
 void TriangleSoup::createBox(float xsize, float ysize, float zsize) {
+
+    //Sets values for x-, y-, and zLength
+    yLength = xsize*2.0f;
+    xLength = ysize*2.0f;
+    zLength = zsize*2.0f;
 
     // The data array contains 8 floats per vertex:
     // coordinate xyz, normal xyz, texcoords st
     const GLfloat vertex_array_data[] = {
-         xsize, -ysize,  zsize,   1.0f, 0.0f, 0.0f,    0.0f, 0.0f, // Vertex 0
+        -xsize, -ysize, -zsize,   -1.0f, 0.0f, 0.0f,   1.0/3.0f, 3.0/4.0f, // Vertex 0
+        -xsize, -ysize, -zsize,   0.0f, -1.0f, 0.0f,   1.0/3.0f, 3.0/4.0f,
+        -xsize, -ysize, -zsize,   0.0f, 0.0f, -1.0f,   0.0f, 0.0f,
+
+         xsize, -ysize, -zsize,   1.0f, 0.0f, 0.0f,    1.0/3.0f, 1.0/2.0f, // Vertex 1
+         xsize, -ysize, -zsize,   0.0f, -1.0f, 0.0f,   1.0/3.0f, 1.0/2.0f,
+         xsize, -ysize, -zsize,   0.0f, 0.0f, -1.0f,   0.0f, 1.0/4.0f,
+
+        -xsize,  ysize, -zsize,   -1.0f, 0.0f, 0.0f,   1.0/3.0f, 1.0f,  // Vertex 2
+        -xsize,  ysize, -zsize,   0.0f, 1.0f, 0.0f,   1.0/3.0f, 0.0f,
+        -xsize,  ysize, -zsize,   0.0f, 0.0f, -1.0f,   1.0/3.0f, 0.0f,
+
+         xsize,  ysize, -zsize,   1.0f, 0.0f, 0.0f,   1.0/3.0f, 1.0/4.0f,  // Vertex 3
+         xsize,  ysize, -zsize,   0.0f, 1.0f, 0.0f,   1.0/3.0f, 1.0/4.0f,
+         xsize,  ysize, -zsize,   0.0f, 0.0f, -1.0f,  1.0/3.0f, 1.0/4.0f,
+
+        -xsize, -ysize,  zsize,   -1.0f, 0.0f, 0.0f,   2.0/3.0f, 3.0/4.0f, // Vertex 4
+        -xsize, -ysize,  zsize,   0.0f, -1.0f, 0.0f,   2.0/3.0f, 3.0/4.0f,
+        -xsize, -ysize,  zsize,   0.0f, 0.0f, 1.0f,    1.0f, 0.0f,
+
+         xsize, -ysize,  zsize,   1.0f, 0.0f, 0.0f,   2.0/3.0f, 1.0/2.0f, // Vertex 5
          xsize, -ysize,  zsize,   0.0f, -1.0f, 0.0f,   1.0f, 1.0f,
-         xsize, -ysize,  zsize,   0.0f, 0.0f, 1.0f,    1.0f, 0.0f,
+         xsize, -ysize,  zsize,   0.0f, 0.0f, 1.0f,   1.0f, 1.0/4.0f,
 
-         xsize, -ysize, -zsize,   1.0f, 0.0f, 0.0f,    1.0f, 0.0f, // Vertex 1
-         xsize, -ysize, -zsize,   0.0f, -1.0f, 0.0f,   1.0f, 0.0f,
-         xsize, -ysize, -zsize,   0.0f, 0.0f, -1.0f,   0.0f, 0.0f,
+        -xsize,  ysize,  zsize,   -1.0f, 0.0f, 0.0f,   2.0/3.0f, 1.0f,  // Vertex 6
+        -xsize,  ysize,  zsize,   0.0f, 1.0f, 0.0f,   2.0/3.0f, 0.0f,
+        -xsize,  ysize,  zsize,   0.0f, 0.0f, 1.0f,   2.0/3.0f, 0.0f,
 
-         xsize,  ysize, -zsize,   1.0f, 0.0f, 0.0f,    1.0f, 1.0f, // Vertex 2
-         xsize,  ysize, -zsize,   0.0f, 1.0f, 0.0f,    1.0f, 1.0f,
-         xsize,  ysize, -zsize,   0.0f, 0.0f, -1.0f,   0.0f, 1.0f,
-
-         xsize,  ysize,  zsize,   1.0f, 0.0f, 0.0f,    0.0f, 1.0f, // Vertex 3
-         xsize,  ysize,  zsize,   0.0f, 1.0f, 0.0f,    1.0f, 0.0f,
-         xsize,  ysize,  zsize,   0.0f, 0.0f, 1.0f,    1.0f, 1.0f,
-
-        -xsize, -ysize,  zsize,   -1.0f, 0.0f, 0.0f,   1.0f, 0.0f, // Vertex 4
-        -xsize, -ysize,  zsize,   0.0f, -1.0f, 0.0f,   0.0f, 1.0f,
-        -xsize, -ysize,  zsize,   0.0f, 0.0f, 1.0f,    0.0f, 0.0f,
-
-        -xsize,  ysize,  zsize,   -1.0f, 0.0f, 0.0f,   1.0f, 1.0f, // Vertex 5
-        -xsize,  ysize,  zsize,   0.0f, 1.0f, 0.0f,    0.0f, 0.0f,
-        -xsize,  ysize,  zsize,   0.0f, 0.0f, 1.0f,    0.0f, 1.0f,
-
-        -xsize,  ysize, -zsize,   -1.0f, 0.0f, 0.0f,   0.0f, 1.0f, // Vertex 6
-        -xsize,  ysize, -zsize,   0.0f, 1.0f, 0.0f,    0.0f, 1.0f,
-        -xsize,  ysize, -zsize,   0.0f, 0.0f, -1.0f,   1.0f, 1.0f,
-
-        -xsize, -ysize, -zsize,   -1.0f, 0.0f, 0.0f,   0.0f, 0.0f, // Vertex 7
-        -xsize, -ysize, -zsize,   0.0f, -1.0f, 0.0f,   0.0f, 0.0f,
-        -xsize, -ysize, -zsize,   0.0f, 0.0f, -1.0f,   1.0f, 0.0f
-
+         xsize,  ysize,  zsize,   1.0f, 0.0f, 0.0f,   2.0/3.0f, 1.0/4.0f,  // Vertex 7
+         xsize,  ysize,  zsize,   0.0f, 1.0f, 0.0f,   2.0/3.0f, 1.0/4.0f,
+         xsize,  ysize,  zsize,   0.0f, 0.0f, 1.0f,   2.0/3.0f, 1.0/4.0f,
     };
     const GLuint index_array_data[] = {
-        0,3,6,    //t1
-        0,6,9,    //t2 face 1
-        1,10,12,  //t3
-        12,10,15, //t4 face 2
-        11,7,18,  //t5
-        11,18,16, //t6 face 2
-        2,21,4,   //t7
-        2,13,21,  //t8 face 4
-        14,17,22, //t9
-        22,17,19, //t10 face 5
-        5,23,20,  //t11
-        5,20,8    //t12 face 6
-        };
+        2,11,5,
+        2,8,11, //Normal 0,0,-1
+
+        4,13,1,
+        4,16,13,//Normal 0,-1,0
+
+        12,6,0,
+        12,18,6, //Normal -1,0,0
+
+        3,9,21,
+        3,21,15, // NOrmal 1,0,0
+
+        22,7,19,
+        22,10,7, // NOrmal 0,1,0
+
+        14,17,23,
+        14,23,20 // Normal 0,0,1
+    };
 
     nverts = 24;
     ntris = 12;
@@ -172,6 +179,7 @@ void TriangleSoup::createBox(float xsize, float ysize, float zsize) {
 }
 
 
+
 /*
  * createSphere(float radius, int segments)
  *
@@ -195,6 +203,11 @@ void TriangleSoup::createSphere(float radius, int segments) {
 	double theta, phi;
 	int vsegs, hsegs;
 	int stride = 8;
+
+    //Sets values for x-, y-, and zLength
+    yLength = radius*2.0f;
+    xLength = radius*2.0f;
+    zLength = radius*2.0f;
 
 	// Delete any previous content in the TriangleSoup object
 	clean();
@@ -601,4 +614,16 @@ void TriangleSoup::render() {
  */
 void TriangleSoup::printError(const char *errtype, const char *errmsg) {
   fprintf(stderr, "%s: %s\n", errtype, errmsg);
+}
+
+float* TriangleSoup::getBoundaries()
+{
+    //Array with x, y, z values
+    float *arr = new float[3];
+
+    arr[0] = xLength;
+    arr[1] = yLength;
+    arr[2] = zLength;
+
+    return arr;
 }
