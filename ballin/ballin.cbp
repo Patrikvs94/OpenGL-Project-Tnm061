@@ -61,6 +61,8 @@
 		<Unit filename="matrixStack.hpp" />
 		<Unit filename="tnm061.cpp" />
 		<Unit filename="tnm061.hpp" />
+		<Unit filename="util.cpp" />
+		<Unit filename="util.h" />
 		<Unit filename="vertexshader.glsl" />
 		<Extensions>
 			<code_completion />

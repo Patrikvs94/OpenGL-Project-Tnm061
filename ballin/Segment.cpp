@@ -49,6 +49,11 @@ float Segment::returnZ()
     return zPos;
 }
 
+void Segment::setZPos(float pos)
+{
+    zPos=pos;
+}
+
 
 
 

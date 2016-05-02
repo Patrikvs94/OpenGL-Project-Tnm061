@@ -16,6 +16,7 @@ class Segment : public Element
         void render(MatrixStack& p, GLint& location_MV, GLuint& texture);
         void changeZPos(float posChange);
         float returnZ();
+        void setZPos(float pos);
 
         //Block dimensions
         static const float xsize;

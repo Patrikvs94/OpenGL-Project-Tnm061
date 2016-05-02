@@ -1,6 +1,8 @@
 #include "Player.hpp"
 
-Player::Player() : moveLength(laneMargin), jumpHeight(2.0)
+const float Player::G = 9.82f;
+
+Player::Player() : moveLength(laneMargin), jumpHeight(2.0f)
 {
     mesh.createSphere(1.0, 30);
 }
@@ -26,13 +28,15 @@ float Player::moveLeft(float xPos)
 }
 
 //Make a jump!
-float Player::jump(float yPos)
+float Player::jump(float t,float T)
 {
-    if(yPos!=jumpHeight)
+    //"kastparabel" formeln.
+    float ypos = G*T*0.5f*t - G * t*t*0.5f;
+    if(ypos < 0.0f)
     {
-        yPos+=jumpHeight;
+        ypos = 0.0f;
     }
-    return yPos;
+    return ypos;
 }
 
 void Player::render(MatrixStack& p, GLint& location_MV, GLuint& texture)

@@ -13,7 +13,7 @@ class Player : public Element
 
         float moveRight(float xPos);
         float moveLeft(float xPos);
-        float jump(float yPos);
+        float jump(float t,float T);
         void render(MatrixStack& p, GLint& location_MV, GLuint& texture);
 
     protected:
@@ -22,6 +22,8 @@ class Player : public Element
         float jumpHeight;
         float moveLength;
         TriangleSoup mesh;
+        static const float G;
+
 
 
 };

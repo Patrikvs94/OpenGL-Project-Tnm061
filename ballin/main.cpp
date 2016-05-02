@@ -62,6 +62,8 @@ int main(int argc, char *argv[]) {
     Texture earthTexture, segmentTexture;
     Shader shader;
     std::vector<Segment*> Segments;
+    //Maximal time it can jump until it descends.
+    float T = 1.5f;
 
     //Starting position of the player
     float transX = 0.0f; float transY = 0.0f; float transZ = 0.0f;
@@ -69,7 +71,7 @@ int main(int argc, char *argv[]) {
  	GLint location_time, location_MV, location_P, location_tex; // Shader uniforms
     float time;
 	double fps = 0.0;
-
+    double jumpTime = glfwGetTime();
     MatrixStack MVstack; // The matrix stack we are going to use to set MV
 
     const GLFWvidmode *vidmode;  // GLFW struct to hold information about the display
@@ -120,7 +122,7 @@ int main(int argc, char *argv[]) {
     float aspectRatio = (vidmode->width)/(vidmode->height);
 
     //Create perspective matrix with fov = 1 rad, aspect = 1, znear = 3 and zfar = 10.
-	mat4perspective(P, 1.0f, aspectRatio, 3.0f, 100.0f);
+	mat4perspective(P, 1.0f, aspectRatio, 3.0f, 50.0f);
 
     // Intialize the matrix to an identity transformation
     MVstack.init();
@@ -159,6 +161,7 @@ int main(int argc, char *argv[]) {
     /* Testing the Player Class */
     Player ballin;
 
+    bool jumpFlag = false;
 
     // Main loop
     while(!glfwWindowShouldClose(window))
@@ -188,16 +191,20 @@ int main(int argc, char *argv[]) {
             currentTime=glfwGetTime();
             transX = ballin.moveLeft(transX);
         }
-        if(glfwGetKey(window, GLFW_KEY_UP) && glfwGetTime()-currentTime>0.2)
+        if(glfwGetKey(window, GLFW_KEY_UP) && jumpFlag == false)
         {
-            currentTime=glfwGetTime();
-            transY = ballin.jump(transY);
+            jumpTime=glfwGetTime();
+            jumpFlag = true;
+
         }
 
-        //If the player has jumped, make it land
-        if(glfwGetTime()-currentTime>0.2 && transY > 0.0)
+        if(jumpFlag)
         {
-            transY = 0.0f;
+            transY = ballin.jump(glfwGetTime()-jumpTime,T);
+            if(transY == 0.0f)
+            {
+                jumpFlag = false;
+            }
         }
 
 		// Activate our shader program.
@@ -240,11 +247,11 @@ int main(int argc, char *argv[]) {
             posTime=glfwGetTime();
 
             //Moves the segment closest to the camera to the back if it reaches z=0
-            if(Segments.at(0)->returnZ()>0.0f)
+            if(Segments.at(0)->returnZ()>10.0f)
             {
                 Segment* temp = Segments.at(0);
                 Segments.erase(Segments.begin());
-                temp->changeZPos((Segments.at(Segments.size()-1)->returnZ()) -(Segment::zsize*2 + 1.2f));
+                temp->setZPos((Segments.at(Segments.size()-1)->returnZ()) -(Segment::zsize*2 + 1.2f));
                 Segments.push_back(temp);
             }
 
