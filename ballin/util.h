@@ -13,8 +13,8 @@ class util
         util(std::vector<Segment*>* segmentVector);//, std::vector<TriangleSoup>* obstacleVector);
         void init(std::vector<Segment*>* segmentVector);                                        //Init on first run
         void getRelevantObjects(TriangleSoup* refPoint);    //Finds relevant objects to check collision with
-        bool checkCollision(Player* player, Element* object);  //Checks collision between two objects
-        void updateCollisionVector();                        //Put inObject in right place and adjust accordingly.
+        bool isColliding(Player* player, Element* object);  //Checks collision between two objects
+        void updateCollisionVector();                     //Put inObject in right place and adjust accordingly.
 
     protected:
     private:

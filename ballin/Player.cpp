@@ -1,4 +1,5 @@
 #include "Player.hpp"
+#include <iostream>
 
 const float Player::G = 9.82f;
 
@@ -48,4 +49,10 @@ void Player::render(MatrixStack& p, GLint& location_MV, GLuint& texture)
         mesh.render(); //Draw the player
 
     p.pop(); //Restore the initial matrix
+}
+
+float* Player::getCollisionData()
+{
+    float* dataArray = new float[4]; //{return DATA
+    return dataArray;
 }

@@ -16,6 +16,8 @@ class Player : public Element
         float jump(float t,float T);
         void render(MatrixStack& p, GLint& location_MV, GLuint& texture);
 
+        float* getCollisionData();
+
     protected:
 
     private:

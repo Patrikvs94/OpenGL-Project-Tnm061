@@ -18,6 +18,10 @@ class Segment : public Element
         float returnZ();
         void setZPos(float pos);
 
+        float* getCollisionData(); //Returns array with [xPos, yPos, zPos, zsize]
+                                        //LENGTH OF OBJECT IS zsize * 2;
+
+
         //Block dimensions
         static const float xsize;
         static const float ysize;
