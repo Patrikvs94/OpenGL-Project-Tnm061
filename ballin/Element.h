@@ -10,7 +10,7 @@ class Element
     public:
         Element();
         virtual ~Element();
-        virtual float* getCollisionData() = 0;
+        virtual float* getCollisionData() = 0; //DENNA SKA BORT
 
     protected:
         //The distance between two lanes

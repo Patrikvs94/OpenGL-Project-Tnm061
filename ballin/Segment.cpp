@@ -57,7 +57,7 @@ void Segment::setZPos(float pos)
 
 float* Segment::getCollisionData()
 {
-    float* dataArray = new float[4] {xPos, yPos, zPos, zsize};
+    float* dataArray = new float[6] {xPos, yPos, zPos, xsize, ysize, zsize};
     return dataArray;
 }
 

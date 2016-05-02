@@ -10,16 +10,18 @@ class util
 {
     public:
         util();
-        util(std::vector<Segment*>* segmentVector);//, std::vector<TriangleSoup>* obstacleVector);
+        util(Player* p, std::vector<Segment*>* segmentVector);//, std::vector<TriangleSoup>* obstacleVector);
         void init(std::vector<Segment*>* segmentVector);                                        //Init on first run
-        void getRelevantObjects(TriangleSoup* refPoint);    //Finds relevant objects to check collision with
-        bool isColliding(Player* player, Element* object);  //Checks collision between two objects
-        void updateCollisionVector();                     //Put inObject in right place and adjust accordingly.
+        //std::vector<std::vector<Element*>> sendToCheck();    //Finds relevant objects to check collision with
+        bool checkCollision();  //Checks collision between two objects
+        void updateCollisionVectors();                     //Put inObject in right place and adjust accordingly.
+        std::vector<Element*> sendToCheck();
 
     protected:
     private:
         std::vector<Segment*> collisionSegments;             //Vector that holds all segments used when checking collision
-       // std::vector<TriangleSoup>* collisionObstacles;       //Vector that holds all objects used when checking collision
+        Player* player;
+        //CREATE VECTOR FOR OBSTICLE AND COLLECTABLE
 };
 
 #endif // UTIL_H

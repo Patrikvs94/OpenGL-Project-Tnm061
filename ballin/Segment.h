@@ -18,7 +18,7 @@ class Segment : public Element
         float returnZ();
         void setZPos(float pos);
 
-        float* getCollisionData(); //Returns array with [xPos, yPos, zPos, zsize]
+        float* getCollisionData(); //Returns array with [xPos, yPos, zPos, zsize, ysize,zsize]
                                         //LENGTH OF OBJECT IS zsize * 2;
 
 
