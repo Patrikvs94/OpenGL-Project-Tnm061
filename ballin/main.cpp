@@ -51,7 +51,6 @@
 void mat4perspective(float M[], float vfov, float aspect, float znear, float zfar);
 void setupViewport(GLFWwindow *window, GLfloat *P);
 void getRelevantGlContent();
-enum class {};
 
 /* ------ MAIN FUNCTION --------------*/
 
@@ -290,6 +289,7 @@ int main(int argc, char *argv[]) {
                 MVstack.push();
                 MVstack.translate(0.0f, 0.0f, Segments.at(i)->returnZ());
                 Segments.at(i)->render(MVstack, location_MV, segmentTexture.texID);
+                coin.render(MVstack, location_MV, earthTexture.texID);
                 MVstack.pop();
             }
 
