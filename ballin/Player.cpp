@@ -3,41 +3,41 @@
 
 const float Player::G = 9.82f;
 
-Player::Player() : moveLength(laneMargin), jumpHeight(2.0f)
+Player::Player() : moveLength(laneMargin), jumpHeight(2.0f),xPos(0.0f),yPos(0.0f),zPos(0.0f)
 {
     mesh.createSphere(1.0, 30);
 }
 
 //Move the player one step to the right
-float Player::moveRight(float xPos)
+void Player::moveRight(float t,float T)
 {
-    if(xPos!=moveLength)
+    xPos += (laneMargin/ T) * t;
+    if(xPos > laneMargin)
     {
-        xPos+=moveLength;
+        xPos = laneMargin;
     }
-    return xPos;
+
 }
 
 //Move the player one step to the left
-float Player::moveLeft(float xPos)
+void Player::moveLeft(float t,float T)
 {
-    if(xPos!=-moveLength)
+    xPos -= (laneMargin / T) * t;
+    if(xPos < -laneMargin)
     {
-        xPos-=moveLength;
+        xPos = -laneMargin;
     }
-    return xPos;
 }
 
 //Make a jump!
-float Player::jump(float t,float T)
+void Player::jump(float t,float T)
 {
     //"kastparabel" formeln.
-    float ypos = G*T*0.5f*t - G * t*t*0.5f;
-    if(ypos < 0.0f)
+     yPos = G*T*0.5f*t - G * t*t*0.5f;
+    if(yPos < 0.0f)
     {
-        ypos = 0.0f;
+        yPos = 0.0f;
     }
-    return ypos;
 }
 
 void Player::render(MatrixStack& p, GLint& location_MV, GLuint& texture)
@@ -55,4 +55,19 @@ float* Player::getCollisionData()
 {
     float* dataArray = new float[4]; //{return DATA
     return dataArray;
+}
+
+float Player::getX()
+{
+    return xPos;
+}
+
+float Player::getY()
+{
+    return yPos;
+}
+
+float Player::getZ()
+{
+    return zPos;
 }

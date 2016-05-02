@@ -50,6 +50,7 @@
 void mat4perspective(float M[], float vfov, float aspect, float znear, float zfar);
 void setupViewport(GLFWwindow *window, GLfloat *P);
 void getRelevantGlContent();
+enum class {};
 
 /* ------ MAIN FUNCTION --------------*/
 
@@ -61,6 +62,7 @@ int main(int argc, char *argv[]) {
     std::vector<Segment*> Segments;
     //Maximal time it can jump until it descends.
     float T = 1.5f;
+    float scaleTime = 0.2f;
 
     //Starting position of the player
     float transX = 0.0f; float transY = 0.0f; float transZ = 0.0f;
@@ -159,6 +161,8 @@ int main(int argc, char *argv[]) {
     Player ballin;
 
     bool jumpFlag = false;
+    bool leftFlag = false;
+    bool rightFlag = false;
 
     // Main loop
     while(!glfwWindowShouldClose(window))
@@ -178,29 +182,55 @@ int main(int argc, char *argv[]) {
         setupViewport(window, P);
 
 		// Handle keyboard input (cannot press a key if the time since last press is less than 0,2 sec)
-        if(glfwGetKey(window, GLFW_KEY_RIGHT) && glfwGetTime()-currentTime>0.2)
+        if(glfwGetKey(window, GLFW_KEY_RIGHT) && !rightFlag && !leftFlag)
         {
             currentTime=glfwGetTime();
-            transX = ballin.moveRight(transX);
+            rightFlag = true;
         }
-        if(glfwGetKey(window, GLFW_KEY_LEFT) && glfwGetTime()-currentTime>0.2)
+        if(glfwGetKey(window, GLFW_KEY_LEFT) && !leftFlag && !rightFlag)
         {
             currentTime=glfwGetTime();
-            transX = ballin.moveLeft(transX);
+            leftFlag = true;
         }
         if(glfwGetKey(window, GLFW_KEY_UP) && jumpFlag == false)
         {
             jumpTime=glfwGetTime();
             jumpFlag = true;
-
         }
 
         if(jumpFlag)
         {
-            transY = ballin.jump(glfwGetTime()-jumpTime,T);
-            if(transY == 0.0f)
+            ballin.jump(glfwGetTime()-jumpTime,T);
+            if(ballin.getY() == 0.0f)
             {
                 jumpFlag = false;
+            }
+        }
+        if(rightFlag && !leftFlag)
+        {
+
+            ballin.moveRight(glfwGetTime() - posTime,scaleTime * T);
+            if((glfwGetTime() - currentTime) >= scaleTime * T)
+            {
+                rightFlag = false;
+            }
+            if(!jumpFlag)
+            {
+                ballin.jump(glfwGetTime() - currentTime,scaleTime*T);
+            }
+        }
+
+        if(leftFlag && !rightFlag)
+        {
+
+            ballin.moveLeft(glfwGetTime() - posTime,scaleTime * T);
+            if((glfwGetTime() - currentTime) >= scaleTime * T)
+            {
+                leftFlag = false;
+            }
+            if(!jumpFlag)
+            {
+                ballin.jump(glfwGetTime() - currentTime,scaleTime*T);
             }
         }
 
@@ -263,7 +293,7 @@ int main(int argc, char *argv[]) {
             MVstack.pop();
 
                 // Ball
-                MVstack.translate(transX, transY, transZ);
+                MVstack.translate(ballin.getX(),ballin.getY(), ballin.getZ());
                 MVstack.rotX(-2*time);
 
                 ballin.render(MVstack, location_MV, earthTexture.texID);

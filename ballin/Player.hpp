@@ -11,12 +11,16 @@ class Player : public Element
         Player();
         Player(TriangleSoup& model, float jump = 2.0f);
 
-        float moveRight(float xPos);
-        float moveLeft(float xPos);
-        float jump(float t,float T);
+        void moveRight(float t,float T);
+        void moveLeft(float t,float T);
+        void jump(float t,float T);
         void render(MatrixStack& p, GLint& location_MV, GLuint& texture);
 
         float* getCollisionData();
+
+        float getX();
+        float getY();
+        float getZ();
 
     protected:
 
@@ -25,6 +29,10 @@ class Player : public Element
         float moveLength;
         TriangleSoup mesh;
         static const float G;
+
+        float xPos;
+        float yPos;
+        float zPos;
 
 
 
