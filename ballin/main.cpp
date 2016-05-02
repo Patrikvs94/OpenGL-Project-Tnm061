@@ -49,9 +49,6 @@
 //Function definitions and explanations is found in the bottom of this file.
 void mat4perspective(float M[], float vfov, float aspect, float znear, float zfar);
 void setupViewport(GLFWwindow *window, GLfloat *P);
-float moveRight(float xPos);
-float moveLeft(float xPos);
-float jump(float yPos);
 void getRelevantGlContent();
 
 /* ------ MAIN FUNCTION --------------*/
@@ -313,15 +310,6 @@ void mat4perspective(float M[], float vfov, float aspect, float znear, float zfa
     M[3] = 0;        M[7] = 0; M[11] = -1; M[15] = 0;
 }
 
-//Function to move the player right
-float moveRight(float xPos)
-{
-    if(xPos!=3.0)
-    {
-        xPos+=3.0;
-    }
-    return xPos;
-}
 
 /*
  * Function to set up the OpenGL viewport

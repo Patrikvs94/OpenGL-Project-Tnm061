@@ -1,4 +1,5 @@
 #include "Player.hpp"
+#include <iostream>
 
 Player::Player() : moveLength(laneMargin), jumpHeight(2.0)
 {
@@ -44,4 +45,10 @@ void Player::render(MatrixStack& p, GLint& location_MV, GLuint& texture)
         mesh.render(); //Draw the player
 
     p.pop(); //Restore the initial matrix
+}
+
+float* Player::getCollisionData()
+{
+    float* dataArray = new float[4]; //{return DATA
+    return dataArray;
 }

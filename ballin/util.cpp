@@ -27,10 +27,10 @@ void util::getRelevantObjects(TriangleSoup* refPoint)
 
 }
 
-bool util::checkCollision(Player* player, Element* object)
+bool util::isColliding(Player* player, Element* object)
 {
-    //FETASTE DEBUG
-    std::cout << typeid(object).name() << std::endl;
+
+    return true;
 }
 
 void util::updateCollisionVector()
@@ -42,5 +42,4 @@ void util::updateCollisionVector()
     }
     collisionSegments.at(collisionSegments.size()-1) = temp;
 }
-
 

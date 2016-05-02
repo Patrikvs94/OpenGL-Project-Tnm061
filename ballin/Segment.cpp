@@ -49,8 +49,9 @@ float Segment::returnZ()
     return zPos;
 }
 
-
-
-
-
+float* Segment::getCollisionData()
+{
+    float* dataArray = new float[4] {xPos, yPos, zPos, zsize};
+    return dataArray;
+}
 
