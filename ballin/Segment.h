@@ -33,8 +33,6 @@ class Segment : public Element
         //Array with three blocks of class TriangleSoup
         TriangleSoup Blocks[3];
 
-
-
         float xPos;
         float yPos;
         float zPos;

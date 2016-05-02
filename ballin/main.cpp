@@ -41,6 +41,7 @@
 #include "Element.h"
 #include "Player.hpp"
 #include "util.h"
+#include "Collectibles.h"
 
 #include <ctime>
 #include <vector>
@@ -159,6 +160,7 @@ int main(int argc, char *argv[]) {
 
     /* Testing the Player Class */
     Player ballin;
+    Collectibles coin;
 
     bool jumpFlag = false;
     bool leftFlag = false;
@@ -290,6 +292,8 @@ int main(int argc, char *argv[]) {
                 Segments.at(i)->render(MVstack, location_MV, segmentTexture.texID);
                 MVstack.pop();
             }
+
+
             MVstack.pop();
 
                 // Ball
@@ -300,6 +304,7 @@ int main(int argc, char *argv[]) {
 
 
             MVstack.pop(); // Restore the matrix we saved above
+
 
         MVstack.pop(); // Restore the initial, untouched matrix
 
