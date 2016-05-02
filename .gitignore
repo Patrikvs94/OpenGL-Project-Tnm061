@@ -6,4 +6,6 @@
 
 ballin/bin
 ballin/obj
+ballin/obj/Debug
 ballin/ballin.xcodeproj
+*.cbp
