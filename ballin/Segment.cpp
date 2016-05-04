@@ -7,13 +7,12 @@ const float Segment::ysize = 0.2f;
 const float Segment::zsize = 4*xsize;
 
 
-Segment::Segment()
+Segment::Segment(): Element(0.0f,0.0f,0.0f)
 {
     //Creating the 3 lanes with constant dimensions
     Blocks[0].createBox(xsize, ysize, zsize);
     Blocks[1].createBox(xsize, ysize, zsize);
     Blocks[2].createBox(xsize, ysize, zsize);
-    xPos=0.0f; yPos=0.0f; zPos=0.0f;
 
 }
 
@@ -43,12 +42,6 @@ void Segment::changeZPos(float posChange)
 {
     zPos += posChange;
 }
-
-float Segment::returnZ()
-{
-    return zPos;
-}
-
 
 void Segment::setZPos(float pos)
 {

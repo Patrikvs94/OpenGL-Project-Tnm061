@@ -18,10 +18,6 @@ class Player : public Element
 
         float* getCollisionData();
 
-        float getX();
-        float getY();
-        float getZ();
-
     protected:
 
     private:
@@ -29,10 +25,6 @@ class Player : public Element
         float moveLength;
         TriangleSoup mesh;
         static const float G;
-
-        float xPos;
-        float yPos;
-        float zPos;
 
 
 

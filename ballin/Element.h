@@ -9,12 +9,21 @@ class Element
 {
     public:
         Element();
+        Element(float x, float y, float z);
         virtual ~Element();
         virtual float* getCollisionData() = 0; //DENNA SKA BORT
+    
+        float getX();
+        float getY();
+        float getZ();
 
     protected:
         //The distance between two lanes
         static const int laneMargin = 3.0f;
+    
+        float xPos;
+        float yPos;
+        float zPos;
 
     private:
 };

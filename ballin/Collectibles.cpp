@@ -5,7 +5,7 @@ const float Collectibles::coinX = 0.5f;
 const float Collectibles::coinY = 0.5f;
 const float Collectibles::coinZ = 0.1f;
 
-Collectibles::Collectibles()
+Collectibles::Collectibles(): Element(0.0f,0.0f,0.0f)
 {
     coin.createBox(coinX, coinY, coinZ);
 }

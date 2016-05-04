@@ -15,7 +15,6 @@ class Segment : public Element
 
         void render(MatrixStack& p, GLint& location_MV, GLuint& texture);
         void changeZPos(float posChange);
-        float returnZ();
         void setZPos(float pos);
 
         float* getCollisionData(); //Returns array with [xPos, yPos, zPos, zsize, ysize,zsize]
@@ -32,10 +31,6 @@ class Segment : public Element
     private:
         //Array with three blocks of class TriangleSoup
         TriangleSoup Blocks[3];
-
-        float xPos;
-        float yPos;
-        float zPos;
 
 };
 

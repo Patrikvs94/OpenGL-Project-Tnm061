@@ -50,7 +50,6 @@
 //Function definitions and explanations is found in the bottom of this file.
 void mat4perspective(float M[], float vfov, float aspect, float znear, float zfar);
 void setupViewport(GLFWwindow *window, GLfloat *P);
-void getRelevantGlContent();
 
 /* ------ MAIN FUNCTION --------------*/
 
@@ -59,25 +58,36 @@ int main(int argc, char *argv[]) {
 	TriangleSoup player;
     Texture earthTexture, segmentTexture;
     Shader shader;
-    std::vector<Segment*> Segments;
     //Maximal time it can jump until it descends.
     float T = 1.5f;
     float scaleTime = 0.2f;
 
-    //Starting position of the player
-    float transX = 0.0f; float transY = 0.0f; float transZ = 0.0f;
-
  	GLint location_time, location_MV, location_P, location_tex; // Shader uniforms
     float time;
 	double fps = 0.0;
-    double jumpTime = glfwGetTime();
+    
+    //Variables used for animation
+    double jumpTime = glfwGetTime();//when the player jumps
+    double  currentTime= glfwGetTime();// when the renderingloop repeats
+    double horizontalTime=glfwGetTime(); // when the player moves left/right
+    double deltaTime=0.0; // The time between the current and last frame
+    
+    bool jumpFlag = false;
+    bool leftFlag = false;
+    bool rightFlag = false;
+    
     MatrixStack MVstack; // The matrix stack we are going to use to set MV
 
     const GLFWvidmode *vidmode;  // GLFW struct to hold information about the display
 	GLFWwindow *window;    // GLFW struct to hold information about the window
+    
+    
+    std::vector<Segment*> Segments; // vector containing all the segments
 
     // Initialise GLFW
     glfwInit();
+    
+    
 
     // Determine the desktop size
     vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
@@ -99,10 +109,21 @@ int main(int argc, char *argv[]) {
         glfwTerminate(); // No window was opened, so we can't continue in any useful way
         return -1;
     }
-
+    
     // Make the newly created window the "current context" for OpenGL
     // (This step is strictly required, or things will simply not work)
     glfwMakeContextCurrent(window);
+    
+    // Declaring objects of type Trianglesoup after all GLFW nonsense is complete
+    Player ballin;
+    Collectibles coin;
+    
+    //Loop used for "initlaizing the Segment-vector"
+    for(int i = 0; i < 10; i++)
+    {
+        Segments.push_back(new Segment());
+        Segments.at(i)->changeZPos(-(Segment::zsize*2 + 1.2f)*i);
+    }
 
     // Load the extensions for GLSL - note that this has to be done
     // *after* the window has been opened, or we won't have a GL context
@@ -126,7 +147,7 @@ int main(int argc, char *argv[]) {
     // Intialize the matrix to an identity transformation
     MVstack.init();
 
-    ///Fix this by creating the last constructor in the Player class!
+    //Fix this by creating the last constructor in the Player class!
 	//player.readOBJ("meshes/trex.obj");    //If we want a more fancy mesh for the player
 
 	//player.printInfo();
@@ -145,29 +166,12 @@ int main(int argc, char *argv[]) {
 	location_time = glGetUniformLocation( shader.programID, "time" );
 	location_tex = glGetUniformLocation( shader.programID, "tex" );
 
-    //Loop used for "initlaizing the Segment-vector"
-    for(int i = 0; i < 10; i++)
-    {
-        Segments.push_back(new Segment());
-        Segments.at(i)->changeZPos(-(Segment::zsize*2 + 1.2f)*i);
-    }
-    //Time-variable used for button presses
-    double currentTime=glfwGetTime();
-
-    //Time variable used for moving segments
-    double posTime=glfwGetTime();
-
-    /* Testing the Player Class */
-    Player ballin;
-    Collectibles coin;
-
-    bool jumpFlag = false;
-    bool leftFlag = false;
-    bool rightFlag = false;
-
     // Main loop
     while(!glfwWindowShouldClose(window))
     {
+        deltaTime = glfwGetTime()-currentTime; //calculate time since last frame
+        currentTime=glfwGetTime();
+        
         // Calculate and update the frames per second (FPS) display
         fps = tnm061::displayFPS(window);
 
@@ -185,12 +189,12 @@ int main(int argc, char *argv[]) {
 		// Handle keyboard input (cannot press a key if the time since last press is less than 0,2 sec)
         if(glfwGetKey(window, GLFW_KEY_RIGHT) && !rightFlag && !leftFlag)
         {
-            currentTime=glfwGetTime();
+            horizontalTime=glfwGetTime();
             rightFlag = true;
         }
         if(glfwGetKey(window, GLFW_KEY_LEFT) && !leftFlag && !rightFlag)
         {
-            currentTime=glfwGetTime();
+            horizontalTime=glfwGetTime();
             leftFlag = true;
         }
         if(glfwGetKey(window, GLFW_KEY_UP) && jumpFlag == false)
@@ -198,40 +202,45 @@ int main(int argc, char *argv[]) {
             jumpTime=glfwGetTime();
             jumpFlag = true;
         }
-
+        
+        //player jumps
         if(jumpFlag)
         {
             ballin.jump(glfwGetTime()-jumpTime,T);
+            
             if(ballin.getY() == 0.0f)
             {
                 jumpFlag = false;
             }
         }
+        
+        //player moves to the right
         if(rightFlag && !leftFlag)
         {
 
-            ballin.moveRight(glfwGetTime() - posTime,scaleTime * T);
-            if((glfwGetTime() - currentTime) >= scaleTime * T)
+            ballin.moveRight(deltaTime,scaleTime * T);
+            if((glfwGetTime() - horizontalTime) >= scaleTime * T)
             {
                 rightFlag = false;
             }
             if(!jumpFlag)
             {
-                ballin.jump(glfwGetTime() - currentTime,scaleTime*T);
+                ballin.jump(glfwGetTime() - horizontalTime,scaleTime*T);
             }
         }
-
+        
+        //player moves to the left
         if(leftFlag && !rightFlag)
         {
 
-            ballin.moveLeft(glfwGetTime() - posTime,scaleTime * T);
-            if((glfwGetTime() - currentTime) >= scaleTime * T)
+            ballin.moveLeft(deltaTime,scaleTime * T);
+            if((glfwGetTime() - horizontalTime) >= scaleTime * T)
             {
                 leftFlag = false;
             }
             if(!jumpFlag)
             {
-                ballin.jump(glfwGetTime() - currentTime,scaleTime*T);
+                ballin.jump(glfwGetTime() - horizontalTime,scaleTime*T);
             }
         }
 
@@ -262,37 +271,32 @@ int main(int argc, char *argv[]) {
             //We used the known int of 10 for testing purposes
             MVstack.push();
 
-            //Time during this render-loop
-            double loopTime = glfwGetTime();
 
             //Sets z-coordinates for segments
-            for(int i=0;i<10;++i)
+            for(int i=0;i<Segments.size();++i)
             {
-                Segments.at(i)->changeZPos(3.0f*(loopTime-posTime));
+                Segments.at(i)->changeZPos(3.0f*(deltaTime));
             }
 
-            //Set time for next iteration of loop
-            posTime=glfwGetTime();
 
             //Moves the segment closest to the camera to the back if it reaches z=0
-            if(Segments.at(0)->returnZ()>10.0f)
+            if(Segments.at(0)->getZ()>10.0f)
             {
                 Segment* temp = Segments.at(0);
                 Segments.erase(Segments.begin());
-                temp->setZPos((Segments.at(Segments.size()-1)->returnZ()) -(Segment::zsize*2 + 1.2f));
+                temp->setZPos((Segments.at(Segments.size()-1)->getZ()) -(Segment::zsize*2 + 1.2f));
                 Segments.push_back(temp);
             }
 
             //render segments at correct positions
-            for(int i = 0; i<10; i++)
+            for(int i = 0; i<Segments.size(); i++)
             {
                 MVstack.push();
-                MVstack.translate(0.0f, 0.0f, Segments.at(i)->returnZ());
+                MVstack.translate(0.0f, 0.0f, Segments.at(i)->getZ());
                 Segments.at(i)->render(MVstack, location_MV, segmentTexture.texID);
                 coin.render(MVstack, location_MV, earthTexture.texID);
                 MVstack.pop();
             }
-
 
             MVstack.pop();
 
