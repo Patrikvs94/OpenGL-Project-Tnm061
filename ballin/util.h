@@ -15,9 +15,10 @@ class util
 {
     public:
         util();
+        //SKRIV OM SÅ ATT MAN TAR IN REFERENCER ISTÄLLET.... FETT JOBBIGT DOCK.....
         util(Player* p, std::vector<Segment*>* segmentVector, std::vector<Element*>* objects);//, std::vector<TriangleSoup>* obstacleVector);
         void init(std::vector<Segment*>* segmentVector, std::vector<Element*>* objects);      //Init on first run
-        bool checkCollision();  //Checks collision between two objects
+        void checkCollision();  //Checks collision between two objects
         void updateCollisionVectors(); //UPDATES
 
 

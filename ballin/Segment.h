@@ -23,11 +23,12 @@ class Segment : public Element
         float* getCollisionData(); //Returns array with [xPos, yPos, zPos, zsize, ysize,zsize]
                                         //LENGTH OF OBJECT IS zsize * 2;
 
+        float* getBoundaries(); //returns lower and upper bounderies
 
         //Block dimensions
         static const float xsize;
         static const float ysize;
-    
+
         static const float segmentMax;
         static const float segmentMin;
 

@@ -158,7 +158,7 @@ int main(int argc, char *argv[]) {
     Collectibles coin;
 
     //Loop used for "initlaizing the Segment-vector"
-    
+
     float zPosition= 0.0f;
     Segments.push_back(new Segment());
     for(int i = 1; i < 10; i++)
@@ -167,6 +167,14 @@ int main(int argc, char *argv[]) {
         zPosition-=(Segments.at(i-1)->getLength()+Segments.at(i)->getLength() + 1.2f);
         Segments.at(i)->changeZPos(zPosition);
     }
+
+    //DEBUG FOR UTIL
+    std::vector<Element*> tempShit;
+    Player* tempPlayer = &ballin;
+    std::vector<Segment*>* tempSegments = &Segments;
+    std::vector<Element*>* tempElements = &tempShit;
+
+    util tempUtil(tempPlayer, tempSegments, tempElements);
 
     // Main loop
     while(!glfwWindowShouldClose(window))
@@ -313,6 +321,9 @@ int main(int argc, char *argv[]) {
 
 
         MVstack.pop(); // Restore the initial, untouched matrix
+
+        //DEBUGG FOR UTIL
+        tempUtil.checkCollision();
 
 		// Play nice and deactivate the shader program
 		glUseProgram(0);

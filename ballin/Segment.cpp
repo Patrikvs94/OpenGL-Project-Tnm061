@@ -19,7 +19,7 @@ void Segment::render(MatrixStack& p, GLint& location_MV, GLuint& texture)
     p.push(); //Save the current matrix before performing multiplications
 
         p.translate(0.0f, -xsize, 0.0f); //Lower the segment
-    
+
         p.push();
         p.translate(-laneMargin, 0.0f, zDif[0]);
         glUniformMatrix4fv( location_MV, 1, GL_FALSE, p.getCurrentMatrix() );
@@ -79,7 +79,7 @@ void Segment::randomize()
     {
         zDif[i]= (((float) rand()) / (float) RAND_MAX)*2*(zMax-zsize[i]) - (zMax-zsize[i]);
     }
-    
+
 }
 
 void Segment::reInit()
@@ -88,4 +88,10 @@ void Segment::reInit()
     randomize();
 }
 
+
+float* Segment::getBoundaries()
+{
+        float* boundries = new float[2]{getZ()-zMax, getZ()+zMax};  // [LOWER, UPPER]
+        return boundries;
+}
 
