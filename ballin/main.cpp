@@ -160,10 +160,11 @@ int main(int argc, char *argv[]) {
     //Loop used for "initlaizing the Segment-vector"
     
     float zPosition= 0.0f;
-    for(int i = 0; i < 10; i++)
+    Segments.push_back(new Segment());
+    for(int i = 1; i < 10; i++)
     {
         Segments.push_back(new Segment());
-        zPosition-=(Segments.at(i)->getLength()*2 + 1.2f);
+        zPosition-=(Segments.at(i-1)->getLength()+Segments.at(i)->getLength() + 1.2f);
         Segments.at(i)->changeZPos(zPosition);
     }
 
@@ -207,7 +208,7 @@ int main(int argc, char *argv[]) {
         //player jumps
         if(jumpFlag)
         {
-            ballin.jump(glfwGetTime()-jumpTime,T);
+            ballin.jump(glfwGetTime()-jumpTime,0.7*T);
 
             if(ballin.getY() == 0.0f)
             {
@@ -276,7 +277,7 @@ int main(int argc, char *argv[]) {
             //Sets z-coordinates for segments
             for(int i=0;i<Segments.size();++i)
             {
-                Segments.at(i)->changeZPos(3.0f*(deltaTime));
+                Segments.at(i)->changeZPos(6.0f*(deltaTime));
             }
 
             //Moves the segment closest to the camera to the back if it reaches z=0
