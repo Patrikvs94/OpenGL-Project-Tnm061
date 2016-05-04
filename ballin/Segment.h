@@ -16,6 +16,7 @@ class Segment : public Element
         void render(MatrixStack& p, GLint& location_MV, GLuint& texture);
         void changeZPos(float posChange);
         void setZPos(float pos);
+        float getLength();
 
         float* getCollisionData(); //Returns array with [xPos, yPos, zPos, zsize, ysize,zsize]
                                         //LENGTH OF OBJECT IS zsize * 2;
@@ -24,13 +25,18 @@ class Segment : public Element
         //Block dimensions
         static const float xsize;
         static const float ysize;
-        static const float zsize;
+    
+        static const float segmentMax;
+        static const float segmentMin;
 
     protected:
 
     private:
         //Array with three blocks of class TriangleSoup
         TriangleSoup Blocks[3];
+        float zsize[3];
+        float zDif[3];
+        float zMax;
 
 };
 
