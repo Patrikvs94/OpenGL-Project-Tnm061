@@ -9,10 +9,18 @@ uniform mat4 P;
 uniform float time;
 
 out vec3 interpolatedNormal;
-out vec2 st;
+out vec2 stCoords;
+out vec3 lightDirection;
+out vec4 eyeSpacePos;
 
 void main(){
- gl_Position = (P * MV) * vec4(Position, 1.0);
+
+  gl_Position = (P * MV) * vec4(Position, 1.0);
   interpolatedNormal = mat3(MV) * Normal;
-  st = TexCoord;
+  stCoords = TexCoord;
+
+  lightDirection = normalize(vec3(0.0, 0.5, 1.0));
+
+  //Variable used for calculating fog :)
+  eyeSpacePos = MV * vec4(Position, 1.0);
 }

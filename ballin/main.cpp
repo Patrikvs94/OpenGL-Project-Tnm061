@@ -87,8 +87,6 @@ int main(int argc, char *argv[]) {
     // Initialise GLFW
     glfwInit();
 
-
-
     // Determine the desktop size
     vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
 
@@ -147,8 +145,8 @@ int main(int argc, char *argv[]) {
 	glEnable(GL_TEXTURE_2D);
 
     // Read the texture data from file and upload it to the GPU
-    earthTexture.createTexture("textures/earth.tga");
-    segmentTexture.createTexture("textures/moon.tga");
+    earthTexture.createTexture("textures/sun.tga");
+    segmentTexture.createTexture("textures/space.tga");
 
 	location_MV = glGetUniformLocation( shader.programID, "MV" );
 	location_P = glGetUniformLocation( shader.programID, "P" );
@@ -160,10 +158,12 @@ int main(int argc, char *argv[]) {
     Collectibles coin;
 
     //Loop used for "initlaizing the Segment-vector"
+    float zPosition= 0.0f;
     for(int i = 0; i < 10; i++)
     {
         Segments.push_back(new Segment());
-        Segments.at(i)->changeZPos(-(Segment::zsize*2 + 1.2f)*i);
+        zPosition-=(Segments.at(i)->getLength()*2 + 1.2f);
+        Segments.at(i)->changeZPos(zPosition);
     }
 
     // Main loop
@@ -176,7 +176,7 @@ int main(int argc, char *argv[]) {
         fps = tnm061::displayFPS(window);
 
 		// Set the clear color and depth, and clear the buffers for drawing
-        glClearColor(0.3f, 0.3f, 0.3f, 0.0f);
+        glClearColor(0.3f, 0.3f, 0.3f, 0.0f);       //Background color, should be the same as the fog!
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		glEnable(GL_DEPTH_TEST); // Use the Z buffer
@@ -278,13 +278,12 @@ int main(int argc, char *argv[]) {
                 Segments.at(i)->changeZPos(3.0f*(deltaTime));
             }
 
-
             //Moves the segment closest to the camera to the back if it reaches z=0
             if(Segments.at(0)->getZ()>10.0f)
             {
                 Segment* temp = Segments.at(0);
                 Segments.erase(Segments.begin());
-                temp->setZPos((Segments.at(Segments.size()-1)->getZ()) -(Segment::zsize*2 + 1.2f));
+                temp->setZPos((Segments.at(Segments.size()-1)->getZ()) -(temp->getLength()*2 + 1.2f));
                 Segments.push_back(temp);
             }
 
