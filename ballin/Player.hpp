@@ -15,6 +15,7 @@ class Player : public Element
         void moveLeft(float t,float T);
         void jump(float t,float T);
         void render(MatrixStack& p, GLint& location_MV, GLuint& texture);
+        float getAngle();
 
         float* getCollisionData();
 
@@ -25,6 +26,7 @@ class Player : public Element
         float moveLength;
         TriangleSoup mesh;
         static const float G;
+        float angle;
 
 
 

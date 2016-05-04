@@ -12,6 +12,7 @@ Player::Player(): Element(0.0f,0.0f,0.0f), moveLength(laneMargin), jumpHeight(2.
 void Player::moveRight(float t,float T)
 {
     xPos += (laneMargin/ T) * t;
+    angle += t;
     if(xPos > laneMargin)
     {
         xPos = laneMargin;
@@ -23,6 +24,8 @@ void Player::moveRight(float t,float T)
 void Player::moveLeft(float t,float T)
 {
     xPos -= (laneMargin / T) * t;
+    angle -= t;
+
     if(xPos < -laneMargin)
     {
         xPos = -laneMargin;
@@ -55,4 +58,9 @@ float* Player::getCollisionData()
 {
     float* dataArray = new float[4]; //{return DATA
     return dataArray;
+}
+
+float Player::getAngle()
+{
+    return angle;
 }
