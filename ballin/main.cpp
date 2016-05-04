@@ -113,17 +113,6 @@ int main(int argc, char *argv[]) {
     // Make the newly created window the "current context" for OpenGL
     // (This step is strictly required, or things will simply not work)
     glfwMakeContextCurrent(window);
-    
-    // Declaring objects of type Trianglesoup after all GLFW nonsense is complete
-    Player ballin;
-    Collectibles coin;
-    
-    //Loop used for "initlaizing the Segment-vector"
-    for(int i = 0; i < 10; i++)
-    {
-        Segments.push_back(new Segment());
-        Segments.at(i)->changeZPos(-(Segment::zsize*2 + 1.2f)*i);
-    }
 
     // Load the extensions for GLSL - note that this has to be done
     // *after* the window has been opened, or we won't have a GL context
@@ -142,7 +131,7 @@ int main(int argc, char *argv[]) {
     float aspectRatio = (vidmode->width)/(vidmode->height);
 
     //Create perspective matrix with fov = 1 rad, aspect = 1, znear = 3 and zfar = 10.
-	mat4perspective(P, 1.0f, aspectRatio, 3.0f, 50.0f);
+	mat4perspective(P, 1.0f, aspectRatio, 3.0f, 75.0f);
 
     // Intialize the matrix to an identity transformation
     MVstack.init();
@@ -165,6 +154,17 @@ int main(int argc, char *argv[]) {
 	location_P = glGetUniformLocation( shader.programID, "P" );
 	location_time = glGetUniformLocation( shader.programID, "time" );
 	location_tex = glGetUniformLocation( shader.programID, "tex" );
+    
+    // Declaring objects of type Trianglesoup after all GLFW nonsense is complete
+    Player ballin;
+    Collectibles coin;
+    
+    //Loop used for "initlaizing the Segment-vector"
+    for(int i = 0; i < 10; i++)
+    {
+        Segments.push_back(new Segment());
+        Segments.at(i)->changeZPos(-(Segment::zsize*2 + 1.2f)*i);
+    }
 
     // Main loop
     while(!glfwWindowShouldClose(window))
