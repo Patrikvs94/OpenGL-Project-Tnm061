@@ -158,6 +158,7 @@ int main(int argc, char *argv[]) {
     Collectibles coin;
 
     //Loop used for "initlaizing the Segment-vector"
+    
     float zPosition= 0.0f;
     for(int i = 0; i < 10; i++)
     {
@@ -283,7 +284,8 @@ int main(int argc, char *argv[]) {
             {
                 Segment* temp = Segments.at(0);
                 Segments.erase(Segments.begin());
-                temp->setZPos((Segments.at(Segments.size()-1)->getZ()) -(temp->getLength()*2 + 1.2f));
+                temp->reInit();
+                temp->setZPos((Segments.at(Segments.size()-1)->getZ()) -(Segments.at(Segments.size()-1)->getLength() + temp->getLength()+ 1.2f));
                 Segments.push_back(temp);
             }
 

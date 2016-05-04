@@ -2,6 +2,7 @@
 #define SEGMENT_H
 
 #include "Element.h"
+#include <ctime>
 
 class Segment : public Element
 {
@@ -17,6 +18,7 @@ class Segment : public Element
         void changeZPos(float posChange);
         void setZPos(float pos);
         float getLength();
+        void randomize();
 
         float* getCollisionData(); //Returns array with [xPos, yPos, zPos, zsize, ysize,zsize]
                                         //LENGTH OF OBJECT IS zsize * 2;
