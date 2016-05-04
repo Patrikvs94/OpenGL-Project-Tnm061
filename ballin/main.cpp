@@ -65,29 +65,27 @@ int main(int argc, char *argv[]) {
  	GLint location_time, location_MV, location_P, location_tex; // Shader uniforms
     float time;
 	double fps = 0.0;
-    
+
     //Variables used for animation
     double jumpTime = glfwGetTime();//when the player jumps
     double  currentTime= glfwGetTime();// when the renderingloop repeats
     double horizontalTime=glfwGetTime(); // when the player moves left/right
     double deltaTime=0.0; // The time between the current and last frame
-    
+
     bool jumpFlag = false;
     bool leftFlag = false;
     bool rightFlag = false;
-    
+
     MatrixStack MVstack; // The matrix stack we are going to use to set MV
 
     const GLFWvidmode *vidmode;  // GLFW struct to hold information about the display
 	GLFWwindow *window;    // GLFW struct to hold information about the window
-    
-    
+
+
     std::vector<Segment*> Segments; // vector containing all the segments
 
     // Initialise GLFW
     glfwInit();
-    
-    
 
     // Determine the desktop size
     vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
@@ -109,7 +107,7 @@ int main(int argc, char *argv[]) {
         glfwTerminate(); // No window was opened, so we can't continue in any useful way
         return -1;
     }
-    
+
     // Make the newly created window the "current context" for OpenGL
     // (This step is strictly required, or things will simply not work)
     glfwMakeContextCurrent(window);
@@ -147,18 +145,18 @@ int main(int argc, char *argv[]) {
 	glEnable(GL_TEXTURE_2D);
 
     // Read the texture data from file and upload it to the GPU
-    earthTexture.createTexture("textures/earth.tga");
-    segmentTexture.createTexture("textures/moon.tga");
+    earthTexture.createTexture("textures/sun.tga");
+    segmentTexture.createTexture("textures/space.tga");
 
 	location_MV = glGetUniformLocation( shader.programID, "MV" );
 	location_P = glGetUniformLocation( shader.programID, "P" );
 	location_time = glGetUniformLocation( shader.programID, "time" );
 	location_tex = glGetUniformLocation( shader.programID, "tex" );
-    
+
     // Declaring objects of type Trianglesoup after all GLFW nonsense is complete
     Player ballin;
     Collectibles coin;
-    
+
     //Loop used for "initlaizing the Segment-vector"
     for(int i = 0; i < 10; i++)
     {
@@ -171,12 +169,12 @@ int main(int argc, char *argv[]) {
     {
         deltaTime = glfwGetTime()-currentTime; //calculate time since last frame
         currentTime=glfwGetTime();
-        
+
         // Calculate and update the frames per second (FPS) display
         fps = tnm061::displayFPS(window);
 
 		// Set the clear color and depth, and clear the buffers for drawing
-        glClearColor(0.3f, 0.3f, 0.3f, 0.0f);
+        glClearColor(0.3f, 0.3f, 0.3f, 0.0f);       //Background color, should be the same as the fog!
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		glEnable(GL_DEPTH_TEST); // Use the Z buffer
@@ -202,18 +200,18 @@ int main(int argc, char *argv[]) {
             jumpTime=glfwGetTime();
             jumpFlag = true;
         }
-        
+
         //player jumps
         if(jumpFlag)
         {
             ballin.jump(glfwGetTime()-jumpTime,T);
-            
+
             if(ballin.getY() == 0.0f)
             {
                 jumpFlag = false;
             }
         }
-        
+
         //player moves to the right
         if(rightFlag && !leftFlag)
         {
@@ -228,7 +226,7 @@ int main(int argc, char *argv[]) {
                 ballin.jump(glfwGetTime() - horizontalTime,scaleTime*T);
             }
         }
-        
+
         //player moves to the left
         if(leftFlag && !rightFlag)
         {
@@ -277,7 +275,6 @@ int main(int argc, char *argv[]) {
             {
                 Segments.at(i)->changeZPos(3.0f*(deltaTime));
             }
-
 
             //Moves the segment closest to the camera to the back if it reaches z=0
             if(Segments.at(0)->getZ()>10.0f)
