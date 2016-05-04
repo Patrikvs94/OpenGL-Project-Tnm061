@@ -16,6 +16,7 @@ util::util(Player* p, std::vector<Segment*>* segmentVector, std::vector<Element*
 //Sort collision vectors on constructor call
 void util::init(std::vector<Segment*>* segmentVector, std::vector<Element*>* elementVector)
 {
+    /*
     for(int i = 0; i < segmentVector->size(); ++i)
     {
         nodeVector.push_back(new node());
@@ -32,6 +33,7 @@ void util::init(std::vector<Segment*>* segmentVector, std::vector<Element*>* ele
             }
         }
     }
+    */
 }
 
 
