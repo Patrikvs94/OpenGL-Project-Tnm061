@@ -15,7 +15,7 @@ void main() {
 
     //Fog parameters (should be uniforms.....)
     vec4 vFogColor = vec4(0.3f, 0.3f, 0.3f, 1.0f); //Should be the same as the background
-    float fStart = 5.0f;
+    float fStart = 30.0f;
     float fEnd = 50.0f;
 
 //    ///Create diffuse shading

@@ -5,22 +5,28 @@
 #include <vector>
 #include "Player.hpp"
 
+struct node{
+    Segment* segment;
+    std::vector<Element*> children;
+};
+
 
 class util
 {
     public:
         util();
-        util(Player* p, std::vector<Segment*>* segmentVector);//, std::vector<TriangleSoup>* obstacleVector);
-        void init(std::vector<Segment*>* segmentVector);                                        //Init on first run
-        //std::vector<std::vector<Element*>> sendToCheck();    //Finds relevant objects to check collision with
-        bool checkCollision();  //Checks collision between two objects
-        void updateCollisionVectors();                     //Put inObject in right place and adjust accordingly.
-        std::vector<Element*> sendToCheck();
+        //SKRIV OM SÅ ATT MAN TAR IN REFERENCER ISTÄLLET.... FETT JOBBIGT DOCK.....
+        util(Player* p, std::vector<Segment*>* segmentVector, std::vector<Element*>* objects);//, std::vector<TriangleSoup>* obstacleVector);
+        void init(std::vector<Segment*>* segmentVector, std::vector<Element*>* objects);      //Init on first run
+        void checkCollision();  //Checks collision between two objects
+        void updateCollisionVectors(); //UPDATES
+
 
     protected:
     private:
         std::vector<Segment*> collisionSegments;             //Vector that holds all segments used when checking collision
         Player* player;
+        std::vector<node*> nodeVector;
         //CREATE VECTOR FOR OBSTICLE AND COLLECTABLE
 };
 

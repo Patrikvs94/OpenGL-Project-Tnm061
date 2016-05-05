@@ -2,6 +2,7 @@
 #define SEGMENT_H
 
 #include "Element.h"
+#include <ctime>
 
 class Segment : public Element
 {
@@ -17,15 +18,17 @@ class Segment : public Element
         void changeZPos(float posChange);
         void setZPos(float pos);
         float getLength();
+        void randomize();
 
         float* getCollisionData(); //Returns array with [xPos, yPos, zPos, zsize, ysize,zsize]
                                         //LENGTH OF OBJECT IS zsize * 2;
 
+        float* getBoundaries(); //returns lower and upper bounderies
 
         //Block dimensions
         static const float xsize;
         static const float ysize;
-    
+
         static const float segmentMax;
         static const float segmentMin;
 
@@ -39,5 +42,15 @@ class Segment : public Element
         float zMax;
 
 };
+
+
+/*
+    float* Segment::getBoundries()
+    {
+        float* boundries = new float[2]{getZ()-zMax, getZ()+zMax};  // [LOWER, UPPER]
+        return boundries;
+    }
+
+*/
 
 #endif // SEGMENT_H
