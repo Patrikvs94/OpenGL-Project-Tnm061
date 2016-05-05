@@ -170,11 +170,7 @@ int main(int argc, char *argv[]) {
 
     //DEBUG FOR UTIL
     std::vector<Element*> tempShit;
-    Player* tempPlayer = &ballin;
-    std::vector<Segment*>* tempSegments = &Segments;
-    std::vector<Element*>* tempElements = &tempShit;
-
-    util tempUtil(tempPlayer, tempSegments, tempElements);
+    util tempUtil(ballin, Segments, tempShit);
 
     // Main loop
     while(!glfwWindowShouldClose(window))
@@ -324,7 +320,7 @@ int main(int argc, char *argv[]) {
         MVstack.pop(); // Restore the initial, untouched matrix
 
         //DEBUGG FOR UTIL
-        tempUtil.checkCollision();
+        tempUtil.checkCollision(jumpFlag);
 
 		// Play nice and deactivate the shader program
 		glUseProgram(0);

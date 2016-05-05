@@ -43,14 +43,4 @@ class Segment : public Element
 
 };
 
-
-/*
-    float* Segment::getBoundries()
-    {
-        float* boundries = new float[2]{getZ()-zMax, getZ()+zMax};  // [LOWER, UPPER]
-        return boundries;
-    }
-
-*/
-
 #endif // SEGMENT_H
