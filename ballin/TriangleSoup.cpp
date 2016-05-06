@@ -62,11 +62,11 @@ void TriangleSoup::createParticles(int maxParticles,float particleCount) {
 
     //create a square.
     const GLfloat vertex_array_data[] = {
-            //vertex positions      //normals           //uv coordinates
-             -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f  , 0.0f, 0.0f,               //v0
-              0.5f , -0.5f,0.0f,   0.0f, 0.0f, 1.0f  , 1.0f, 0.0f,             //v1
-             -0.5f ,0.5f ,0.0f,    0.0f, 0.0f, 1.0f  , 1.0f, 1.0f,              //v2
-              0.5f ,0.5f ,0.0f,    0.0f, 0.0f, 1.0f  , 0.0f, 1.0f                 //v3
+            //vertex positions     //normals           //uv coordinates
+             -0.5f, -0.5f,0.0f,    0.0f, 0.0f, 1.0f  , 0.0f, 0.0f,               //v0
+              0.5f, -0.5f,0.0f,    0.0f, 0.0f, 1.0f  , 1.0f, 0.0f,             //v1
+             -0.5f, 0.5f ,0.0f,    0.0f, 0.0f, 1.0f  , 1.0f, 1.0f,              //v2
+              0.5f, 0.5f ,0.0f,    0.0f, 0.0f, 1.0f  , 0.0f, 1.0f                 //v3
           };
     const GLuint index_array_data[] = {
                 0 , 1, 2,
@@ -87,7 +87,7 @@ void TriangleSoup::createParticles(int maxParticles,float particleCount) {
         //generate buffers
         glGenBuffers(1,&vertexbuffer);
         //bind the buffers.
-        glBindBuffer(GL_VERTEX_ARRAY,vertexbuffer);
+        glBindBuffer(GL_ARRAY_BUFFER,vertexbuffer);
         //create and initliaze the object to the buffers data store.
         glBufferData(GL_ARRAY_BUFFER,sizeof(vertexarray), vertexarray,GL_STATIC_DRAW);
 
