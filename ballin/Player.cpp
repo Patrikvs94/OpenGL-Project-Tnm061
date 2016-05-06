@@ -15,6 +15,7 @@ Player::Player(): Element(0.0f,0.0f,0.0f), moveLength(laneMargin), jumpHeight(2.
 void Player::moveRight(float t,float T) //WHAT DOES t and T mean???
 {
     xPos += (laneMargin/ T) * t;
+    angle += t;
     if(xPos > laneMargin)
     {
         xPos = laneMargin;
@@ -26,6 +27,8 @@ void Player::moveRight(float t,float T) //WHAT DOES t and T mean???
 void Player::moveLeft(float t,float T)
 {
     xPos -= (laneMargin / T) * t;
+    angle -= t;
+
     if(xPos < -laneMargin)
     {
         xPos = -laneMargin;
@@ -48,6 +51,7 @@ void Player::render(MatrixStack& p, GLint& location_MV, GLuint& texture, float t
     p.push(); //Save the current matrix before performing multiplications
 
         p.translate(xPos, yPos, zPos);
+	p.rotZ(-5 * angle);
         p.rotX(-2*time);
         glUniformMatrix4fv( location_MV, 1, GL_FALSE, p.getCurrentMatrix() );
         glBindTexture(GL_TEXTURE_2D, texture);
@@ -60,4 +64,9 @@ float* Player::getCollisionData()
 {
     float* dataArray = new float[4]; //{return DATA
     return dataArray;
+}
+
+float Player::getAngle()
+{
+    return angle;
 }

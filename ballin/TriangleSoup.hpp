@@ -41,6 +41,7 @@ void clean();
 /* Create a simple box geometry */
 void createBox(float xsize, float ysize, float zsize);
 
+void createParticles(int maxParticles,float particleCount);
 /* Create a sphere (approximated by polygon segments) */
 void createSphere(float radius, int segments);
 

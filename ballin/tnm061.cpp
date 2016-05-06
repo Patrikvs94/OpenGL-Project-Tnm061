@@ -70,6 +70,7 @@ PFNGLENABLEVERTEXATTRIBARRAYPROC  glEnableVertexAttribArray  = NULL;
 PFNGLVERTEXATTRIBPOINTERPROC      glVertexAttribPointer      = NULL;
 PFNGLDISABLEVERTEXATTRIBARRAYPROC glDisableVertexAttribArray = NULL;
 PFNGLGENERATEMIPMAPPROC           glGenerateMipmap           = NULL;
+PFNGLBUFFERSUBDATAPROC            glBufferSubData            = NULL;
 #endif
 
 
@@ -132,10 +133,11 @@ void tnm061::loadExtensions() {
 	glEnableVertexAttribArray  = (PFNGLENABLEVERTEXATTRIBARRAYPROC)glfwGetProcAddress("glEnableVertexAttribArray");
 	glVertexAttribPointer      = (PFNGLVERTEXATTRIBPOINTERPROC)glfwGetProcAddress("glVertexAttribPointer");
 	glDisableVertexAttribArray = (PFNGLDISABLEVERTEXATTRIBARRAYPROC)glfwGetProcAddress("glDisableVertexAttribArray");
+	glBufferSubData            = (PFNGLBUFFERSUBDATAPROC)glfwGetProcAddress("glBufferSubData");
 
 	if( !glGenBuffers || !glIsBuffer || !glBindBuffer || !glBufferData || !glDeleteBuffers ||
 	    !glGenVertexArrays || !glIsVertexArray || !glBindVertexArray || !glDeleteVertexArrays ||
-		!glEnableVertexAttribArray || !glVertexAttribPointer ||
+		!glEnableVertexAttribArray || !glVertexAttribPointer || !glBufferSubData ||
 		!glDisableVertexAttribArray )
     	{
 	   		printError("GL init error", "One or more required OpenGL vertex array functions were not found");
