@@ -14,8 +14,8 @@ in vec4 eyeSpacePos;
 void main() {
 
     //Fog parameters (should be uniforms.....)
-    vec4 vFogColor = vec4(0.3f, 0.3f, 0.3f, 1.0f); //Should be the same as the background
-    float fStart = 30.0f;
+    vec4 vFogColor = vec4(0.7*sin(time), 0.7*sin(time*0.5), 0.7*cos(2*time), 1.0f); //Should be the same as the background
+    float fStart = 25.0f;
     float fEnd = 50.0f;
 
 //    ///Create diffuse shading

@@ -144,7 +144,7 @@ int main(int argc, char *argv[]) {
 
     // Read the texture data from file and upload it to the GPU
     earthTexture.createTexture("textures/sun.tga");
-    segmentTexture.createTexture("textures/space.tga");
+    segmentTexture.createTexture("textures/bricks.tga");
 
 	location_MV = glGetUniformLocation( shader.programID, "MV" );
 	location_P = glGetUniformLocation( shader.programID, "P" );
@@ -179,7 +179,7 @@ int main(int argc, char *argv[]) {
         fps = tnm061::displayFPS(window);
 
 		// Set the clear color and depth, and clear the buffers for drawing
-        glClearColor(0.3f, 0.3f, 0.3f, 0.0f);       //Background color, should be the same as the fog!
+        glClearColor(0.5*sin(time), 0.5*sin(time*0.5), 0.5*cos(2*time), 0.0f);       //Background color, should be the same as the fog!
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // Set up the viewport

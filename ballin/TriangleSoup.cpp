@@ -99,6 +99,7 @@ void TriangleSoup::createParticles(int maxParticles,float particleCount) {
         glBufferSubData(GL_ARRAY_BUFFER, 0, particleCount * sizeof(GLfloat) * 4, indexarray);
 }
 
+//Create a box with tiled textures
 void TriangleSoup::createBox(float xsize, float ysize, float zsize) {
 
     //Sets values for x-, y-, and zLength
@@ -109,37 +110,37 @@ void TriangleSoup::createBox(float xsize, float ysize, float zsize) {
     // The data array contains 8 floats per vertex:
     // coordinate xyz, normal xyz, texcoords st
     const GLfloat vertex_array_data[] = {
-        -xsize, -ysize, -zsize,   -1.0f, 0.0f, 0.0f,   1.0/3.0f, 3.0/4.0f, // Vertex 0
-        -xsize, -ysize, -zsize,   0.0f, -1.0f, 0.0f,   1.0/3.0f, 3.0/4.0f,
-        -xsize, -ysize, -zsize,   0.0f, 0.0f, -1.0f,   0.0f, 0.0f,
+        -xsize, -ysize, -zsize,   -1.0f, 0.0f, 0.0f,   0.0f, 0.0f, // Vertex 0
+        -xsize, -ysize, -zsize,   0.0f, -1.0f, 0.0f,   0.0f, 0.0f,
+        -xsize, -ysize, -zsize,   0.0f, 0.0f, -1.0f,   xsize, 0.0f,
 
-         xsize, -ysize, -zsize,   1.0f, 0.0f, 0.0f,    1.0/3.0f, 1.0/2.0f, // Vertex 1
-         xsize, -ysize, -zsize,   0.0f, -1.0f, 0.0f,   1.0/3.0f, 1.0/2.0f,
-         xsize, -ysize, -zsize,   0.0f, 0.0f, -1.0f,   0.0f, 1.0/4.0f,
+         xsize, -ysize, -zsize,   1.0f, 0.0f, 0.0f,    zsize, 0.0f, // Vertex 1
+         xsize, -ysize, -zsize,   0.0f, -1.0f, 0.0f,   xsize, 0.0f,
+         xsize, -ysize, -zsize,   0.0f, 0.0f, -1.0f,   0.0f, 0.0f,
 
-        -xsize,  ysize, -zsize,   -1.0f, 0.0f, 0.0f,   1.0/3.0f, 1.0f,  // Vertex 2
-        -xsize,  ysize, -zsize,   0.0f, 1.0f, 0.0f,   1.0/3.0f, 0.0f,
-        -xsize,  ysize, -zsize,   0.0f, 0.0f, -1.0f,   1.0/3.0f, 0.0f,
+        -xsize,  ysize, -zsize,   -1.0f, 0.0f, 0.0f,   0.0f, ysize,  // Vertex 2
+        -xsize,  ysize, -zsize,   0.0f, 1.0f, 0.0f,    0.0f, zsize,
+        -xsize,  ysize, -zsize,   0.0f, 0.0f, -1.0f,   xsize, ysize,
 
-         xsize,  ysize, -zsize,   1.0f, 0.0f, 0.0f,   1.0/3.0f, 1.0/4.0f,  // Vertex 3
-         xsize,  ysize, -zsize,   0.0f, 1.0f, 0.0f,   1.0/3.0f, 1.0/4.0f,
-         xsize,  ysize, -zsize,   0.0f, 0.0f, -1.0f,  1.0/3.0f, 1.0/4.0f,
+         xsize,  ysize, -zsize,   1.0f, 0.0f, 0.0f,    zsize, ysize,  // Vertex 3
+         xsize,  ysize, -zsize,   0.0f, 1.0f, 0.0f,    xsize, zsize,
+         xsize,  ysize, -zsize,   0.0f, 0.0f, -1.0f,   0.0f, ysize,
 
-        -xsize, -ysize,  zsize,   -1.0f, 0.0f, 0.0f,   2.0/3.0f, 3.0/4.0f, // Vertex 4
-        -xsize, -ysize,  zsize,   0.0f, -1.0f, 0.0f,   2.0/3.0f, 3.0/4.0f,
-        -xsize, -ysize,  zsize,   0.0f, 0.0f, 1.0f,    1.0f, 0.0f,
+        -xsize, -ysize,  zsize,   -1.0f, 0.0f, 0.0f,   zsize, 0.0f, // Vertex 4
+        -xsize, -ysize,  zsize,   0.0f, -1.0f, 0.0f,   0.0f, zsize,
+        -xsize, -ysize,  zsize,   0.0f, 0.0f, 1.0f,    0.0f, 0.0f,
 
-         xsize, -ysize,  zsize,   1.0f, 0.0f, 0.0f,   2.0/3.0f, 1.0/2.0f, // Vertex 5
-         xsize, -ysize,  zsize,   0.0f, -1.0f, 0.0f,   1.0f, 1.0f,
-         xsize, -ysize,  zsize,   0.0f, 0.0f, 1.0f,   1.0f, 1.0/4.0f,
+         xsize, -ysize,  zsize,   1.0f, 0.0f, 0.0f,   0.0f, 0.0f, // Vertex 5
+         xsize, -ysize,  zsize,   0.0f, -1.0f, 0.0f,  xsize, zsize,
+         xsize, -ysize,  zsize,   0.0f, 0.0f, 1.0f,   xsize, 0.0f,
 
-        -xsize,  ysize,  zsize,   -1.0f, 0.0f, 0.0f,   2.0/3.0f, 1.0f,  // Vertex 6
-        -xsize,  ysize,  zsize,   0.0f, 1.0f, 0.0f,   2.0/3.0f, 0.0f,
-        -xsize,  ysize,  zsize,   0.0f, 0.0f, 1.0f,   2.0/3.0f, 0.0f,
+        -xsize,  ysize,  zsize,   -1.0f, 0.0f, 0.0f,   ysize, xsize,  // Vertex 6
+        -xsize,  ysize,  zsize,   0.0f, 1.0f, 0.0f,   0.0f, 0.0f,
+        -xsize,  ysize,  zsize,   0.0f, 0.0f, 1.0f,   0, ysize,
 
-         xsize,  ysize,  zsize,   1.0f, 0.0f, 0.0f,   2.0/3.0f, 1.0/4.0f,  // Vertex 7
-         xsize,  ysize,  zsize,   0.0f, 1.0f, 0.0f,   2.0/3.0f, 1.0/4.0f,
-         xsize,  ysize,  zsize,   0.0f, 0.0f, 1.0f,   2.0/3.0f, 1.0/4.0f,
+         xsize,  ysize,  zsize,   1.0f, 0.0f, 0.0f,   0.0f, ysize,  // Vertex 7
+         xsize,  ysize,  zsize,   0.0f, 1.0f, 0.0f,   xsize, 0.0f,
+         xsize,  ysize,  zsize,   0.0f, 0.0f, 1.0f,   xsize, ysize,
     };
     const GLuint index_array_data[] = {
         2,11,5,
