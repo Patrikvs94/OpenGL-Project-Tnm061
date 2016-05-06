@@ -51,7 +51,7 @@ void Player::render(MatrixStack& p, GLint& location_MV, GLuint& texture, float t
     p.push(); //Save the current matrix before performing multiplications
 
         p.translate(xPos, yPos, zPos);
-	p.rotZ(-5 * angle);
+        //p.rotZ(-5 * angle); //This does not quite work
         p.rotX(-2*time);
         glUniformMatrix4fv( location_MV, 1, GL_FALSE, p.getCurrentMatrix() );
         glBindTexture(GL_TEXTURE_2D, texture);
