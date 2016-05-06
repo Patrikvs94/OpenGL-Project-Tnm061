@@ -6,10 +6,13 @@ const float Player::G = 9.82f;
 Player::Player(): Element(0.0f,0.0f,0.0f), moveLength(laneMargin), jumpHeight(2.0f)
 {
     mesh.createSphere(1.0, 30);
+    //mesh.readOBJ("meshes/trex.obj");    //If we want a more fancy mesh for the player
+
+    //mesh.printInfo();     //Print out the vertex and triangle info, for debugging purposes
 }
 
 //Move the player one step to the right
-void Player::moveRight(float t,float T)
+void Player::moveRight(float t,float T) //WHAT DOES t and T mean???
 {
     xPos += (laneMargin/ T) * t;
     if(xPos > laneMargin)
@@ -40,10 +43,12 @@ void Player::jump(float t,float T)
     }
 }
 
-void Player::render(MatrixStack& p, GLint& location_MV, GLuint& texture)
+void Player::render(MatrixStack& p, GLint& location_MV, GLuint& texture, float time)
 {
     p.push(); //Save the current matrix before performing multiplications
 
+        p.translate(xPos, yPos, zPos);
+        p.rotX(-2*time);
         glUniformMatrix4fv( location_MV, 1, GL_FALSE, p.getCurrentMatrix() );
         glBindTexture(GL_TEXTURE_2D, texture);
         mesh.render(); //Draw the player

@@ -48,18 +48,19 @@
 
 /* --- FUNCTION DECLARATIONS -------- */
 //Function definitions and explanations is found in the bottom of this file.
-void mat4perspective(float M[], float vfov, float aspect, float znear, float zfar);
 void setupViewport(GLFWwindow *window, GLfloat *P);
+void mat4perspective(float M[], float vfov, float aspect, float znear, float zfar);
+void handleInput(Player &player, bool &lFlag, bool &rFlag, bool &jFlag, float horizontalTime, float jTime, float deltaTime);
+
 
 /* ------ MAIN FUNCTION --------------*/
 
 int main(int argc, char *argv[]) {
 
-	TriangleSoup player;
     Texture earthTexture, segmentTexture;
     Shader shader;
-    //Maximal time it can jump until it descends.
-    float T = 1.5f;
+
+    float T = 1.5f;         //Maximal time it can jump until it descends.
     float scaleTime = 0.2f;
 
  	GLint location_time, location_MV, location_P, location_tex; // Shader uniforms
@@ -67,20 +68,19 @@ int main(int argc, char *argv[]) {
 	double fps = 0.0;
 
     //Variables used for animation
-    double jumpTime = glfwGetTime();//when the player jumps
-    double  currentTime= glfwGetTime();// when the renderingloop repeats
-    double horizontalTime=glfwGetTime(); // when the player moves left/right
-    double deltaTime=0.0; // The time between the current and last frame
+    double jumpTime       = glfwGetTime(); //when the player jumps
+    double currentTime    = glfwGetTime(); // when the renderingloop repeats
+    double horizontalTime = glfwGetTime(); // when the player moves left/right
+    double deltaTime      = 0.0; // The time between the current and last frame
 
-    bool jumpFlag = false;
-    bool leftFlag = false;
+    bool jumpFlag  = false;
+    bool leftFlag  = false;
     bool rightFlag = false;
 
     MatrixStack MVstack; // The matrix stack we are going to use to set MV
 
     const GLFWvidmode *vidmode;  // GLFW struct to hold information about the display
 	GLFWwindow *window;    // GLFW struct to hold information about the window
-
 
     std::vector<Segment*> Segments; // vector containing all the segments
 
@@ -134,15 +134,13 @@ int main(int argc, char *argv[]) {
     // Intialize the matrix to an identity transformation
     MVstack.init();
 
-    //Fix this by creating the last constructor in the Player class!
-	//player.readOBJ("meshes/trex.obj");    //If we want a more fancy mesh for the player
-
-	//player.printInfo();
-
     // Create a shader program object from GLSL code in two files
 	shader.createShader("vertexshader.glsl", "fragmentshader.glsl");
 
 	glEnable(GL_TEXTURE_2D);
+	glEnable(GL_DEPTH_TEST); // Use the Z buffer
+    glEnable(GL_CULL_FACE);  // Use back face culling
+    glCullFace(GL_BACK);
 
     // Read the texture data from file and upload it to the GPU
     earthTexture.createTexture("textures/sun.tga");
@@ -158,7 +156,6 @@ int main(int argc, char *argv[]) {
     Collectibles coin;
 
     //Loop used for "initlaizing the Segment-vector"
-
     float zPosition= 0.0f;
     Segments.push_back(new Segment());
     for(int i = 1; i < 10; i++)
@@ -179,8 +176,8 @@ int main(int argc, char *argv[]) {
     // Main loop
     while(!glfwWindowShouldClose(window))
     {
-        deltaTime = glfwGetTime()-currentTime; //calculate time since last frame
-        currentTime=glfwGetTime();
+        deltaTime   = glfwGetTime()-currentTime; //calculate time since last frame
+        currentTime = glfwGetTime();
 
         // Calculate and update the frames per second (FPS) display
         fps = tnm061::displayFPS(window);
@@ -189,70 +186,28 @@ int main(int argc, char *argv[]) {
         glClearColor(0.3f, 0.3f, 0.3f, 0.0f);       //Background color, should be the same as the fog!
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		glEnable(GL_DEPTH_TEST); // Use the Z buffer
-		glEnable(GL_CULL_FACE);  // Use back face culling
-		glCullFace(GL_BACK);
-
         // Set up the viewport
         setupViewport(window, P);
 
 		// Handle keyboard input (cannot press a key if the time since last press is less than 0,2 sec)
         if(glfwGetKey(window, GLFW_KEY_RIGHT) && !rightFlag && !leftFlag)
         {
-            horizontalTime=glfwGetTime();
+            horizontalTime = glfwGetTime();
             rightFlag = true;
         }
         if(glfwGetKey(window, GLFW_KEY_LEFT) && !leftFlag && !rightFlag)
         {
-            horizontalTime=glfwGetTime();
+            horizontalTime = glfwGetTime();
             leftFlag = true;
         }
         if(glfwGetKey(window, GLFW_KEY_UP) && jumpFlag == false)
         {
-            jumpTime=glfwGetTime();
+            jumpTime = glfwGetTime();
             jumpFlag = true;
         }
 
-        //player jumps
-        if(jumpFlag)
-        {
-            ballin.jump(glfwGetTime()-jumpTime,0.7*T);
-
-            if(ballin.getY() == 0.0f)
-            {
-                jumpFlag = false;
-            }
-        }
-
-        //player moves to the right
-        if(rightFlag && !leftFlag)
-        {
-
-            ballin.moveRight(deltaTime,scaleTime * T);
-            if((glfwGetTime() - horizontalTime) >= scaleTime * T)
-            {
-                rightFlag = false;
-            }
-            if(!jumpFlag)
-            {
-                ballin.jump(glfwGetTime() - horizontalTime,scaleTime*T);
-            }
-        }
-
-        //player moves to the left
-        if(leftFlag && !rightFlag)
-        {
-
-            ballin.moveLeft(deltaTime,scaleTime * T);
-            if((glfwGetTime() - horizontalTime) >= scaleTime * T)
-            {
-                leftFlag = false;
-            }
-            if(!jumpFlag)
-            {
-                ballin.jump(glfwGetTime() - horizontalTime,scaleTime*T);
-            }
-        }
+        //Do something based on the keyboard input (i.e. jump or move sideways)
+        handleInput(ballin, leftFlag, rightFlag, jumpFlag, horizontalTime, jumpTime, deltaTime);
 
 		// Activate our shader program.
 		glUseProgram( shader.programID );
@@ -280,7 +235,6 @@ int main(int argc, char *argv[]) {
 
             //We used the known int of 10 for testing purposes
             MVstack.push();
-
 
             //Sets z-coordinates for segments
             for(int i=0;i<Segments.size();++i)
@@ -310,15 +264,10 @@ int main(int argc, char *argv[]) {
 
             MVstack.pop();
 
-                // Ball
-                MVstack.translate(ballin.getX(),ballin.getY(), ballin.getZ());
-                MVstack.rotX(-2*time);
-
-                ballin.render(MVstack, location_MV, earthTexture.texID);
-
+                // Render the player
+                ballin.render(MVstack, location_MV, earthTexture.texID, time);
 
             MVstack.pop(); // Restore the matrix we saved above
-
 
         MVstack.pop(); // Restore the initial, untouched matrix
 
@@ -348,27 +297,8 @@ int main(int argc, char *argv[]) {
     return 0;
 }
 
+
 /*--------- FUNCTION DEFINITIONS -----------------------*/
-
-
-//Function to create a 4x4 perspective matrix
-//
-//vfov is the vertical field of view (in the y direction)
-//aspect is the aspect ratio of the viewport (width/height)
-//znear is the distance to near clip plane (znear > 0)
-//zfar is the distance to the far clip plane (zfar > znear)
-void mat4perspective(float M[], float vfov, float aspect, float znear, float zfar){
-
-    float f = 1/tan(vfov/2); //cot(vfov/2)
-    float A = -(zfar+znear)/(zfar-znear);
-    float B = -(2*znear*zfar)/(zfar-znear);
-
-    M[0] = f/aspect; M[4] = 0; M[8]  = 0;  M[12] = 0;
-    M[1] = 0;        M[5] = f; M[9]  = 0;  M[13] = 0;
-    M[2] = 0;        M[6] = 0; M[10] = A;  M[14] = B;
-    M[3] = 0;        M[7] = 0; M[11] = -1; M[15] = 0;
-}
-
 
 /*
  * Function to set up the OpenGL viewport
@@ -395,5 +325,57 @@ void setupViewport(GLFWwindow *window, GLfloat *P) {
 
     // Set viewport. This is the pixel rectangle we want to draw into.
     glViewport( 0, 0, width, height ); // The entire window
+}
+
+//Function to create a 4x4 perspective matrix:
+//vfov is the vertical field of view (in the y direction)
+//aspect is the aspect ratio of the viewport (width/height)
+//znear is the distance to near clip plane (znear > 0)
+//zfar is the distance to the far clip plane (zfar > znear)
+void mat4perspective(float M[], float vfov, float aspect, float znear, float zfar){
+
+    float f = 1/tan(vfov/2); //cot(vfov/2)
+    float A = -(zfar+znear)/(zfar-znear);
+    float B = -(2*znear*zfar)/(zfar-znear);
+
+    M[0] = f/aspect; M[4] = 0; M[8]  = 0;  M[12] = 0;
+    M[1] = 0;        M[5] = f; M[9]  = 0;  M[13] = 0;
+    M[2] = 0;        M[6] = 0; M[10] = A;  M[14] = B;
+    M[3] = 0;        M[7] = 0; M[11] = -1; M[15] = 0;
+}
+
+//Function to handle the keyboard input to create movement of the player
+void handleInput(Player &player, bool &lFlag, bool &rFlag, bool &jFlag, float horizontalTime, float jTime, float deltaTime)
+{
+    float T = 1.5f;         //Maximal time it can jump until it descends.
+    float scaleTime = 0.2f;
+
+        if(jFlag) //player jumps
+        {
+            player.jump(glfwGetTime()-jTime,0.7*T);
+
+            if(player.getY() == 0.0f)
+                jFlag = false;
+        }
+
+        if(rFlag && !lFlag) //player moves to the right
+        {
+            player.moveRight(deltaTime,scaleTime * T);
+            if((glfwGetTime() - horizontalTime) >= scaleTime * T)
+                rFlag = false;
+
+            if(!jFlag)
+                player.jump(glfwGetTime() - horizontalTime,scaleTime * T);
+        }
+
+        if(lFlag && !rFlag) //player moves to the left
+        {
+            player.moveLeft(deltaTime,scaleTime * T);
+            if((glfwGetTime() - horizontalTime) >= scaleTime * T)
+                lFlag = false;
+
+            if(!jFlag)
+                player.jump(glfwGetTime() - horizontalTime,scaleTime*T);
+        }
 }
 
