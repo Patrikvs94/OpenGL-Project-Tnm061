@@ -24,6 +24,7 @@ class Segment : public Element
                                         //LENGTH OF OBJECT IS zsize * 2;
 
         float* getBoundaries(); //returns lower and upper bounderies
+        void performeAction();
 
         //Block dimensions
         static const float xsize;

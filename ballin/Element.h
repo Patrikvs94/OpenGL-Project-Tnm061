@@ -12,6 +12,7 @@ class Element
         Element(float x, float y, float z);
         virtual ~Element();
         virtual float* getCollisionData() = 0;
+        virtual void performeAction() = 0;
 
         float getX();
         float getY();

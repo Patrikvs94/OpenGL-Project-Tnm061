@@ -38,6 +38,29 @@ void util::checkCollision(bool jumpFlag)
 {
     //std::cout << nodeVector.size() << std::endl;
     //KALLAR PÅ EN ACTION om kollision är sann
+    if(!jumpFlag)
+    {
+
+        //{xPos, yPos, zPos, xsize, ysize, zsize[0], zsize[1], zsize[2], zDif[0], zDif[1], zDif[2], laneMargin}
+        float playerPosX = player->getX();
+        float playerPosZ = player->getZ();
+
+        float* s1Boundaries = nodeVector.at(0)->segment->getCollisionData();
+        float lanePositions [3] = {-s1Boundaries[11], 0.0f, s1Boundaries[11]};
+
+        for(int i = 0; i < 3; ++i)
+        {
+            if(playerPosX == lanePositions[i] && !(playerPosZ <= (s1Boundaries[2] + s1Boundaries[8+i] + s1Boundaries[5+i]) && playerPosZ >= (s1Boundaries[2] + s1Boundaries[8+i] - s1Boundaries[5+i])))
+            {
+                std::cout << glfwGetTime() << std::endl;
+                //nodeVector.front()->segment->performeAction();
+                break;
+            }
+        }
+    }
+    else{
+        std::cout << "JUMPING" << std::endl;
+    }
 }
 
 
@@ -65,5 +88,7 @@ void util::updateNodeVector(std::vector<Element*>& elementVector)
             nodeVector.back()->children.push_back(elementVector.at(p));
         }
     }
+
+    //std::cout << "NodeVector: " << nodeVector.front()->segment << std::endl;
 }
 

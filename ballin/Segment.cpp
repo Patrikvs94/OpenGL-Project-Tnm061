@@ -4,7 +4,7 @@
 
 const float Segment::xsize = 1.0f;  //Note: Same as the radius of the player
 const float Segment::ysize = 0.2f;
-const float Segment::segmentMax = 5*xsize;
+const float Segment::segmentMax = 7*xsize;
 const float Segment::segmentMin = xsize;
 
 
@@ -53,7 +53,7 @@ void Segment::setZPos(float pos)
 
 float* Segment::getCollisionData()
 {
-    float* dataArray = new float[8] {xPos, yPos, zPos, xsize, ysize, zsize[0], zsize[1], zsize[2]};
+    float* dataArray = new float[12] {xPos, yPos, zPos, xsize, ysize, zsize[0], zsize[1], zsize[2], zDif[0], zDif[1], zDif[2],laneMargin};
     return dataArray;
 }
 
@@ -95,3 +95,7 @@ float* Segment::getBoundaries()
         return boundries;
 }
 
+void Segment::performeAction()
+{
+    std::cout << "DEAD" << std::endl;
+}

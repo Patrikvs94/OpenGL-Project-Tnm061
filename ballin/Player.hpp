@@ -18,6 +18,7 @@ class Player : public Element
         float getAngle();
 
         float* getCollisionData();
+        void performeAction();
 
     protected:
 
