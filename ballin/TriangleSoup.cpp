@@ -72,13 +72,15 @@ void TriangleSoup::createParticles(int maxParticles,float particleCount) {
                 0 , 1, 2,
                 2 , 3, 0
     };
-    vertexarray = new GLfloat[24];
-    indexarray = new GLuint[6];
+    nverts = 4;
+    ntris = 2;
+    vertexarray = new GLfloat[nverts * 8];
+    indexarray = new GLuint[ntris * 3];
 
-    for(int i=0; i < 24; i++) {
+    for(int i=0; i < nverts * 8; i++) {
         vertexarray[i]=vertex_array_data[i];
     }
-    for(int i=0; i < 6; i++) {
+    for(int i=0; i < ntris * 3; i++) {
         indexarray[i]=index_array_data[i];
     }
 
@@ -94,7 +96,7 @@ void TriangleSoup::createParticles(int maxParticles,float particleCount) {
         glBindBuffer(GL_ARRAY_BUFFER,indexbuffer);
         //förstår inte riktigt delar av de här två raderna.
         glBufferData(GL_ARRAY_BUFFER, maxParticles * sizeof(GLfloat) * 4,NULL,GL_STREAM_DRAW);
-        //glBufferSubData(GL_ARRAY_BUFFER, 0, particleCount * sizeof(GLfloat) * 4, indexarray);
+        glBufferSubData(GL_ARRAY_BUFFER, 0, particleCount * sizeof(GLfloat) * 4, indexarray);
 }
 
 void TriangleSoup::createBox(float xsize, float ysize, float zsize) {
