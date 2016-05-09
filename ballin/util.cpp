@@ -52,14 +52,14 @@ void util::checkCollision(bool jumpFlag)
         {
             if(playerPosX == lanePositions[i] && !(playerPosZ <= (s1Boundaries[2] + s1Boundaries[8+i] + s1Boundaries[5+i]) && playerPosZ >= (s1Boundaries[2] + s1Boundaries[8+i] - s1Boundaries[5+i])))
             {
-                std::cout << glfwGetTime() << std::endl;
+                //std::cout << glfwGetTime() << std::endl;
                 //nodeVector.front()->segment->performeAction();
                 break;
             }
         }
     }
     else{
-        std::cout << "JUMPING" << std::endl;
+        //std::cout << "JUMPING" << std::endl;
     }
 }
 

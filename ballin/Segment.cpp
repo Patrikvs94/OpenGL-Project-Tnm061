@@ -97,5 +97,5 @@ float* Segment::getBoundaries()
 
 void Segment::performeAction()
 {
-    std::cout << "DEAD" << std::endl;
+    //std::cout << "DEAD" << std::endl;
 }
