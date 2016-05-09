@@ -345,7 +345,7 @@ void mat4perspective(float M[], float vfov, float aspect, float znear, float zfa
 void handleInput(Player &player, bool &lFlag, bool &rFlag, bool &jFlag, float horizontalTime, float jTime, float deltaTime)
 {
     float T = 1.5f;         //Maximal time it can jump until it descends.
-    float scaleTime = 0.2f;
+    float scaleTime = 0.15f;
 
         if(jFlag) //player jumps
         {

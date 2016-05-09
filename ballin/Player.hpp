@@ -23,7 +23,7 @@ class Player : public Element
     protected:
 
     private:
-        float jumpHeight;
+        float gravityMultiplier;
         float moveLength;
         TriangleSoup mesh;
         static const float G;

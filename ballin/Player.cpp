@@ -1,9 +1,9 @@
 #include "Player.hpp"
 #include <iostream>
 
-const float Player::G = 20.82f;
+const float Player::G = 9.82f;
 
-Player::Player(): Element(0.0f,0.0f,0.0f), moveLength(laneMargin), jumpHeight(2.0f)
+Player::Player(): Element(0.0f,0.0f,0.0f), moveLength(laneMargin), gravityMultiplier(2.0f)
 {
     mesh.createSphere(1.0, 30);
     //mesh.readOBJ("meshes/trex.obj");    //If we want a more fancy mesh for the player
@@ -39,7 +39,7 @@ void Player::moveLeft(float t,float T)
 void Player::jump(float t,float T)
 {
     //"kastparabel" formeln.
-     yPos = G*T*0.5f*t - G * t*t*0.5f;
+     yPos = gravityMultiplier*G*T*0.5f*t - gravityMultiplier*G * t*t*0.5f;
     if(yPos < 0.0f)
     {
         yPos = 0.0f;
