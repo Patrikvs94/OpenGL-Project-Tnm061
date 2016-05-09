@@ -1,7 +1,7 @@
 #include "Player.hpp"
 #include <iostream>
 
-const float Player::G = 9.82f;
+const float Player::G = 20.82f;
 
 Player::Player(): Element(0.0f,0.0f,0.0f), moveLength(laneMargin), jumpHeight(2.0f)
 {
@@ -46,13 +46,13 @@ void Player::jump(float t,float T)
     }
 }
 
-void Player::render(MatrixStack& p, GLint& location_MV, GLuint& texture, float time)
+void Player::render(MatrixStack& p, GLint& location_MV, GLuint& texture, float time, float speed)
 {
     p.push(); //Save the current matrix before performing multiplications
 
         p.translate(xPos, yPos, zPos);
         //p.rotZ(-5 * angle); //This does not quite work
-        p.rotX(-2*time);
+        p.rotX(-speed*time*0.7);
         glUniformMatrix4fv( location_MV, 1, GL_FALSE, p.getCurrentMatrix() );
         glBindTexture(GL_TEXTURE_2D, texture);
         mesh.render(); //Draw the player

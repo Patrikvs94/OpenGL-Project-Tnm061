@@ -66,6 +66,7 @@ int main(int argc, char *argv[]) {
  	GLint location_time, location_MV, location_P, location_tex; // Shader uniforms
     float time;
 	double fps = 0.0;
+	float gameSpeed = 10.0f;
 
     //Variables used for animation
     double jumpTime       = glfwGetTime(); //when the player jumps
@@ -235,7 +236,7 @@ int main(int argc, char *argv[]) {
             //Sets z-coordinates for segments
             for(int i=0;i<Segments.size();++i)
             {
-                Segments.at(i)->changeZPos(6.0f*(deltaTime));
+                Segments.at(i)->changeZPos(gameSpeed*(deltaTime));
             }
 
             //Moves the segment closest to the camera to the back if it reaches z=0
@@ -261,7 +262,7 @@ int main(int argc, char *argv[]) {
             MVstack.pop();
 
                 // Render the player
-                ballin.render(MVstack, location_MV, earthTexture.texID, time);
+                ballin.render(MVstack, location_MV, earthTexture.texID, time, gameSpeed);
 
             MVstack.pop(); // Restore the matrix we saved above
 
