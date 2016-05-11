@@ -103,7 +103,7 @@ void Player::addCharge()
     if(currentCharges < maxCharges)
     {
         ++currentCharges;
-        std::cout << "Added" << std::endl;
+        std::cout << "Added, " << this->currentCharges << " charges left." << std::endl;
     }
     else
     {
@@ -116,7 +116,7 @@ void Player::removeCharge()
     if(currentCharges > 0)
     {
         --currentCharges;
-        std::cout << "Removed" << std::endl;
+        std::cout << "Removed, " << this->currentCharges << " charges left." << std::endl;
     }
     else
     {

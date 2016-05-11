@@ -66,6 +66,7 @@ int main(int argc, char *argv[]) {
 	float gameSpeed = 10.0f;
     float T = 1.5f;         //Maximal time it can jump until it descends.
     float scaleTime = 0.15f;
+    const int numberOfSegments = 10;
 
     //Variables used for animation
     double jumpTime       = glfwGetTime(); //when the player jumps
@@ -159,7 +160,7 @@ int main(int argc, char *argv[]) {
     //Loop used for "initlaizing the Segment-vector"
     float zPosition= 0.0f;
     Segments.push_back(new Segment());
-    for(int i = 1; i < 10; i++)
+    for(int i = 1; i < numberOfSegments; i++)
     {
         Segments.push_back(new Segment());
         zPosition-=(Segments.at(i-1)->getLength()+Segments.at(i)->getLength() + 1.2f);
@@ -175,7 +176,7 @@ int main(int argc, char *argv[]) {
     {
         deltaTime   = glfwGetTime()-currentTime; //calculate time since last frame
         currentTime = glfwGetTime();
-        
+
         if(glfwGetTime()-chargeTime > 5.0 && !jumpFlag)
         {
             ballin.addCharge();
@@ -386,7 +387,7 @@ void handleInput(Player &player, bool &lFlag, bool &rFlag, bool &jFlag, float ho
             {
                 player.jump(glfwGetTime() - horizontalTime,scaleTime * T);
             }
-            
+
             if((glfwGetTime() - horizontalTime) >= scaleTime * T)
             {
                 rFlag = false;
@@ -401,7 +402,7 @@ void handleInput(Player &player, bool &lFlag, bool &rFlag, bool &jFlag, float ho
             {
                 player.jump(glfwGetTime() - horizontalTime,scaleTime * T);
             }
-            
+
             if((glfwGetTime() - horizontalTime) >= scaleTime * T)
             {
                 lFlag = false;
