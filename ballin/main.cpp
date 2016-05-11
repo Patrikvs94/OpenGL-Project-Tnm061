@@ -354,11 +354,6 @@ void handleInput(Player &player, bool &lFlag, bool &rFlag, bool &jFlag, float ho
 
         if(rFlag && !lFlag) //player moves to the right
         {
-            if((glfwGetTime() - horizontalTime) >= scaleTime * T)
-            {
-                rFlag = false;
-                player.alignPlayer();
-            }
 
             if(!jFlag)
             {
@@ -374,15 +369,16 @@ void handleInput(Player &player, bool &lFlag, bool &rFlag, bool &jFlag, float ho
             {
                 player.moveRight(deltaTime,scaleTime * T);
             }
+            
+            if((glfwGetTime() - horizontalTime) >= scaleTime * T)
+            {
+                rFlag = false;
+                player.alignPlayer();
+            }
         }
 
         if(lFlag && !rFlag) //player moves to the left
         {
-            if((glfwGetTime() - horizontalTime) >= scaleTime * T)
-            {
-                lFlag = false;
-                player.alignPlayer();
-            }
             
             if(!jFlag)
             {
@@ -397,6 +393,12 @@ void handleInput(Player &player, bool &lFlag, bool &rFlag, bool &jFlag, float ho
             else if(jFlag)
             {
                 player.moveLeft(deltaTime,scaleTime * T);
+            }
+            
+            if((glfwGetTime() - horizontalTime) >= scaleTime * T)
+            {
+                lFlag = false;
+                player.alignPlayer();
             }
         }
 }
