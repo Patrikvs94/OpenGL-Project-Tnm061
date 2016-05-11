@@ -17,6 +17,9 @@ class Player : public Element
         void jump(float t,float T);
         void render(MatrixStack& p, GLint& location_MV, GLuint& texture, float time, float speed);
         float getAngle();
+        void addCharge();
+        void removeCharge();
+        bool gotCharges();
 
         float* getCollisionData();
         void performAction();
@@ -28,6 +31,8 @@ class Player : public Element
         float moveLength;
         TriangleSoup mesh;
         static const float G;
+        static const int maxCharges;
+        int currentCharges;
         float angle;
 
 

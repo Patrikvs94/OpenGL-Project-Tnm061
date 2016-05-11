@@ -2,10 +2,12 @@
 #include <iostream>
 
 const float Player::G = 9.82f;
+const int Player::maxCharges = 2;
 
 Player::Player(): Element(0.0f,0.0f,0.0f), moveLength(laneMargin), gravityMultiplier(2.0f)
 {
     mesh.createSphere(1.0, 30);
+    currentCharges = 0;
     //mesh.readOBJ("meshes/trex.obj");    //If we want a more fancy mesh for the player
 
     //mesh.printInfo();     //Print out the vertex and triangle info, for debugging purposes
@@ -94,4 +96,35 @@ void Player::alignPlayer()
     {
         xPos=-laneMargin;
     }
+}
+
+void Player::addCharge()
+{
+    if(currentCharges < maxCharges)
+    {
+        ++currentCharges;
+        std::cout << "Added" << std::endl;
+    }
+    else
+    {
+        std::cout << "Full" << std::endl;
+    }
+}
+
+void Player::removeCharge()
+{
+    if(currentCharges > 0)
+    {
+        --currentCharges;
+        std::cout << "Removed" << std::endl;
+    }
+    else
+    {
+        std::cout << "Empty" << std::endl;
+    }
+}
+
+bool Player::gotCharges()
+{
+    return (currentCharges > 0);
 }
