@@ -39,15 +39,13 @@ void util::checkCollision(bool jumpFlag)
     //std::cout << nodeVector.size() << std::endl;
     //KALLAR PÅ EN ACTION om kollision är sann
     if(!jumpFlag)
-    {/*
+    {
 
         //{xPos, yPos, zPos, xsize, ysize, zsize[0], zsize[1], zsize[2], zDif[0], zDif[1], zDif[2], laneMargin}
         float playerPosX = player->getX();
         float playerPosZ = player->getZ();
         int q = 0;
         int index = 3;
-
-        float segmentIndex = nodeVector.at(0)->segment->getZ();
 
         for(int i = 0; i < nodeVector.size(); ++i)
         {
@@ -76,7 +74,7 @@ void util::checkCollision(bool jumpFlag)
             nodeVector.at(index)->segment->performAction();
         }
         delete s1Boundaries;
-        */
+        
     }
     else{
         //std::cout << "JUMPING" << std::endl;
