@@ -64,12 +64,15 @@ int main(int argc, char *argv[]) {
     float time = (float)glfwGetTime();
 	double fps = 0.0;
 	float gameSpeed = 10.0f;
+    float T = 1.5f;         //Maximal time it can jump until it descends.
+    float scaleTime = 0.15f;
 
     //Variables used for animation
     double jumpTime       = glfwGetTime(); //when the player jumps
     double currentTime    = glfwGetTime(); // when the renderingloop repeats
     double horizontalTime = glfwGetTime(); // when the player moves left/right
     double deltaTime      = 0.0; // The time between the current and last frame
+    double chargeTime     = glfwGetTime();
 
     bool jumpFlag  = false;
     bool leftFlag  = false;
@@ -172,6 +175,12 @@ int main(int argc, char *argv[]) {
     {
         deltaTime   = glfwGetTime()-currentTime; //calculate time since last frame
         currentTime = glfwGetTime();
+        
+        if(glfwGetTime()-chargeTime > 5.0 && !jumpFlag)
+        {
+            ballin.addCharge();
+            chargeTime=glfwGetTime();
+        }
 
         // Calculate and update the frames per second (FPS) display
         fps = tnm061::displayFPS(window);
@@ -186,13 +195,31 @@ int main(int argc, char *argv[]) {
 		// Handle keyboard input (cannot press a key if the time since last press is less than 0,2 sec)
         if(glfwGetKey(window, GLFW_KEY_RIGHT) && !rightFlag && !leftFlag)
         {
-            horizontalTime = glfwGetTime();
-            rightFlag = true;
+            if(!jumpFlag)
+            {
+                horizontalTime = glfwGetTime();
+                rightFlag = true;
+            }
+            else if((jumpFlag && ((glfwGetTime()-jumpTime )<(0.7*T-scaleTime*T)) && ballin.gotCharges()))
+            {
+                horizontalTime = glfwGetTime();
+                rightFlag = true;
+                ballin.removeCharge();
+            }
         }
         if(glfwGetKey(window, GLFW_KEY_LEFT) && !leftFlag && !rightFlag)
         {
-            horizontalTime = glfwGetTime();
-            leftFlag = true;
+            if(!jumpFlag)
+            {
+                horizontalTime = glfwGetTime();
+                leftFlag = true;
+            }
+            else if((jumpFlag && ((glfwGetTime()-jumpTime )<(0.7*T-scaleTime*T)) && ballin.gotCharges()))
+            {
+                horizontalTime = glfwGetTime();
+                leftFlag = true;
+                ballin.removeCharge();
+            }
         }
         if(glfwGetKey(window, GLFW_KEY_UP) && jumpFlag == false)
         {
@@ -354,20 +381,10 @@ void handleInput(Player &player, bool &lFlag, bool &rFlag, bool &jFlag, float ho
 
         if(rFlag && !lFlag) //player moves to the right
         {
-
+            player.moveRight(deltaTime,scaleTime * T);
             if(!jFlag)
             {
                 player.jump(glfwGetTime() - horizontalTime,scaleTime * T);
-                player.moveRight(deltaTime,scaleTime * T);
-            }
-            else if(jFlag && !((horizontalTime-jTime )<(0.7*T-scaleTime*T)))
-            {
-                rFlag=false;
-                return;
-            }
-            else if(jFlag)
-            {
-                player.moveRight(deltaTime,scaleTime * T);
             }
             
             if((glfwGetTime() - horizontalTime) >= scaleTime * T)
@@ -379,20 +396,10 @@ void handleInput(Player &player, bool &lFlag, bool &rFlag, bool &jFlag, float ho
 
         if(lFlag && !rFlag) //player moves to the left
         {
-            
+            player.moveLeft(deltaTime,scaleTime * T);
             if(!jFlag)
             {
                 player.jump(glfwGetTime() - horizontalTime,scaleTime * T);
-                player.moveLeft(deltaTime,scaleTime * T);
-            }
-            else if(jFlag && !((horizontalTime-jTime )<(0.7*T-scaleTime*T)))
-            {
-                lFlag=false;
-                return;
-            }
-            else if(jFlag)
-            {
-                player.moveLeft(deltaTime,scaleTime * T);
             }
             
             if((glfwGetTime() - horizontalTime) >= scaleTime * T)
