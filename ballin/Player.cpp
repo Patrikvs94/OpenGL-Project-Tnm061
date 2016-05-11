@@ -76,3 +76,22 @@ void Player::performeAction()
 
 
 }
+
+void Player::alignPlayer()
+{
+    //right
+    if(std::abs(xPos-laneMargin)<0.5f)
+    {
+        xPos=laneMargin;
+    }
+    //middle
+    else if(std::abs(xPos)<0.5f)
+    {
+        xPos=0.0f;
+    }
+    //left
+    else if(std::abs(xPos+laneMargin)<0.5f)
+    {
+        xPos=-laneMargin;
+    }
+}

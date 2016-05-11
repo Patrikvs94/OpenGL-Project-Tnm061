@@ -13,6 +13,7 @@ class Player : public Element
 
         void moveRight(float t,float T);
         void moveLeft(float t,float T);
+        void alignPlayer();
         void jump(float t,float T);
         void render(MatrixStack& p, GLint& location_MV, GLuint& texture, float time, float speed);
         float getAngle();
