@@ -60,11 +60,8 @@ int main(int argc, char *argv[]) {
     Texture earthTexture, segmentTexture;
     Shader shader;
 
-    float T = 1.5f;         //Maximal time it can jump until it descends.
-    float scaleTime = 0.2f;
-
  	GLint location_time, location_MV, location_P, location_tex; // Shader uniforms
-    float time;
+    float time = (float)glfwGetTime();
 	double fps = 0.0;
 	float gameSpeed = 10.0f;
 
