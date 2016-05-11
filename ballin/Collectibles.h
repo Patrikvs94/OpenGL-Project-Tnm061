@@ -16,7 +16,7 @@ class Collectibles : public Element
         //Temporary render function
         void render(MatrixStack& p, GLint& location_MV, GLuint& texture);
         float* getCollisionData();
-        void performeAction();
+        void performAction();
 
         //Collectible dimensions
         static const float coinX;

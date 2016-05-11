@@ -95,7 +95,7 @@ float* Segment::getBoundaries()
         return boundries;
 }
 
-void Segment::performeAction()
+void Segment::performAction()
 {
     //std::cout << "DEAD" << std::endl;
 }

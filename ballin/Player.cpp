@@ -71,7 +71,7 @@ float Player::getAngle()
     return angle;
 }
 
-void Player::performeAction()
+void Player::performAction()
 {
 
 
