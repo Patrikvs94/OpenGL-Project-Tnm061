@@ -354,7 +354,6 @@ void handleInput(Player &player, bool &lFlag, bool &rFlag, bool &jFlag, float ho
 
         if(rFlag && !lFlag) //player moves to the right
         {
-            player.moveRight(deltaTime,scaleTime * T);
             if((glfwGetTime() - horizontalTime) >= scaleTime * T)
             {
                 rFlag = false;
@@ -362,20 +361,43 @@ void handleInput(Player &player, bool &lFlag, bool &rFlag, bool &jFlag, float ho
             }
 
             if(!jFlag)
+            {
                 player.jump(glfwGetTime() - horizontalTime,scaleTime * T);
+                player.moveRight(deltaTime,scaleTime * T);
+            }
+            else if(jFlag && !((horizontalTime-jTime )<(0.7*T-scaleTime*T)))
+            {
+                rFlag=false;
+                return;
+            }
+            else if(jFlag)
+            {
+                player.moveRight(deltaTime,scaleTime * T);
+            }
         }
 
         if(lFlag && !rFlag) //player moves to the left
         {
-            player.moveLeft(deltaTime,scaleTime * T);
             if((glfwGetTime() - horizontalTime) >= scaleTime * T)
             {
                 lFlag = false;
                 player.alignPlayer();
             }
-
+            
             if(!jFlag)
-                player.jump(glfwGetTime() - horizontalTime,scaleTime*T);
+            {
+                player.jump(glfwGetTime() - horizontalTime,scaleTime * T);
+                player.moveLeft(deltaTime,scaleTime * T);
+            }
+            else if(jFlag && !((horizontalTime-jTime )<(0.7*T-scaleTime*T)))
+            {
+                lFlag=false;
+                return;
+            }
+            else if(jFlag)
+            {
+                player.moveLeft(deltaTime,scaleTime * T);
+            }
         }
 }
 
