@@ -295,6 +295,7 @@ int main(int argc, char *argv[]) {
 
         //DEBUGG FOR UTIL
         tempUtil.checkCollision(jumpFlag);
+        tempUtil.logPlayerPosition(ballin, glfwGetTime(), gameSpeed);
 
 		// Play nice and deactivate the shader program
 		glUseProgram(0);

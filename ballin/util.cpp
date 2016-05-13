@@ -4,7 +4,7 @@
 
 util::util()
 {
-
+    std::cout << "util::util() - Default constructor should not be called." << std::endl;
 }
 
 util::util(Player& p, std::vector<Segment*>& segmentVector, std::vector<Element*>& objects)//, std::vector<TriangleSoup>* obstacleVector)
@@ -74,7 +74,7 @@ void util::checkCollision(bool jumpFlag)
             nodeVector.at(index)->segment->performAction();
         }
         delete s1Boundaries;
-        
+
     }
     else{
         //std::cout << "JUMPING" << std::endl;
@@ -110,3 +110,36 @@ void util::updateNodeVector(std::vector<Element*>& elementVector)
     //std::cout << "NodeVector: " << nodeVector.front()->segment << std::endl;
 }
 
+void util::logPlayerPosition(Player& p, double t, float gameSpeed)
+{
+    double dt = t-deltaLogTime;
+    if(dt >= (1.0/logRate))
+    {
+        deltaLogTime = t;
+        if(positionData.empty())
+        {
+            positionData.push_back(new float[3] {p.getX(), p.getY(), p.getZ()});
+        }
+        else
+        {
+            if(positionData.size() == maxLogSize)
+            {
+                positionData.erase(positionData.begin() + positionData.size()-1);
+                //KALLA DESTRUCTOR MANUELLT FÖR pointer till ARRAY
+            }
+            positionData.insert(positionData.begin(), new float[3] {p.getX(), p.getY(), p.getZ()});
+            updateLogData(dt, gameSpeed);
+        }
+    }
+}
+
+void util::updateLogData(float dt, float gameSpeed)
+{
+    for(int i = 1; i < positionData.size(); ++i)
+    {
+        for(int q = 0; q < 3; ++q)
+        {
+            positionData.at(i)[q] *= (gameSpeed*dt);
+        }
+    }
+}
