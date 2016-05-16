@@ -36,8 +36,6 @@ void util::init(std::vector<Segment*>& segmentVector, std::vector<Element*>& ele
 //Kollar kollision mellan en player samt objekt i nodeVector
 void util::checkCollision(bool jumpFlag)
 {
-    //std::cout << nodeVector.size() << std::endl;
-    //KALLAR PÅ EN ACTION om kollision är sann
     if(!jumpFlag)
     {
 
@@ -96,7 +94,6 @@ void util::updateNodeVector(std::vector<Element*>& elementVector)
     nodeVector.back()->children.clear();
 
     //Kollar vilka nya objekt som ska appendas till children.
-        //KAN FÖRBÄTTRAS (går igenom onödigt många, typ)
     for(int p = 0; p < elementVector.size(); ++p)
     {
         float objectZPos = elementVector.at(p)->getZ();
@@ -106,8 +103,6 @@ void util::updateNodeVector(std::vector<Element*>& elementVector)
             nodeVector.back()->children.push_back(elementVector.at(p));
         }
     }
-
-    //std::cout << "NodeVector: " << nodeVector.front()->segment << std::endl;
 }
 
 void util::logPlayerPosition(Player& p, double t, float gameSpeed)
@@ -124,8 +119,8 @@ void util::logPlayerPosition(Player& p, double t, float gameSpeed)
         {
             if(positionData.size() == maxLogSize)
             {
+                delete positionData.at(maxLogSize-1);
                 positionData.erase(positionData.begin() + positionData.size()-1);
-                //KALLA DESTRUCTOR MANUELLT FÖR pointer till ARRAY
             }
             positionData.insert(positionData.begin(), new float[3] {p.getX(), p.getY(), p.getZ()});
             updateLogData(dt, gameSpeed);
@@ -137,9 +132,7 @@ void util::updateLogData(float dt, float gameSpeed)
 {
     for(int i = 1; i < positionData.size(); ++i)
     {
-        for(int q = 0; q < 3; ++q)
-        {
-            positionData.at(i)[q] *= (gameSpeed*dt);
-        }
+        //index 2 holds z-values
+        positionData.at(i)[2] *= (gameSpeed*dt);
     }
 }
