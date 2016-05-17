@@ -153,11 +153,11 @@ int main(int argc, char *argv[]) {
 	location_time = glGetUniformLocation( shader.programID, "time" );
 	location_tex = glGetUniformLocation( shader.programID, "tex" );
 
-    // Declaring objects of type Trianglesoup after all GLFW nonsense is complete
+    // Declaring objects of type TriangleSoup after all GLFW nonsense is complete
     Player ballin;
     Collectibles coin;
 
-    //Loop used for "initlaizing the Segment-vector"
+    //Loop used for "initializing the Segment-vector"
     float zPosition= 0.0f;
     Segments.push_back(new Segment());
     for(int i = 1; i < numberOfSegments; i++)
