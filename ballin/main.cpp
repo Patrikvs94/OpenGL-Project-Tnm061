@@ -60,9 +60,10 @@ int main(int argc, char *argv[]) {
 
     Texture earthTexture, segmentTexture,fireTexture;
     Texture segmentNormals, earthNormals;
-    Shader shader;
+    Shader shader, particleShader;
 
  	GLint location_time, location_MV, location_P, location_tex, location_norm; // Shader uniforms
+    GLint Plocation_time, Plocation_MV, Plocation_P, Plocation_tex;
     float time = (float)glfwGetTime();
 	double fps = 0.0;
 	float gameSpeed = 10.0f;
@@ -141,6 +142,7 @@ int main(int argc, char *argv[]) {
 
     // Create a shader program object from GLSL code in two files
 	shader.createShader("vertexshader.glsl", "fragmentshader.glsl");
+    particleShader.createShader("vertexshader_particles.glsl", "fragmentshader_particles.glsl");
 
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_DEPTH_TEST); // Use the Z buffer
@@ -159,6 +161,11 @@ int main(int argc, char *argv[]) {
 	location_time = glGetUniformLocation( shader.programID, "time" );
 	location_tex = glGetUniformLocation( shader.programID, "tex" );
     location_norm = glGetUniformLocation( shader.programID, "norm" );
+    
+    Plocation_MV = glGetUniformLocation( particleShader.programID, "MV" );
+    Plocation_P = glGetUniformLocation( particleShader.programID, "P" );
+    Plocation_time = glGetUniformLocation( particleShader.programID, "time" );
+    Plocation_tex = glGetUniformLocation( particleShader.programID, "tex" );
 
 
     // Declaring objects of type TriangleSoup after all GLFW nonsense is complete
@@ -241,18 +248,17 @@ int main(int argc, char *argv[]) {
         handleInput(ballin, leftFlag, rightFlag, jumpFlag, horizontalTime, jumpTime, deltaTime);
 
 		// Activate our shader program.
-		glUseProgram( shader.programID );
+		glUseProgram( particleShader.programID );
 
         // Copy the projection matrix P into the shader.
-		glUniformMatrix4fv( location_P, 1, GL_FALSE, P );
+		glUniformMatrix4fv( Plocation_P, 1, GL_FALSE, P );
 
         // Tell the shader to use texture unit 0.
-		glUniform1i ( location_tex , 0);
-        glUniform1i ( location_norm , 1);
+		glUniform1i ( Plocation_tex , 0);
 
 		// Update the uniform time variable.
 		time = (float)glfwGetTime(); // Needed later as well
-        glUniform1f( location_time, time );
+        glUniform1f( Plocation_time, time );
 
         // Draw the scene
         MVstack.push(); // Save the initial, untouched matrix
@@ -263,7 +269,23 @@ int main(int argc, char *argv[]) {
             MVstack.rotX(M_PI/9);
             //render the particles
             Particles.renderParticles(MVstack,location_MV, fireTexture.texID,window);
+        glUseProgram(0);
             // Then, do the model transformations ("object motion")
+        
+        // Activate our shader program.
+        glUseProgram( shader.programID );
+        
+        // Copy the projection matrix P into the shader.
+        glUniformMatrix4fv( location_P, 1, GL_FALSE, P );
+        
+        // Tell the shader to use texture unit 0.
+        glUniform1i ( location_tex , 0);
+        glUniform1i ( location_norm , 1);
+        
+        // Update the uniform time variable.
+        time = (float)glfwGetTime(); // Needed later as well
+        glUniform1f( location_time, time );
+        
             MVstack.push(); // Save the current matrix on the stack
 
             //We used the known int of 10 for testing purposes
