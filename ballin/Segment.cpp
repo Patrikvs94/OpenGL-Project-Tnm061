@@ -14,7 +14,7 @@ Segment::Segment(): Element(0.0f,0.0f,0.0f)
 }
 
 //take shader and matrixstack and render entire segment
-void Segment::render(MatrixStack& p, GLint& location_MV, GLuint& texture)
+void Segment::render(MatrixStack& p, GLint& location_MV, GLuint& texture, GLuint& normal)
 {
     p.push(); //Save the current matrix before performing multiplications
 
@@ -24,6 +24,9 @@ void Segment::render(MatrixStack& p, GLint& location_MV, GLuint& texture)
         p.translate(-laneMargin, 0.0f, zDif[0]);
         glUniformMatrix4fv( location_MV, 1, GL_FALSE, p.getCurrentMatrix() );
         glBindTexture(GL_TEXTURE_2D, texture);
+        glActiveTexture(GL_TEXTURE1);
+        glBindTexture(GL_TEXTURE_2D, normal);
+        glActiveTexture(GL_TEXTURE0);
         Blocks[0].render(); //Draw the block
         p.pop();
 

@@ -49,7 +49,7 @@ void Player::jump(float t,float T)
     }
 }
 
-void Player::render(MatrixStack& p, GLint& location_MV, GLuint& texture, float time, float speed)
+void Player::render(MatrixStack& p, GLint& location_MV, GLuint& texture, float time, float speed, GLuint& normal)
 {
     p.push(); //Save the current matrix before performing multiplications
 
@@ -58,6 +58,9 @@ void Player::render(MatrixStack& p, GLint& location_MV, GLuint& texture, float t
         p.rotX(-speed*time*0.7);
         glUniformMatrix4fv( location_MV, 1, GL_FALSE, p.getCurrentMatrix() );
         glBindTexture(GL_TEXTURE_2D, texture);
+        glActiveTexture(GL_TEXTURE1);
+        glBindTexture(GL_TEXTURE_2D, normal);
+        glActiveTexture(GL_TEXTURE0);
         mesh.render(); //Draw the player
 
     p.pop(); //Restore the initial matrix

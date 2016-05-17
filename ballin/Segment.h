@@ -14,7 +14,7 @@ class Segment : public Element
         void moveToBack(float z);   //Moves the segment to the back of the line
         void reInit();              //Fixes a new version of the segment
 
-        void render(MatrixStack& p, GLint& location_MV, GLuint& texture);
+        void render(MatrixStack& p, GLint& location_MV, GLuint& texture, GLuint& normal);
         void changeZPos(float posChange);
         void setZPos(float pos);
         float getLength();

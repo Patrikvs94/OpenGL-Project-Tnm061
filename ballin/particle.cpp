@@ -1,3 +1,7 @@
+#ifdef __APPLE__
+#define GLFW_INCLUDE_GLCOREARB
+#endif
+
 #include "particle.hpp"
 
 

@@ -2,16 +2,21 @@
 
 uniform float time;
 uniform sampler2D tex;
+uniform sampler2D norm;
 
-in vec3 interpolatedNormal;
 in vec2 stCoords;
 in vec3 lightDirection;
+in mat3 TBN;
 out vec4 outputColor;
 
 /* Testing linear fog */
 in vec4 eyeSpacePos;
 
 void main() {
+    
+    vec3 interpolatedNormal=normalize( vec3(texture(norm, stCoords)));
+    interpolatedNormal=normalize(interpolatedNormal * 2.0 - 1.0);
+    interpolatedNormal=normalize(TBN*interpolatedNormal);
 
     //Fog parameters (should be uniforms.....)
     vec4 vFogColor = vec4(0.7*sin(time), 0.7*sin(time*0.5), 0.7*cos(2*time), 1.0f); //Should be the same as the background

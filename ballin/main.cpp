@@ -59,9 +59,10 @@ void handleInput(Player &player, bool &lFlag, bool &rFlag, bool &jFlag, float ho
 int main(int argc, char *argv[]) {
 
     Texture earthTexture, segmentTexture,fireTexture;
+    Texture segmentNormals, earthNormals;
     Shader shader;
 
- 	GLint location_time, location_MV, location_P, location_tex; // Shader uniforms
+ 	GLint location_time, location_MV, location_P, location_tex, location_norm; // Shader uniforms
     float time = (float)glfwGetTime();
 	double fps = 0.0;
 	float gameSpeed = 10.0f;
@@ -147,14 +148,17 @@ int main(int argc, char *argv[]) {
     glCullFace(GL_BACK);
 
     // Read the texture data from file and upload it to the GPU
-    earthTexture.createTexture("textures/sun.tga");
-    segmentTexture.createTexture("textures/bricks.tga");
+    earthTexture.createTexture("textures/red.tga");
+    earthNormals.createTexture("textures/red_norm.tga");
+    segmentTexture.createTexture("textures/coble.tga");
+    segmentNormals.createTexture("textures/coble_norm.tga");
     fireTexture.createTexture("textures/fire.tga");
 
 	location_MV = glGetUniformLocation( shader.programID, "MV" );
 	location_P = glGetUniformLocation( shader.programID, "P" );
 	location_time = glGetUniformLocation( shader.programID, "time" );
 	location_tex = glGetUniformLocation( shader.programID, "tex" );
+    location_norm = glGetUniformLocation( shader.programID, "norm" );
 
 
     // Declaring objects of type TriangleSoup after all GLFW nonsense is complete
@@ -244,6 +248,7 @@ int main(int argc, char *argv[]) {
 
         // Tell the shader to use texture unit 0.
 		glUniform1i ( location_tex , 0);
+        glUniform1i ( location_norm , 1);
 
 		// Update the uniform time variable.
 		time = (float)glfwGetTime(); // Needed later as well
@@ -285,7 +290,7 @@ int main(int argc, char *argv[]) {
             {
                 MVstack.push();
                 MVstack.translate(0.0f, 0.0f, Segments.at(i)->getZ());
-                Segments.at(i)->render(MVstack, location_MV, segmentTexture.texID);
+                Segments.at(i)->render(MVstack, location_MV, segmentTexture.texID,segmentNormals.texID);
                 coin.render(MVstack, location_MV, earthTexture.texID);
                 MVstack.pop();
             }
@@ -293,7 +298,7 @@ int main(int argc, char *argv[]) {
             MVstack.pop();
 
                 // Render the player
-                ballin.render(MVstack, location_MV, earthTexture.texID, time, gameSpeed);
+                ballin.render(MVstack, location_MV, earthTexture.texID, time, gameSpeed, earthNormals.texID);
 
             MVstack.pop(); // Restore the matrix we saved above
 
