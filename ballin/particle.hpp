@@ -22,6 +22,10 @@ private:
     float xPos;
     float yPos;
     float zPos;
+    //color values
+    float xCol;
+    float yCol;
+    float zCol;
     //constructor
     particle();
     //destructor

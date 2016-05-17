@@ -1,18 +1,20 @@
 #version 330 core
 
 uniform float time;
-uniform sampler2D tex;
+
 
 in vec2 stCoords;
 in vec3 lightDirection;
 in vec3 interpolatedNormal;
 out vec4 outputColor;
+out vec4 finalColor;
 
 /* Testing linear fog */
 in vec4 eyeSpacePos;
+in vec3 interpolatedColor;
 
 void main() {
-    
+
 
     //Fog parameters (should be uniforms.....)
     vec4 vFogColor = vec4(0.7*sin(time), 0.7*sin(time*0.5), 0.7*cos(2*time), 1.0f); //Should be the same as the background
@@ -29,7 +31,7 @@ void main() {
     //Create specular shading (assumes that interpolatedNormal, lightDirection and V are normalized)
     vec3 ka = vec3(0.0, 0.0, 0.0);          // ambient reflection color
     vec3 Ia = vec3(0.0, 0.0, 0.0);          // ambient illumination color
-    vec3 kd = vec3(texture(tex, stCoords));   // diffuse surface reflection color
+    vec3 kd = interpolatedColor;   // diffuse surface reflection color
     vec3 Id = vec3(1.0, 1.0, 1.0);          // diffuse illumination color
     vec3 ks = vec3(1.0, 1.0, 1.0);          // specular surface reflection color
     vec3 Is = vec3(0.3, 0.3, 0.3);          // specular illumination color
@@ -51,5 +53,9 @@ void main() {
     float fogFactor = 1 - clamp((fEnd-fFogCoord)/(fEnd-fStart), 0.0, 1.0); //Calculate the fog factor (uses a LINEAR equation)
 
     outputColor = mix(outputColor, vFogColor, fogFactor);   //Create output color by "mixing" (interpolate)
-                                                            //the fog with the color using the chosen fog factor
+
+    finalColor = vec4(interpolatedColor, 1.0);
+
+
+
 }

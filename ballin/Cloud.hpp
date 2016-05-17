@@ -10,7 +10,7 @@ class Cloud
 
     Cloud();
     //renders the particles.
-    void renderParticles(MatrixStack &MV, GLint& location_MV, GLuint& texture);
+    void renderParticles(MatrixStack &MV, GLint& location_MV);
     //update the particles
     void updateParticles(float dtX ,float dtY ,float dtZ);
 

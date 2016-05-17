@@ -63,7 +63,7 @@ int main(int argc, char *argv[]) {
     Shader shader, particleShader;
 
  	GLint location_time, location_MV, location_P, location_tex, location_norm; // Shader uniforms
-    GLint Plocation_time, Plocation_MV, Plocation_P, Plocation_tex;
+    GLint Plocation_time, Plocation_MV, Plocation_P, Plocation_Color;
     float time = (float)glfwGetTime();
 	double fps = 0.0;
 	float gameSpeed = 10.0f;
@@ -164,11 +164,10 @@ int main(int argc, char *argv[]) {
 	location_time = glGetUniformLocation( shader.programID, "time" );
 	location_tex = glGetUniformLocation( shader.programID, "tex" );
     location_norm = glGetUniformLocation( shader.programID, "norm" );
-    
+
     Plocation_MV = glGetUniformLocation( particleShader.programID, "MV" );
     Plocation_P = glGetUniformLocation( particleShader.programID, "P" );
     Plocation_time = glGetUniformLocation( particleShader.programID, "time" );
-    Plocation_tex = glGetUniformLocation( particleShader.programID, "tex" );
 
 
     // Declaring objects of type TriangleSoup after all GLFW nonsense is complete
@@ -259,8 +258,6 @@ int main(int argc, char *argv[]) {
         // Copy the projection matrix P into the shader.
 		glUniformMatrix4fv( Plocation_P, 1, GL_FALSE, P );
 
-        // Tell the shader to use texture unit 0.
-		glUniform1i ( Plocation_tex , 0);
 
 		// Update the uniform time variable.
 		time = (float)glfwGetTime(); // Needed later as well
@@ -274,23 +271,23 @@ int main(int argc, char *argv[]) {
             MVstack.translate(0.0f, -2.0f, -10.0f);
             MVstack.rotX(M_PI/9);
             //render the particles
-            Particles.renderParticles(MVstack,location_MV, fireTexture.texID);
+            Particles.renderParticles(MVstack,location_MV);
         glUseProgram(0);
-        
+
         // Activate our shader program.
         glUseProgram( shader.programID );
-        
+
         // Copy the projection matrix P into the shader.
         glUniformMatrix4fv( location_P, 1, GL_FALSE, P );
-        
+
         // Tell the shader to use texture unit 0.
         glUniform1i ( location_tex , 0);
         glUniform1i ( location_norm , 1);
-        
+
         // Update the uniform time variable.
         time = (float)glfwGetTime(); // Needed later as well
         glUniform1f( location_time, time );
-        
+
             MVstack.push(); // Save the current matrix on the stack
 
             //We used the known int of 10 for testing purposes

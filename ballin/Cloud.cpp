@@ -9,20 +9,20 @@ Cloud::Cloud()
 }
 void Cloud::handleBox(int i ,int maxX ,int maxY ,int maxZ)
 {
-        if(particleCount[i]->xPos >= maxX) //10
+        if(particleCount[i]->xPos >= maxX)
         {
             particleCount[i]->xPos = 28 * ((float)rand()) / (float)RAND_MAX - 14;
             particleCount[i]->yPos = 20 * ((float)rand()) / (float)RAND_MAX  - 10;
             particleCount[i]->zPos = 4 * ((float)rand()) / (float)RAND_MAX - 2;
         }
-        //if it goes over x = 8, randomize the position of the particle
-        if(particleCount[i]->yPos >= maxY) //10
+        //if it goes over maxY randomize the position of the particle
+        if(particleCount[i]->yPos >= maxY)
         {
             particleCount[i]->xPos = 28 * ((float)rand()) / (float)RAND_MAX - 14;
             particleCount[i]->yPos = 20 * ((float)rand()) / (float)RAND_MAX  - 10;
             particleCount[i]->zPos = 4 * ((float)rand()) / (float)RAND_MAX - 2;
         }
-        if(particleCount[i]->zPos >= maxZ) //4
+        if(particleCount[i]->zPos >= maxZ)
         {
             particleCount[i]->xPos = 28 * ((float)rand()) / (float)RAND_MAX - 14;
             particleCount[i]->yPos = 20 * ((float)rand()) / (float)RAND_MAX  - 10;
@@ -46,6 +46,7 @@ float Cloud::elapsedTime()
 
 void Cloud::randomizeParticles()
 {
+    //init seed
     srand(time(NULL));
     for(int i = 0; i < maxParticles; i++)
     {
@@ -54,11 +55,15 @@ void Cloud::randomizeParticles()
 
         particleCount[i]->xPos = 28 * ((float)rand()) / (float)RAND_MAX - 14;
         particleCount[i]->yPos = 20 * ((float)rand()) / (float)RAND_MAX  - 10;
-        particleCount[i]->zPos = 4 * ((float)rand()) / (float)RAND_MAX - 2;;
-
+        particleCount[i]->zPos = 4 * ((float)rand()) / (float)RAND_MAX - 2;
+        //randomize the colors of the particles.
+        particleCount[i]->xCol = ((float)rand()) / (float)RAND_MAX;
+        particleCount[i]->yCol = ((float)rand()) / (float)RAND_MAX;
+        particleCount[i]->zCol = ((float)rand()) / (float)RAND_MAX;
         //create a pixel
         particleCount[i]->createParticle();
     }
+
 
 }
 void Cloud::updateParticles(float dtX ,float dtY ,float dtZ) //dt = deltatime
@@ -69,6 +74,10 @@ void Cloud::updateParticles(float dtX ,float dtY ,float dtZ) //dt = deltatime
         float xTemp = particleCount[i]->xPos;
         float yTemp = particleCount[i]->yPos;
         float zTemp = particleCount[i]->zPos;
+        //save the old color values
+        float xColTemp = particleCount[i]->xCol;
+        float yColTemp = particleCount[i]->yCol;
+        float zColTemp = particleCount[i]->zCol;
         //delete the life of the old particles
         delete particleCount[i];
         //create a new particle
@@ -77,11 +86,15 @@ void Cloud::updateParticles(float dtX ,float dtY ,float dtZ) //dt = deltatime
         particleCount[i]->xPos = xTemp + dtX;
         particleCount[i]->yPos = yTemp + dtY;
         particleCount[i]->zPos = zTemp + dtZ;
+        //set the new color values ( which are the saved ones)
+        particleCount[i]->xCol = xColTemp;
+        particleCount[i]->yCol = yColTemp;
+        particleCount[i]->zCol = zColTemp;
         particleCount[i]->createParticle();
     }
 }
 
-void Cloud::renderParticles(MatrixStack &MV, GLint& location_MV, GLuint& texture)
+void Cloud::renderParticles(MatrixStack &MV, GLint& location_MV)
 {
 
 
@@ -98,8 +111,6 @@ void Cloud::renderParticles(MatrixStack &MV, GLint& location_MV, GLuint& texture
         //if it goes over x = 10, y = 10, z = 4, randomize them again
         handleBox(i, 10, 10, 4);
 
-      //bind the texture
-     glBindTexture(GL_TEXTURE_2D, texture);
      //render the pixel
      particleCount[i]->render();
 
