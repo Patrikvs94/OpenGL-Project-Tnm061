@@ -16,7 +16,7 @@ class util
     public:
         util(Player& p, std::vector<Segment*>& segmentVector, std::vector<Element*>& objects);//, std::vector<TriangleSoup>* obstacleVector);
         void init(std::vector<Segment*>& segmentVector, std::vector<Element*>& objects);      //Init on first run
-        void checkCollision(bool jumpFlag);  //Checks collision between two objects
+        void checkCollision(bool jumpFlag, bool& gameOver);  //Checks collision between two objects
         void updateNodeVector(std::vector<Element*>& elementVector); //UPDATES
         void logPlayerPosition(Player& p, double t, float gameSpeed);
 

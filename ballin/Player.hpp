@@ -20,9 +20,10 @@ class Player : public Element
         void addCharge();
         void removeCharge();
         bool gotCharges();
+        float getRadius();
 
         float* getCollisionData();
-        void performAction();
+        void performAction(bool& gameOver);
 
     protected:
 
@@ -34,6 +35,7 @@ class Player : public Element
         static const int maxCharges;
         int currentCharges;
         float angle;
+        float radius;
 
 
 

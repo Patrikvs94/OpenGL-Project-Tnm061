@@ -95,7 +95,8 @@ float* Segment::getBoundaries()
         return boundries;
 }
 
-void Segment::performAction()
+void Segment::performAction(bool& gameOver)
 {
+    gameOver = true;
     std::cout << "DEAD @ " << glfwGetTime() << std::endl;
 }

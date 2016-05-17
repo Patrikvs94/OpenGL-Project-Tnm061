@@ -79,6 +79,7 @@ int main(int argc, char *argv[]) {
     bool jumpFlag  = false;
     bool leftFlag  = false;
     bool rightFlag = false;
+    bool gameOver = false;
 
     MatrixStack MVstack; // The matrix stack we are going to use to set MV
 
@@ -176,7 +177,7 @@ int main(int argc, char *argv[]) {
     util tempUtil(ballin, Segments, tempShit);
 
     // Main loop
-    while(!glfwWindowShouldClose(window))
+    while(!glfwWindowShouldClose(window) && !gameOver)
     {
         deltaTime   = glfwGetTime()-currentTime; //calculate time since last frame
         currentTime = glfwGetTime();
@@ -299,7 +300,7 @@ int main(int argc, char *argv[]) {
         MVstack.pop(); // Restore the initial, untouched matrix
 
         //DEBUGG FOR UTIL
-        tempUtil.checkCollision(jumpFlag);
+        tempUtil.checkCollision(jumpFlag, gameOver);
         tempUtil.logPlayerPosition(ballin, glfwGetTime(), gameSpeed);
 
 		// Play nice and deactivate the shader program
@@ -321,6 +322,11 @@ int main(int argc, char *argv[]) {
     // Close the OpenGL window and terminate GLFW.
     glfwDestroyWindow(window);
     glfwTerminate();
+
+    for(int i = 0; i < 20; ++i)
+    {
+        std::cout << "GAME OVER" << std::endl;
+    }
 
     return 0;
 }

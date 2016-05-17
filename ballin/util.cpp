@@ -34,7 +34,7 @@ void util::init(std::vector<Segment*>& segmentVector, std::vector<Element*>& ele
 }
 
 //Kollar kollision mellan en player samt objekt i nodeVector
-void util::checkCollision(bool jumpFlag)
+void util::checkCollision(bool jumpFlag, bool& gameOver)
 {
     if(!jumpFlag)
     {
@@ -69,13 +69,13 @@ void util::checkCollision(bool jumpFlag)
 
         if(playerPosX == lanePositions[index] && !(playerPosZ <= (s1Boundaries[2] + s1Boundaries[8+index] + s1Boundaries[5+index]) && playerPosZ >= (s1Boundaries[2] + s1Boundaries[8+index] - s1Boundaries[5+index])))
         {
-            nodeVector.at(index)->segment->performAction();
+            nodeVector.at(index)->segment->performAction(gameOver);
         }
         delete s1Boundaries;
 
     }
     else{
-        //std::cout << "JUMPING" << std::endl;
+        //std::cout << "CHECK COLLISION WITH OTHER OBJECTS" << std::endl;
     }
 }
 
@@ -113,7 +113,7 @@ void util::logPlayerPosition(Player& p, double t, float gameSpeed)
         deltaLogTime = t;
         if(positionData.empty())
         {
-            positionData.push_back(new float[3] {p.getX(), p.getY(), p.getZ()});
+            positionData.push_back(new float[3] {p.getX(), p.getY() + p.getRadius(), p.getZ() + p.getRadius()});
         }
         else
         {
@@ -122,7 +122,7 @@ void util::logPlayerPosition(Player& p, double t, float gameSpeed)
                 delete positionData.at(maxLogSize-1);
                 positionData.erase(positionData.begin() + positionData.size()-1);
             }
-            positionData.insert(positionData.begin(), new float[3] {p.getX(), p.getY(), p.getZ()});
+            positionData.insert(positionData.begin(), new float[3] {p.getX(), p.getY() + p.getRadius(), p.getZ() + p.getRadius()});
             updateLogData(dt, gameSpeed);
         }
     }

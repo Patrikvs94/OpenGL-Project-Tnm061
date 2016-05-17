@@ -28,7 +28,7 @@ void Collectibles::render(MatrixStack& p, GLint& location_MV, GLuint& texture)
     p.pop(); //Restore the initial matrix
 }
 
-void Collectibles::performAction()
+void Collectibles::performAction(bool& gameOver)
 {
 
 }

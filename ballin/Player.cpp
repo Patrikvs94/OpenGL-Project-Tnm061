@@ -6,7 +6,8 @@ const int Player::maxCharges = 2;
 
 Player::Player(): Element(0.0f,0.0f,0.0f), moveLength(laneMargin), gravityMultiplier(2.0f)
 {
-    mesh.createSphere(1.0, 30);
+    radius = 1.0f;
+    mesh.createSphere(radius, 30);
     currentCharges = 0;
     //mesh.readOBJ("meshes/trex.obj");    //If we want a more fancy mesh for the player
 
@@ -73,9 +74,8 @@ float Player::getAngle()
     return angle;
 }
 
-void Player::performAction()
+void Player::performAction(bool& gameOver)
 {
-
 
 }
 
@@ -127,4 +127,9 @@ void Player::removeCharge()
 bool Player::gotCharges()
 {
     return (currentCharges > 0);
+}
+
+float Player::getRadius()
+{
+    return radius;
 }
