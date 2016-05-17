@@ -4,7 +4,7 @@
 
 util::util()
 {
-
+    std::cout << "util::util() - Default constructor should not be called." << std::endl;
 }
 
 util::util(Player& p, std::vector<Segment*>& segmentVector, std::vector<Element*>& objects)//, std::vector<TriangleSoup>* obstacleVector)
@@ -36,8 +36,6 @@ void util::init(std::vector<Segment*>& segmentVector, std::vector<Element*>& ele
 //Kollar kollision mellan en player samt objekt i nodeVector
 void util::checkCollision(bool jumpFlag)
 {
-    //std::cout << nodeVector.size() << std::endl;
-    //KALLAR PÅ EN ACTION om kollision är sann
     if(!jumpFlag)
     {
 
@@ -74,7 +72,7 @@ void util::checkCollision(bool jumpFlag)
             nodeVector.at(index)->segment->performAction();
         }
         delete s1Boundaries;
-        
+
     }
     else{
         //std::cout << "JUMPING" << std::endl;
@@ -96,7 +94,6 @@ void util::updateNodeVector(std::vector<Element*>& elementVector)
     nodeVector.back()->children.clear();
 
     //Kollar vilka nya objekt som ska appendas till children.
-        //KAN FÖRBÄTTRAS (går igenom onödigt många, typ)
     for(int p = 0; p < elementVector.size(); ++p)
     {
         float objectZPos = elementVector.at(p)->getZ();
@@ -106,7 +103,36 @@ void util::updateNodeVector(std::vector<Element*>& elementVector)
             nodeVector.back()->children.push_back(elementVector.at(p));
         }
     }
-
-    //std::cout << "NodeVector: " << nodeVector.front()->segment << std::endl;
 }
 
+void util::logPlayerPosition(Player& p, double t, float gameSpeed)
+{
+    double dt = t-deltaLogTime;
+    if(dt >= (1.0/logRate))
+    {
+        deltaLogTime = t;
+        if(positionData.empty())
+        {
+            positionData.push_back(new float[3] {p.getX(), p.getY(), p.getZ()});
+        }
+        else
+        {
+            if(positionData.size() == maxLogSize)
+            {
+                delete positionData.at(maxLogSize-1);
+                positionData.erase(positionData.begin() + positionData.size()-1);
+            }
+            positionData.insert(positionData.begin(), new float[3] {p.getX(), p.getY(), p.getZ()});
+            updateLogData(dt, gameSpeed);
+        }
+    }
+}
+
+void util::updateLogData(float dt, float gameSpeed)
+{
+    for(int i = 1; i < positionData.size(); ++i)
+    {
+        //index 2 holds z-values
+        positionData.at(i)[2] *= (gameSpeed*dt);
+    }
+}

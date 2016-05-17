@@ -97,5 +97,5 @@ float* Segment::getBoundaries()
 
 void Segment::performAction()
 {
-    //std::cout << "DEAD" << std::endl;
+    std::cout << "DEAD @ " << glfwGetTime() << std::endl;
 }

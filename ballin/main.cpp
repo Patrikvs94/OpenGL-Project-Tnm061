@@ -61,19 +61,20 @@ int main(int argc, char *argv[]) {
     Texture earthTexture, segmentTexture,fireTexture;
     Shader shader;
 
-    float T = 1.5f;         //Maximal time it can jump until it descends.
-    float scaleTime = 0.2f;
-
  	GLint location_time, location_MV, location_P, location_tex; // Shader uniforms
-    float time;
+    float time = (float)glfwGetTime();
 	double fps = 0.0;
 	float gameSpeed = 10.0f;
+    float T = 1.5f;         //Maximal time it can jump until it descends.
+    float scaleTime = 0.15f;
+    const int numberOfSegments = 10;
 
     //Variables used for animation
     double jumpTime       = glfwGetTime(); //when the player jumps
     double currentTime    = glfwGetTime(); // when the renderingloop repeats
     double horizontalTime = glfwGetTime(); // when the player moves left/right
     double deltaTime      = 0.0; // The time between the current and last frame
+    double chargeTime     = glfwGetTime();
 
     bool jumpFlag  = false;
     bool leftFlag  = false;
@@ -154,16 +155,16 @@ int main(int argc, char *argv[]) {
 	location_time = glGetUniformLocation( shader.programID, "time" );
 	location_tex = glGetUniformLocation( shader.programID, "tex" );
 
-    // Declaring objects of type Trianglesoup after all GLFW nonsense is complete
 
+    // Declaring objects of type TriangleSoup after all GLFW nonsense is complete
     Cloud Particles;
     Player ballin;
     Collectibles coin;
 
-    //Loop used for "initlaizing the Segment-vector"
+    //Loop used for "initializing the Segment-vector"
     float zPosition= 0.0f;
     Segments.push_back(new Segment());
-    for(int i = 1; i < 10; i++)
+    for(int i = 1; i < numberOfSegments; i++)
     {
         Segments.push_back(new Segment());
         zPosition-=(Segments.at(i-1)->getLength()+Segments.at(i)->getLength() + 1.2f);
@@ -180,6 +181,12 @@ int main(int argc, char *argv[]) {
         deltaTime   = glfwGetTime()-currentTime; //calculate time since last frame
         currentTime = glfwGetTime();
 
+        if(glfwGetTime()-chargeTime > 5.0 && !jumpFlag)
+        {
+            ballin.addCharge();
+            chargeTime=glfwGetTime();
+        }
+
         // Calculate and update the frames per second (FPS) display
         fps = tnm061::displayFPS(window);
 
@@ -193,13 +200,31 @@ int main(int argc, char *argv[]) {
 		// Handle keyboard input (cannot press a key if the time since last press is less than 0,2 sec)
         if(glfwGetKey(window, GLFW_KEY_RIGHT) && !rightFlag && !leftFlag)
         {
-            horizontalTime = glfwGetTime();
-            rightFlag = true;
+            if(!jumpFlag)
+            {
+                horizontalTime = glfwGetTime();
+                rightFlag = true;
+            }
+            else if((jumpFlag && ((glfwGetTime()-jumpTime )<(0.7*T-scaleTime*T)) && ballin.gotCharges()))
+            {
+                horizontalTime = glfwGetTime();
+                rightFlag = true;
+                ballin.removeCharge();
+            }
         }
         if(glfwGetKey(window, GLFW_KEY_LEFT) && !leftFlag && !rightFlag)
         {
-            horizontalTime = glfwGetTime();
-            leftFlag = true;
+            if(!jumpFlag)
+            {
+                horizontalTime = glfwGetTime();
+                leftFlag = true;
+            }
+            else if((jumpFlag && ((glfwGetTime()-jumpTime )<(0.7*T-scaleTime*T)) && ballin.gotCharges()))
+            {
+                horizontalTime = glfwGetTime();
+                leftFlag = true;
+                ballin.removeCharge();
+            }
         }
         if(glfwGetKey(window, GLFW_KEY_UP) && jumpFlag == false)
         {
@@ -275,6 +300,7 @@ int main(int argc, char *argv[]) {
 
         //DEBUGG FOR UTIL
         tempUtil.checkCollision(jumpFlag);
+        tempUtil.logPlayerPosition(ballin, glfwGetTime(), gameSpeed);
 
 		// Play nice and deactivate the shader program
 		glUseProgram(0);
@@ -363,27 +389,31 @@ void handleInput(Player &player, bool &lFlag, bool &rFlag, bool &jFlag, float ho
         if(rFlag && !lFlag) //player moves to the right
         {
             player.moveRight(deltaTime,scaleTime * T);
+            if(!jFlag)
+            {
+                player.jump(glfwGetTime() - horizontalTime,scaleTime * T);
+            }
+
             if((glfwGetTime() - horizontalTime) >= scaleTime * T)
             {
                 rFlag = false;
                 player.alignPlayer();
             }
-
-            if(!jFlag)
-                player.jump(glfwGetTime() - horizontalTime,scaleTime * T);
         }
 
         if(lFlag && !rFlag) //player moves to the left
         {
             player.moveLeft(deltaTime,scaleTime * T);
+            if(!jFlag)
+            {
+                player.jump(glfwGetTime() - horizontalTime,scaleTime * T);
+            }
+
             if((glfwGetTime() - horizontalTime) >= scaleTime * T)
             {
                 lFlag = false;
                 player.alignPlayer();
             }
-
-            if(!jFlag)
-                player.jump(glfwGetTime() - horizontalTime,scaleTime*T);
         }
 }
 
