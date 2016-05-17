@@ -51,7 +51,7 @@
 //Function definitions and explanations is found in the bottom of this file.
 void setupViewport(GLFWwindow *window, GLfloat *P);
 void mat4perspective(float M[], float vfov, float aspect, float znear, float zfar);
-void handleInput(Player &player, bool &lFlag, bool &rFlag, bool &jFlag, float horizontalTime, float jTime, float deltaTime);
+void handleInput(Player &player, bool &lFlag, bool &rFlag, bool &jFlag, float horizontalTime, float jTime, float deltaTime, Cloud &t);
 
 
 /* ------ MAIN FUNCTION --------------*/
@@ -148,6 +148,7 @@ int main(int argc, char *argv[]) {
     glEnable(GL_CULL_FACE);  // Use back face culling
     glCullFace(GL_BACK);
 
+
     // Read the texture data from file and upload it to the GPU
     earthTexture.createTexture("textures/red.tga");
     earthNormals.createTexture("textures/red_norm.tga");
@@ -242,7 +243,7 @@ int main(int argc, char *argv[]) {
         }
 
         //Do something based on the keyboard input (i.e. jump or move sideways)
-        handleInput(ballin, leftFlag, rightFlag, jumpFlag, horizontalTime, jumpTime, deltaTime);
+        handleInput(ballin, leftFlag, rightFlag, jumpFlag, horizontalTime, jumpTime, deltaTime,Particles);
 
 		// Activate our shader program.
 		glUseProgram( shader.programID );
@@ -266,7 +267,7 @@ int main(int argc, char *argv[]) {
             MVstack.translate(0.0f, -2.0f, -10.0f);
             MVstack.rotX(M_PI/9);
             //render the particles
-            Particles.renderParticles(MVstack,location_MV, fireTexture.texID,window);
+            Particles.renderParticles(MVstack,location_MV, fireTexture.texID);
             // Then, do the model transformations ("object motion")
             MVstack.push(); // Save the current matrix on the stack
 
@@ -391,7 +392,7 @@ void mat4perspective(float M[], float vfov, float aspect, float znear, float zfa
 }
 
 //Function to handle the keyboard input to create movement of the player
-void handleInput(Player &player, bool &lFlag, bool &rFlag, bool &jFlag, float horizontalTime, float jTime, float deltaTime)
+void handleInput(Player &player, bool &lFlag, bool &rFlag, bool &jFlag, float horizontalTime, float jTime, float deltaTime,Cloud &t)
 {
     float T = 1.5f;         //Maximal time it can jump until it descends.
     float scaleTime = 0.15f;
@@ -410,6 +411,7 @@ void handleInput(Player &player, bool &lFlag, bool &rFlag, bool &jFlag, float ho
             if(!jFlag)
             {
                 player.jump(glfwGetTime() - horizontalTime,scaleTime * T);
+                t.updateParticles(deltaTime, 0.0f, 0.0f);
             }
 
             if((glfwGetTime() - horizontalTime) >= scaleTime * T)
@@ -425,6 +427,7 @@ void handleInput(Player &player, bool &lFlag, bool &rFlag, bool &jFlag, float ho
             if(!jFlag)
             {
                 player.jump(glfwGetTime() - horizontalTime,scaleTime * T);
+                t.updateParticles(-deltaTime, 0.0f, 0.0f);
             }
 
             if((glfwGetTime() - horizontalTime) >= scaleTime * T)
@@ -432,6 +435,14 @@ void handleInput(Player &player, bool &lFlag, bool &rFlag, bool &jFlag, float ho
                 lFlag = false;
                 player.alignPlayer();
             }
+        }
+        if(jFlag && rFlag)
+        {
+            t.updateParticles(deltaTime, 0.0f, 0.0f);
+        }
+        if(jFlag && lFlag)
+        {
+            t.updateParticles(-deltaTime, 0.0f, 0.0f);
         }
 }
 
