@@ -71,6 +71,7 @@ PFNGLVERTEXATTRIBPOINTERPROC      glVertexAttribPointer      = NULL;
 PFNGLDISABLEVERTEXATTRIBARRAYPROC glDisableVertexAttribArray = NULL;
 PFNGLGENERATEMIPMAPPROC           glGenerateMipmap           = NULL;
 PFNGLBUFFERSUBDATAPROC            glBufferSubData            = NULL;
+PFNGLACTIVETEXTUREPROC            glActiveTexture            = NULL;
 #endif
 
 
@@ -110,14 +111,21 @@ void tnm061::loadExtensions() {
     glUniform1fv         = (PFNGLUNIFORM1FVPROC)glfwGetProcAddress("glUniform1fv");
     glUniform1i          = (PFNGLUNIFORM1IPROC)glfwGetProcAddress("glUniform1i");
 	glUniformMatrix4fv   = (PFNGLUNIFORMMATRIX4FVPROC)glfwGetProcAddress("glUniformMatrix4fv");
+    glActiveTexture   = (PFNGLACTIVETEXTUREPROC)glfwGetProcAddress("glActiveTexture");
+
 
     if( !glCreateProgram || !glDeleteProgram || !glUseProgram ||
         !glCreateShader || !glDeleteShader || !glShaderSource || !glCompileShader ||
         !glGetShaderiv || !glGetShaderInfoLog || !glAttachShader || !glLinkProgram ||
         !glGetProgramiv || !glGetProgramInfoLog || !glGetUniformLocation ||
-        !glUniform1fv || !glUniform1f || !glUniform1i || !glUniformMatrix4fv )
+        !glUniform1fv || !glUniform1f || !glUniform1i || !glUniformMatrix4fv  )
     {
         printError("GL init error", "One or more required OpenGL shader-related functions were not found");
+        return;
+    }
+    if(!glActiveTexture)
+    {
+        printError("GL Texture error", "texture could not be activated! ");
         return;
     }
 

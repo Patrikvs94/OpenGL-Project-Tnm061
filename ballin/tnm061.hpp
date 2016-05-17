@@ -43,6 +43,7 @@ extern PFNGLVERTEXATTRIBPOINTERPROC      glVertexAttribPointer;
 extern PFNGLDISABLEVERTEXATTRIBARRAYPROC glDisableVertexAttribArray;
 extern PFNGLGENERATEMIPMAPPROC           glGenerateMipmap;
 extern PFNGLBUFFERSUBDATAPROC            glBufferSubData;
+extern PFNGLACTIVETEXTUREPROC            glActiveTexture;
 
 #endif
 

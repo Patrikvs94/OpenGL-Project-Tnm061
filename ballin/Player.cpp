@@ -39,6 +39,8 @@ void Player::moveLeft(float t,float T)
 }
 
 //Make a jump!
+// "t"is the time the jump began
+// "T" is the duration of the jump
 void Player::jump(float t,float T)
 {
     //"kastparabel" formeln.
