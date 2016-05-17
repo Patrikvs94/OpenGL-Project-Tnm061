@@ -51,7 +51,7 @@
 //Function definitions and explanations is found in the bottom of this file.
 void setupViewport(GLFWwindow *window, GLfloat *P);
 void mat4perspective(float M[], float vfov, float aspect, float znear, float zfar);
-void handleInput(Player &player, bool &lFlag, bool &rFlag, bool &jFlag, float horizontalTime, float jTime, float deltaTime);
+void handleInput(Player &player, bool &lFlag, bool &rFlag, bool &jFlag, float horizontalTime, float jTime, float deltaTime, Cloud &t);
 
 
 /* ------ MAIN FUNCTION --------------*/
@@ -69,7 +69,8 @@ int main(int argc, char *argv[]) {
 	float gameSpeed = 10.0f;
     float T = 1.5f;         //Maximal time it can jump until it descends.
     float scaleTime = 0.15f;
-    const int numberOfSegments = 10;
+    const int numberOfSegments = 7;
+    float segmentDistance = 0.0f;
 
     //Variables used for animation
     double jumpTime       = glfwGetTime(); //when the player jumps
@@ -82,6 +83,7 @@ int main(int argc, char *argv[]) {
     bool leftFlag  = false;
     bool rightFlag = false;
     bool gameOver = false;
+    bool invincible = true;
 
     MatrixStack MVstack; // The matrix stack we are going to use to set MV
 
@@ -149,6 +151,7 @@ int main(int argc, char *argv[]) {
     glEnable(GL_CULL_FACE);  // Use back face culling
     glCullFace(GL_BACK);
 
+
     // Read the texture data from file and upload it to the GPU
     earthTexture.createTexture("textures/red.tga");
     earthNormals.createTexture("textures/red_norm.tga");
@@ -179,7 +182,7 @@ int main(int argc, char *argv[]) {
     for(int i = 1; i < numberOfSegments; i++)
     {
         Segments.push_back(new Segment());
-        zPosition-=(Segments.at(i-1)->getLength()+Segments.at(i)->getLength() + 1.2f);
+        zPosition-=(Segments.at(i-1)->getLength()+Segments.at(i)->getLength()+segmentDistance);
         Segments.at(i)->changeZPos(zPosition);
     }
 
@@ -199,11 +202,14 @@ int main(int argc, char *argv[]) {
             chargeTime=glfwGetTime();
         }
 
+        if(glfwGetTime() > 1.0f) //we want the first segments to have no gaps
+            segmentDistance = 1.0f;
+
         // Calculate and update the frames per second (FPS) display
         fps = tnm061::displayFPS(window);
 
 		// Set the clear color and depth, and clear the buffers for drawing
-        glClearColor(0.5*sin(time), 0.5*sin(time*0.5), 0.5*cos(2*time), 0.0f);       //Background color, should be the same as the fog!
+        glClearColor(0.5, 0.5, 0.5, 0.0f);       //Background color, should be the same as the fog!
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // Set up the viewport
@@ -245,7 +251,7 @@ int main(int argc, char *argv[]) {
         }
 
         //Do something based on the keyboard input (i.e. jump or move sideways)
-        handleInput(ballin, leftFlag, rightFlag, jumpFlag, horizontalTime, jumpTime, deltaTime);
+        handleInput(ballin, leftFlag, rightFlag, jumpFlag, horizontalTime, jumpTime, deltaTime,Particles);
 
 		// Activate our shader program.
 		glUseProgram( particleShader.programID );
@@ -268,9 +274,8 @@ int main(int argc, char *argv[]) {
             MVstack.translate(0.0f, -2.0f, -10.0f);
             MVstack.rotX(M_PI/9);
             //render the particles
-            Particles.renderParticles(MVstack,location_MV, fireTexture.texID,window);
+            Particles.renderParticles(MVstack,location_MV, fireTexture.texID);
         glUseProgram(0);
-            // Then, do the model transformations ("object motion")
         
         // Activate our shader program.
         glUseProgram( shader.programID );
@@ -303,7 +308,7 @@ int main(int argc, char *argv[]) {
                 Segment* temp = Segments.at(0);
                 Segments.erase(Segments.begin());
                 temp->reInit();
-                temp->setZPos((Segments.at(Segments.size()-1)->getZ()) -(Segments.at(Segments.size()-1)->getLength() + temp->getLength()+ 1.2f));
+                temp->setZPos((Segments.at(Segments.size()-1)->getZ()) -(Segments.at(Segments.size()-1)->getLength() + temp->getLength() + segmentDistance));
                 Segments.push_back(temp);
             }
 
@@ -329,7 +334,7 @@ int main(int argc, char *argv[]) {
         //COLLISION CHECKING
         if(glfwGetTime() >= 2.0)
         {
-            tempUtil.checkCollision(jumpFlag, gameOver);
+            tempUtil.checkCollision(jumpFlag, gameOver, invincible);
         }
         tempUtil.logPlayerPosition(ballin, glfwGetTime(), gameSpeed);
 
@@ -409,14 +414,14 @@ void mat4perspective(float M[], float vfov, float aspect, float znear, float zfa
 }
 
 //Function to handle the keyboard input to create movement of the player
-void handleInput(Player &player, bool &lFlag, bool &rFlag, bool &jFlag, float horizontalTime, float jTime, float deltaTime)
+void handleInput(Player &player, bool &lFlag, bool &rFlag, bool &jFlag, float horizontalTime, float jTime, float deltaTime,Cloud &t)
 {
     float T = 1.5f;         //Maximal time it can jump until it descends.
     float scaleTime = 0.15f;
 
         if(jFlag) //player jumps
         {
-            player.jump(glfwGetTime()-jTime,0.7*T);
+            player.jump(glfwGetTime()-jTime,0.5*T);
 
             if(player.getY() == 0.0f)
                 jFlag = false;
@@ -428,6 +433,7 @@ void handleInput(Player &player, bool &lFlag, bool &rFlag, bool &jFlag, float ho
             if(!jFlag)
             {
                 player.jump(glfwGetTime() - horizontalTime,scaleTime * T);
+                t.updateParticles(deltaTime, 0.0f, 0.0f);
             }
 
             if((glfwGetTime() - horizontalTime) >= scaleTime * T)
@@ -443,6 +449,7 @@ void handleInput(Player &player, bool &lFlag, bool &rFlag, bool &jFlag, float ho
             if(!jFlag)
             {
                 player.jump(glfwGetTime() - horizontalTime,scaleTime * T);
+                t.updateParticles(-deltaTime, 0.0f, 0.0f);
             }
 
             if((glfwGetTime() - horizontalTime) >= scaleTime * T)
@@ -450,6 +457,14 @@ void handleInput(Player &player, bool &lFlag, bool &rFlag, bool &jFlag, float ho
                 lFlag = false;
                 player.alignPlayer();
             }
+        }
+        if(jFlag && rFlag)
+        {
+            t.updateParticles(deltaTime, 0.0f, 0.0f);
+        }
+        if(jFlag && lFlag)
+        {
+            t.updateParticles(-deltaTime, 0.0f, 0.0f);
         }
 }
 

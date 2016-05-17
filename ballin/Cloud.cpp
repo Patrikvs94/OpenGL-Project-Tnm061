@@ -29,22 +29,7 @@ void Cloud::handleBox(int i ,int maxX ,int maxY ,int maxZ)
             particleCount[i]->zPos = 4 * ((float)rand()) / (float)RAND_MAX - 2;
         }
 }
-void Cloud::keyHandler(GLFWwindow *window)
-{
-        if(glfwGetKey(window, GLFW_KEY_RIGHT))
-        {
-        updateParticles(3*sin(-elapsedTime() * 2),0.0f, 0.0f);
-        }
-        if(glfwGetKey(window, GLFW_KEY_UP))
-        {
-        updateParticles(0.0f ,3*sin(elapsedTime() * 2), 0.0f);
-        }
-        if(glfwGetKey(window, GLFW_KEY_LEFT))
-        {
-        updateParticles(3*sin(elapsedTime() * 2),0.0f, 0.0f);
-        }
 
-}
 //calculate delta time, pretty self explanatory code
 float Cloud::elapsedTime()
 {
@@ -96,7 +81,7 @@ void Cloud::updateParticles(float dtX ,float dtY ,float dtZ) //dt = deltatime
     }
 }
 
-void Cloud::renderParticles(MatrixStack &MV, GLint& location_MV, GLuint& texture,GLFWwindow *window)
+void Cloud::renderParticles(MatrixStack &MV, GLint& location_MV, GLuint& texture)
 {
 
 
@@ -123,7 +108,6 @@ void Cloud::renderParticles(MatrixStack &MV, GLint& location_MV, GLuint& texture
     }
     //kill and update particle position, dont do this in the rendering loop!!
     updateParticles(0.0f, 0.0f, 2*elapsedTime());
-    keyHandler(window);
 
     MV.pop(); //restore init matrix.
 }

@@ -4,11 +4,9 @@
 
 const float Segment::xsize = 1.0f;  //Note: Same as the radius of the player
 const float Segment::ysize = 0.2f;
-const float Segment::segmentMax = 7*xsize;
-const float Segment::segmentMin = xsize;
 
 
-Segment::Segment(): Element(0.0f,0.0f,0.0f)
+Segment::Segment(): Element(0.0f,0.0f,0.0f), segmentMin(7*xsize), segmentMax(7*xsize)
 {
     randomize();
 }
@@ -67,11 +65,16 @@ float Segment::getLength()
 
 void Segment::randomize()
 {
-    zMax=0.0f;
+    zMax=0.0f; //The length of the longest block
+
+    if(glfwGetTime() > 2)   //We want the first vector of blocks to be full size. Then shorten sequentially
+        this->shorten();
+
     for(int i=0;i<3;++i)
     {
         //Create 3 blocks with random lengths
         zsize[i] = (((float) rand()) / (float) RAND_MAX)*(segmentMax-segmentMin) + segmentMin;
+
         Blocks[i].createBox(xsize, ysize, zsize[i]);
         if(zsize[i]>zMax)
         {
@@ -89,6 +92,15 @@ void Segment::reInit()
 {
     srand(time(NULL));
     randomize();
+}
+
+void Segment::shorten()
+{
+    if(segmentMin > xsize)  //Cannot be shorter than the block's width!
+        segmentMin -= 2*xsize;
+//
+//    if(glfwGetTime() > 10.0f)
+//        segmentMax = 5*xsize;
 }
 
 
