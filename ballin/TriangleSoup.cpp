@@ -58,46 +58,81 @@ void TriangleSoup::clean() {
 	ntris = 0;
 }
 
-void TriangleSoup::createParticles(int maxParticles,float particleCount) {
+void TriangleSoup::createPixel(float xsize,float ysize,float zsize) {
 
-    //create a square.
-    const GLfloat vertex_array_data[] = {
-            //vertex positions     //normals           //uv coordinates
-             -0.5f, -0.5f,0.0f,    0.0f, 0.0f, 1.0f  , 0.0f, 0.0f,               //v0
-              0.5f, -0.5f,0.0f,    0.0f, 0.0f, 1.0f  , 1.0f, 0.0f,             //v1
-             -0.5f, 0.5f ,0.0f,    0.0f, 0.0f, 1.0f  , 1.0f, 1.0f,              //v2
-              0.5f, 0.5f ,0.0f,    0.0f, 0.0f, 1.0f  , 0.0f, 1.0f                 //v3
-          };
+    // Constant data arrays for this simple test.
+    // Note, however, that they need to be copied to dynamic arrays
+    // in the class. These local variables are not persistent.
+    //
+    // The data array contains 8 floats per vertex:
+    // coordinate xyz, normal xyz, texcoords st
+
+     const GLfloat vertex_array_data[] = {
+         xsize, ysize, zsize, 0.0f, 0.0f, 1.0f , 0.5f,0.5f,
+
+     };
     const GLuint index_array_data[] = {
-                0 , 1, 2,
-                2 , 3, 0
+        0,0,0
     };
-    nverts = 4;
-    ntris = 2;
-    vertexarray = new GLfloat[nverts * 8];
-    indexarray = new GLuint[ntris * 3];
 
-    for(int i=0; i < nverts * 8; i++) {
+    nverts = 1;
+    ntris = 1;
+
+    vertexarray = new GLfloat[8*nverts];
+    indexarray = new GLuint[3*ntris];
+
+    for(int i=0; i<8*nverts; i++) {
         vertexarray[i]=vertex_array_data[i];
     }
-    for(int i=0; i < ntris * 3; i++) {
+    for(int i=0; i<3*ntris; i++) {
         indexarray[i]=index_array_data[i];
     }
 
-        //generate buffers
-        glGenBuffers(1,&vertexbuffer);
-        //bind the buffers.
-        glBindBuffer(GL_ARRAY_BUFFER,vertexbuffer);
-        //create and initliaze the object to the buffers data store.
-        glBufferData(GL_ARRAY_BUFFER,sizeof(vertexarray), vertexarray,GL_STATIC_DRAW);
+	// Generate one vertex array object (VAO) and bind it
+	glGenVertexArrays(1, &(vao));
+	glBindVertexArray(vao);
 
-        //handle the buffers for the position data.
-        glGenBuffers(1,&indexbuffer);
-        glBindBuffer(GL_ARRAY_BUFFER,indexbuffer);
-        //förstår inte riktigt delar av de här två raderna.
-        glBufferData(GL_ARRAY_BUFFER, maxParticles * sizeof(GLfloat) * 4,NULL,GL_STREAM_DRAW);
-        glBufferSubData(GL_ARRAY_BUFFER, 0, particleCount * sizeof(GLfloat) * 4, indexarray);
+	// Generate two buffer IDs
+	glGenBuffers(1, &vertexbuffer);
+	glGenBuffers(1, &indexbuffer);
+
+ 	// Activate the vertex buffer
+	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+ 	// Present our vertex coordinates to OpenGL
+	glBufferData(GL_ARRAY_BUFFER,
+		8*nverts * sizeof(GLfloat), vertexarray, GL_STATIC_DRAW);
+	// Specify how many attribute arrays we have in our VAO
+	glEnableVertexAttribArray(0); // Vertex coordinates
+	glEnableVertexAttribArray(1); // Normals
+	glEnableVertexAttribArray(2); // Texture coordinates
+	// Specify how OpenGL should interpret the vertex buffer data:
+	// Attributes 0, 1, 2 (must match the lines above and the layout in the shader)
+	// Number of dimensions (3 means vec3 in the shader, 2 means vec2)
+	// Type GL_FLOAT
+	// Not normalized (GL_FALSE)
+	// Stride 8 floats (interleaved array with 8 floats per vertex)
+	// Array buffer offset 0, 3 or 6 floats (offset into first vertex)
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE,
+		8*sizeof(GLfloat), (void*)0); // xyz coordinates
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE,
+		8*sizeof(GLfloat), (void*)(3*sizeof(GLfloat))); // normals
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE,
+		8*sizeof(GLfloat), (void*)(6*sizeof(GLfloat))); // texcoords
+
+ 	// Activate the index buffer
+ 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexbuffer);
+ 	// Present our vertex indices to OpenGL
+ 	glBufferData(GL_ELEMENT_ARRAY_BUFFER,
+	 	3*ntris*sizeof(GLuint), indexarray, GL_STATIC_DRAW);
+
+	// Deactivate (unbind) the VAO and the buffers again.
+	// Do NOT unbind the index buffer while the VAO is still bound.
+	// The index buffer is an essential part of the VAO state.
+	glBindVertexArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+ 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
+
 
 //Create a box with tiled textures
 void TriangleSoup::createBox(float xsize, float ysize, float zsize) {
@@ -647,6 +682,15 @@ void TriangleSoup::render() {
 	// (mode, vertex count, type, element array buffer offset)
 	glBindVertexArray(0);
 
+}
+void TriangleSoup::render2() {
+
+	glBindVertexArray(vao);
+
+	glPointSize(6.0f);
+    glDrawElements(GL_POINTS, 3 * ntris, GL_UNSIGNED_INT, (void*)0);
+	// (mode, vertex count, type, element array buffer offset)
+	glBindVertexArray(0);
 }
 
 /*

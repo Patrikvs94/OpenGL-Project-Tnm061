@@ -42,6 +42,7 @@
 #include "Player.hpp"
 #include "util.h"
 #include "Collectibles.h"
+#include "Cloud.hpp"
 
 #include <ctime>
 #include <vector>
@@ -57,7 +58,7 @@ void handleInput(Player &player, bool &lFlag, bool &rFlag, bool &jFlag, float ho
 
 int main(int argc, char *argv[]) {
 
-    Texture earthTexture, segmentTexture;
+    Texture earthTexture, segmentTexture,fireTexture;
     Shader shader;
 
     float T = 1.5f;         //Maximal time it can jump until it descends.
@@ -146,6 +147,7 @@ int main(int argc, char *argv[]) {
     // Read the texture data from file and upload it to the GPU
     earthTexture.createTexture("textures/sun.tga");
     segmentTexture.createTexture("textures/bricks.tga");
+    fireTexture.createTexture("textures/fire.tga");
 
 	location_MV = glGetUniformLocation( shader.programID, "MV" );
 	location_P = glGetUniformLocation( shader.programID, "P" );
@@ -153,6 +155,8 @@ int main(int argc, char *argv[]) {
 	location_tex = glGetUniformLocation( shader.programID, "tex" );
 
     // Declaring objects of type Trianglesoup after all GLFW nonsense is complete
+
+    Cloud Particles;
     Player ballin;
     Collectibles coin;
 
@@ -226,7 +230,8 @@ int main(int argc, char *argv[]) {
             // First, do the view transformations ("camera motion")
             MVstack.translate(0.0f, -2.0f, -10.0f);
             MVstack.rotX(M_PI/9);
-
+            //render the particles
+            Particles.renderParticles(MVstack,location_MV, fireTexture.texID,window);
             // Then, do the model transformations ("object motion")
             MVstack.push(); // Save the current matrix on the stack
 

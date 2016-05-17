@@ -15,7 +15,7 @@ out vec4 eyeSpacePos;
 
 void main(){
 
-  gl_Position = (P * MV) * vec4(Position, 1.0);
+  gl_Position = (P * MV) * vec4(Position, 1.0f);
   interpolatedNormal = mat3(MV) * Normal;
   stCoords = TexCoord;
 

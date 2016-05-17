@@ -41,7 +41,8 @@ void clean();
 /* Create a simple box geometry */
 void createBox(float xsize, float ysize, float zsize);
 
-void createParticles(int maxParticles,float particleCount);
+void createPixel(float xsize,float ysize,float zsize);
+
 /* Create a sphere (approximated by polygon segments) */
 void createSphere(float radius, int segments);
 
@@ -56,6 +57,7 @@ void printInfo();
 
 /* Render the geometry in a triangleSoup object */
 void render();
+void render2();
 
 float* getBoundaries();
 
