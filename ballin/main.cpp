@@ -299,8 +299,11 @@ int main(int argc, char *argv[]) {
 
         MVstack.pop(); // Restore the initial, untouched matrix
 
-        //DEBUGG FOR UTIL
-        tempUtil.checkCollision(jumpFlag, gameOver);
+        //COLLISION CHECKING
+        if(glfwGetTime() >= 2.0)
+        {
+            tempUtil.checkCollision(jumpFlag, gameOver);
+        }
         tempUtil.logPlayerPosition(ballin, glfwGetTime(), gameSpeed);
 
 		// Play nice and deactivate the shader program
