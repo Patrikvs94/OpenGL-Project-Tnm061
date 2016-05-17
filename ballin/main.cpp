@@ -186,7 +186,7 @@ int main(int argc, char *argv[]) {
     }
 
     //DEBUG FOR UTIL
-    std::vector<Element*> tempShit;
+    std::vector<Collectibles*> tempShit;
     util tempUtil(ballin, Segments, tempShit);
 
     // Main loop

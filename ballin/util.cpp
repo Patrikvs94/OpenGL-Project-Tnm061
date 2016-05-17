@@ -7,27 +7,27 @@ util::util()
     std::cout << "util::util() - Default constructor should not be called." << std::endl;
 }
 
-util::util(Player& p, std::vector<Segment*>& segmentVector, std::vector<Element*>& objects)//, std::vector<TriangleSoup>* obstacleVector)
+util::util(Player& p, std::vector<Segment*>& segmentVector, std::vector<Collectibles*>& objects)//, std::vector<TriangleSoup>* obstacleVector)
 {
     player = &p;
     init(segmentVector, objects);
 }
 
 //Sort collision vectors on constructor call
-void util::init(std::vector<Segment*>& segmentVector, std::vector<Element*>& elementVector)
+void util::init(std::vector<Segment*>& segmentVector, std::vector<Collectibles*>& collVector)
 {
     for(int i = 0; i < segmentVector.size(); ++i)
     {
         nodeVector.push_back(new node());
         nodeVector.at(i)->segment = segmentVector.at(i);
 
-        for(int p = 0; p < elementVector.size(); ++p)
+        for(int p = 0; p < collVector.size(); ++p)
         {
-            float objectZPos = elementVector.at(p)->getZ();
+            float objectZPos = collVector.at(p)->getZ();
             float* boundaries = nodeVector.at(i)->segment->getBoundaries();
             if(objectZPos>=boundaries[0] && objectZPos<=boundaries[1])
             {
-                nodeVector.at(i)->children.push_back(elementVector.at(p));
+                nodeVector.at(i)->children.push_back(collVector.at(p));
             }
         }
     }
@@ -83,7 +83,7 @@ void util::checkCollision(bool jumpFlag, bool& gameOver, bool& invincible)
 }
 
 
-void util::updateNodeVector(std::vector<Element*>& elementVector)
+void util::updateNodeVector(std::vector<Collectibles*>& collVector)
 {
     //Lägger första noden längst bak
     node* tempNode = nodeVector.front();
@@ -97,13 +97,13 @@ void util::updateNodeVector(std::vector<Element*>& elementVector)
     nodeVector.back()->children.clear();
 
     //Kollar vilka nya objekt som ska appendas till children.
-    for(int p = 0; p < elementVector.size(); ++p)
+    for(int p = 0; p < collVector.size(); ++p)
     {
-        float objectZPos = elementVector.at(p)->getZ();
+        float objectZPos = collVector.at(p)->getZ();
         float* boundaries = nodeVector.back()->segment->getBoundaries();
         if(objectZPos>=boundaries[0] && objectZPos<=boundaries[1])
         {
-            nodeVector.back()->children.push_back(elementVector.at(p));
+            nodeVector.back()->children.push_back(collVector.at(p));
         }
     }
 }

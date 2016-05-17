@@ -50,8 +50,8 @@ void walls::updateWalls(float dt)
     {
         for(int p = 0; p < cols; ++p)
         {
-            rightWall.at((cols*i)+p)->positions[2] += (sin(rightWall.at(i)->velocity * t));
-            leftWall.at((cols*i)+p)->positions[2] += (sin(leftWall.at(i)->velocity * t));
+            rightWall.at((cols*i)+p)->positions[2] += (sin(rightWall.at((cols*i)+p)->velocity * t));
+            leftWall.at((cols*i)+p)->positions[2] += (sin(leftWall.at((cols*i)+p)->velocity * t));
         }
     }
 }
