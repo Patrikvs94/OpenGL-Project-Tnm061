@@ -34,7 +34,7 @@ void util::init(std::vector<Segment*>& segmentVector, std::vector<Element*>& ele
 }
 
 //Kollar kollision mellan en player samt objekt i nodeVector
-void util::checkCollision(bool jumpFlag, bool& gameOver)
+void util::checkCollision(bool jumpFlag, bool& gameOver, bool& invincible)
 {
     if(!jumpFlag)
     {
@@ -69,7 +69,10 @@ void util::checkCollision(bool jumpFlag, bool& gameOver)
 
         if(playerPosX == lanePositions[index] && !(playerPosZ <= (s1Boundaries[2] + s1Boundaries[8+index] + s1Boundaries[5+index]) && playerPosZ >= (s1Boundaries[2] + s1Boundaries[8+index] - s1Boundaries[5+index])))
         {
-            nodeVector.at(index)->segment->performAction(gameOver);
+            if(!invincible)
+            {
+                nodeVector.at(index)->segment->performAction(gameOver);
+            }
         }
         delete s1Boundaries;
 

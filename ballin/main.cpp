@@ -82,6 +82,7 @@ int main(int argc, char *argv[]) {
     bool leftFlag  = false;
     bool rightFlag = false;
     bool gameOver = false;
+    bool invincible = true;
 
     MatrixStack MVstack; // The matrix stack we are going to use to set MV
 
@@ -312,7 +313,7 @@ int main(int argc, char *argv[]) {
         //COLLISION CHECKING
         if(glfwGetTime() >= 2.0)
         {
-            tempUtil.checkCollision(jumpFlag, gameOver);
+            tempUtil.checkCollision(jumpFlag, gameOver, invincible);
         }
         tempUtil.logPlayerPosition(ballin, glfwGetTime(), gameSpeed);
 
