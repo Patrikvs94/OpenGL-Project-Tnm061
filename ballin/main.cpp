@@ -68,7 +68,8 @@ int main(int argc, char *argv[]) {
 	float gameSpeed = 10.0f;
     float T = 1.5f;         //Maximal time it can jump until it descends.
     float scaleTime = 0.15f;
-    const int numberOfSegments = 10;
+    const int numberOfSegments = 7;
+    float segmentDistance = 0.0f;
 
     //Variables used for animation
     double jumpTime       = glfwGetTime(); //when the player jumps
@@ -172,7 +173,7 @@ int main(int argc, char *argv[]) {
     for(int i = 1; i < numberOfSegments; i++)
     {
         Segments.push_back(new Segment());
-        zPosition-=(Segments.at(i-1)->getLength()+Segments.at(i)->getLength() + 1.2f);
+        zPosition-=(Segments.at(i-1)->getLength()+Segments.at(i)->getLength()+segmentDistance);
         Segments.at(i)->changeZPos(zPosition);
     }
 
@@ -192,11 +193,14 @@ int main(int argc, char *argv[]) {
             chargeTime=glfwGetTime();
         }
 
+        if(glfwGetTime() > 1.0f) //we want the first segments to have no gaps
+            segmentDistance = 1.0f;
+
         // Calculate and update the frames per second (FPS) display
         fps = tnm061::displayFPS(window);
 
 		// Set the clear color and depth, and clear the buffers for drawing
-        glClearColor(0.5*sin(time), 0.5*sin(time*0.5), 0.5*cos(2*time), 0.0f);       //Background color, should be the same as the fog!
+        glClearColor(0.5, 0.5, 0.5, 0.0f);       //Background color, should be the same as the fog!
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // Set up the viewport
@@ -281,7 +285,7 @@ int main(int argc, char *argv[]) {
                 Segment* temp = Segments.at(0);
                 Segments.erase(Segments.begin());
                 temp->reInit();
-                temp->setZPos((Segments.at(Segments.size()-1)->getZ()) -(Segments.at(Segments.size()-1)->getLength() + temp->getLength()+ 1.2f));
+                temp->setZPos((Segments.at(Segments.size()-1)->getZ()) -(Segments.at(Segments.size()-1)->getLength() + temp->getLength() + segmentDistance));
                 Segments.push_back(temp);
             }
 
@@ -394,7 +398,7 @@ void handleInput(Player &player, bool &lFlag, bool &rFlag, bool &jFlag, float ho
 
         if(jFlag) //player jumps
         {
-            player.jump(glfwGetTime()-jTime,0.7*T);
+            player.jump(glfwGetTime()-jTime,0.5*T);
 
             if(player.getY() == 0.0f)
                 jFlag = false;
