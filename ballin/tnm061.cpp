@@ -54,6 +54,7 @@ PFNGLGETPROGRAMINFOLOGPROC        glGetProgramInfoLog  = NULL;
 PFNGLLINKPROGRAMPROC              glLinkProgram        = NULL;
 PFNGLGETUNIFORMLOCATIONPROC       glGetUniformLocation = NULL;
 PFNGLUNIFORM1FPROC                glUniform1f          = NULL;
+PFNGLUNIFORM4FVPROC               glUniform4fv         = NULL;
 PFNGLUNIFORM1FVPROC               glUniform1fv         = NULL;
 PFNGLUNIFORM1IPROC                glUniform1i          = NULL;
 PFNGLUNIFORMMATRIX4FVPROC         glUniformMatrix4fv   = NULL;
@@ -108,6 +109,7 @@ void tnm061::loadExtensions() {
     glGetProgramInfoLog  = (PFNGLGETPROGRAMINFOLOGPROC)glfwGetProcAddress("glGetProgramInfoLog");
     glGetUniformLocation = (PFNGLGETUNIFORMLOCATIONPROC)glfwGetProcAddress("glGetUniformLocation");
     glUniform1f          = (PFNGLUNIFORM1FPROC)glfwGetProcAddress("glUniform1f");
+    glUniform4fv         = (PFNGLUNIFORM4FVPROC)glfwGetProcAddress("glUniform4fv");
     glUniform1fv         = (PFNGLUNIFORM1FVPROC)glfwGetProcAddress("glUniform1fv");
     glUniform1i          = (PFNGLUNIFORM1IPROC)glfwGetProcAddress("glUniform1i");
 	glUniformMatrix4fv   = (PFNGLUNIFORMMATRIX4FVPROC)glfwGetProcAddress("glUniformMatrix4fv");
@@ -118,7 +120,7 @@ void tnm061::loadExtensions() {
         !glCreateShader || !glDeleteShader || !glShaderSource || !glCompileShader ||
         !glGetShaderiv || !glGetShaderInfoLog || !glAttachShader || !glLinkProgram ||
         !glGetProgramiv || !glGetProgramInfoLog || !glGetUniformLocation ||
-        !glUniform1fv || !glUniform1f || !glUniform1i || !glUniformMatrix4fv  )
+        !glUniform1fv || !glUniform1f || !glUniform1i || !glUniformMatrix4fv || !glUniform4fv  )
     {
         printError("GL init error", "One or more required OpenGL shader-related functions were not found");
         return;
