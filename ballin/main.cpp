@@ -218,7 +218,7 @@ int main(int argc, char *argv[]) {
         fps = tnm061::displayFPS(window);
 
 		// Set the clear color and depth, and clear the buffers for drawing
-        glClearColor(0.02, 0.02, 0.05, 0.0f);       //Background color, should be the same as the fog!
+        glClearColor(0.7, 0.7, 0.7, 1.0);       //Background color, should be the same as the fog!
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // Set up the viewport
