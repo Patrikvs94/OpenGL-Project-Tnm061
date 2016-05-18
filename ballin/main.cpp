@@ -43,6 +43,7 @@
 #include "util.h"
 #include "Collectibles.h"
 #include "Cloud.hpp"
+#include "walls.h"
 
 #include <ctime>
 #include <vector>
@@ -58,8 +59,8 @@ void handleInput(Player &player, bool &lFlag, bool &rFlag, bool &jFlag, float ho
 
 int main(int argc, char *argv[]) {
 
-    Texture earthTexture, segmentTexture,fireTexture;
-    Texture segmentNormals, earthNormals;
+    Texture earthTexture, segmentTexture,fireTexture, wallTexture;
+    Texture segmentNormals, earthNormals, wallNormals;
     Shader shader, particleShader;
 
  	GLint location_time, location_MV, location_P, location_tex, location_norm; // Shader uniforms
@@ -153,11 +154,13 @@ int main(int argc, char *argv[]) {
 
 
     // Read the texture data from file and upload it to the GPU
-    earthTexture.createTexture("textures/red.tga");
+    earthTexture.createTexture("textures/energy.tga");
     earthNormals.createTexture("textures/red_norm.tga");
-    segmentTexture.createTexture("textures/coble.tga");
+    segmentTexture.createTexture("textures/scifi.tga");
     segmentNormals.createTexture("textures/coble_norm.tga");
     fireTexture.createTexture("textures/fire.tga");
+    wallTexture.createTexture("textures/brickwall.tga");
+    wallNormals.createTexture("textures/brickwall_normal.tga");
 
 	location_MV = glGetUniformLocation( shader.programID, "MV" );
 	location_P = glGetUniformLocation( shader.programID, "P" );
@@ -174,6 +177,7 @@ int main(int argc, char *argv[]) {
     Cloud Particles;
     Player ballin;
     Collectibles coin;
+    walls *demWalls;
 
     //Loop used for "initializing the Segment-vector"
     float zPosition= 0.0f;
@@ -188,6 +192,12 @@ int main(int argc, char *argv[]) {
     //DEBUG FOR UTIL
     std::vector<Collectibles*> tempShit;
     util tempUtil(ballin, Segments, tempShit);
+
+    //WALLS
+    float rightOrigin[3]{-12.0f, -20.0f, 1.0f};
+    float leftOrigin[3]{12.0f, -20.0f, 1.0f};
+    demWalls = new walls(rightOrigin, leftOrigin);
+
 
     // Main loop
     while(!glfwWindowShouldClose(window) && !gameOver)
@@ -323,6 +333,7 @@ int main(int argc, char *argv[]) {
 
                 // Render the player
                 ballin.render(MVstack, location_MV, earthTexture.texID, time, gameSpeed, earthNormals.texID);
+                demWalls->render(MVstack, location_MV, wallTexture.texID,wallNormals.texID, deltaTime);
 
             MVstack.pop(); // Restore the matrix we saved above
 

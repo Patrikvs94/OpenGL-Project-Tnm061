@@ -1,3 +1,6 @@
+#ifndef TRIANGLESOUP_H
+#define TRIANGLESOUP_H
+
 #include <GLFW/glfw3.h>
 
 #ifdef __WIN32__
@@ -66,3 +69,5 @@ private:
 void printError(const char *errtype, const char *errmsg);
 
 };
+
+#endif // TRIANGLESOUP_H

@@ -1,3 +1,7 @@
+#ifndef MATRIXSTACK_H
+#define MATRIXSTACK_H
+
+
 #include <cmath>
 #include <cstdlib>
 #include <cstdio>
@@ -61,3 +65,5 @@ private:
     void matrixMult(float M1[], float M2[], float Mout[]);
     void matrixPrint(float M[]);
 };
+
+#endif // MATRIXSTACK_H

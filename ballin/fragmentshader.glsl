@@ -13,13 +13,14 @@ out vec4 outputColor;
 in vec4 eyeSpacePos;
 
 void main() {
-    
+
     vec3 interpolatedNormal=normalize( vec3(texture(norm, stCoords)));
     interpolatedNormal=normalize(interpolatedNormal * 2.0 - 1.0);
     interpolatedNormal=normalize(TBN*interpolatedNormal);
 
     //Fog parameters (should be uniforms.....)
-    vec4 vFogColor = vec4(0.7*sin(time), 0.7*sin(time*0.5), 0.7*cos(2*time), 1.0f); //Should be the same as the background
+    //vec4 vFogColor = vec4(0.7*sin(time), 0.7*sin(time*0.5), 0.7*cos(2*time), 1.0f); //Should be the same as the background
+    vec4 vFogColor = vec4(0.5, 0.5, 0.5, 1.0);
     float fStart = 25.0f;
     float fEnd = 50.0f;
 
@@ -31,8 +32,8 @@ void main() {
 //    outputColor = texcolor * diffuse;
 
     //Create specular shading (assumes that interpolatedNormal, lightDirection and V are normalized)
-    vec3 ka = vec3(0.0, 0.0, 0.0);          // ambient reflection color
-    vec3 Ia = vec3(0.0, 0.0, 0.0);          // ambient illumination color
+    vec3 ka = vec3(1.0, 1.0, 1.0);          // ambient reflection color
+    vec3 Ia = vec3(0.1, 0.1, 0.1);          // ambient illumination color
     vec3 kd = vec3(texture(tex, stCoords));   // diffuse surface reflection color
     vec3 Id = vec3(1.0, 1.0, 1.0);          // diffuse illumination color
     vec3 ks = vec3(1.0, 1.0, 1.0);          // specular surface reflection color
