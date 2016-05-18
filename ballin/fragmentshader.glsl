@@ -20,7 +20,7 @@ void main() {
 
     //Fog parameters (should be uniforms.....)
     //vec4 vFogColor = vec4(0.7*sin(time), 0.7*sin(time*0.5), 0.7*cos(2*time), 1.0f); //Should be the same as the background
-    vec4 vFogColor = vec4(0.7, 0.7, 0.7, 1.0);
+    vec4 vFogColor = vec4(0.4, 0.4, 0.4, 1.0);
     float fStart = 25.0f;
     float fEnd = 50.0f;
 

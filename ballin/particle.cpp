@@ -130,7 +130,7 @@ void particle::render() {
 
 	glBindVertexArray(vao);
 
-	glPointSize(2.0f);
+	glPointSize(3.0f);
     glDrawElements(GL_POINTS, 3 * ntris, GL_UNSIGNED_INT, (void*)0);
 	// (mode, vertex count, type, element array buffer offset)
 	glBindVertexArray(0);

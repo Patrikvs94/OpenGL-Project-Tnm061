@@ -22,7 +22,7 @@ void main(){
 
   stCoords = TexCoord;
     interpolatedColor = Color;
-    //interpolatedColor = vec3(sin(time) ,sin(time), sin(time) + 1);
+    interpolatedColor = vec3(1.0,1.0,1.0);
   lightDirection = normalize(vec3(0.0, 0.5, 1.0));
 
   //Variable used for calculating fog :)
