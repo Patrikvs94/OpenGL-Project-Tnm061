@@ -43,6 +43,7 @@
 #include "util.h"
 #include "Collectibles.h"
 #include "Cloud.hpp"
+#include "walls.h"
 
 #include <ctime>
 #include <vector>
@@ -136,7 +137,7 @@ int main(int argc, char *argv[]) {
     GLfloat P[16];
     float aspectRatio = (vidmode->width)/(vidmode->height);
 
-    //Create perspective matrix with fov = 1 rad, aspect = 1, znear = 3 and zfar = 10.
+    //Create perspective matrix with fov = 1 rad, aspect = 1, znear = 3 and zfar = 75.
 	mat4perspective(P, 1.0f, aspectRatio, 3.0f, 75.0f);
 
     // Intialize the matrix to an identity transformation
@@ -174,6 +175,7 @@ int main(int argc, char *argv[]) {
     Cloud Particles;
     Player ballin;
     Collectibles coin;
+    walls *demWalls;
 
     //Loop used for "initializing the Segment-vector"
     float zPosition= 0.0f;
@@ -188,6 +190,11 @@ int main(int argc, char *argv[]) {
     //DEBUG FOR UTIL
     std::vector<Collectibles*> tempShit;
     util tempUtil(ballin, Segments, tempShit);
+
+    //INIT WALLS
+    float rightWalls[3]{-12.0f, -20.0f, 1.0f};
+    float leftWalls[3]{12.0f, -20.0f, 1.0f};
+    demWalls = new walls(rightWalls, leftWalls);
 
     // Main loop
     while(!glfwWindowShouldClose(window) && !gameOver)
@@ -323,6 +330,7 @@ int main(int argc, char *argv[]) {
 
                 // Render the player
                 ballin.render(MVstack, location_MV, earthTexture.texID, time, gameSpeed, earthNormals.texID);
+                demWalls->render(MVstack, location_MV, segmentTexture.texID,segmentNormals.texID, deltaTime);
 
             MVstack.pop(); // Restore the matrix we saved above
 
