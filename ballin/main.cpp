@@ -63,7 +63,7 @@ int main(int argc, char *argv[]) {
     Texture segmentNormals, earthNormals, wallNormals;
     Shader shader, particleShader;
 
- 	GLint location_time, location_MV, location_P, location_tex, location_norm; // Shader uniforms
+ 	GLint location_time, location_MV, location_P, location_tex, location_norm, location_l_pos;; // Shader uniforms
     GLint Plocation_time, Plocation_MV, Plocation_P, Plocation_Color;
     float time = (float)glfwGetTime();
 	double fps = 0.0;
@@ -137,7 +137,7 @@ int main(int argc, char *argv[]) {
     GLfloat P[16];
     float aspectRatio = (vidmode->width)/(vidmode->height);
 
-    //Create perspective matrix with fov = 1 rad, aspect = 1, znear = 3 and zfar = 10.
+    //Create perspective matrix with fov = 1 rad, aspect = 1, znear = 3 and zfar = 75.
 	mat4perspective(P, 1.0f, aspectRatio, 3.0f, 75.0f);
 
     // Intialize the matrix to an identity transformation
@@ -167,6 +167,7 @@ int main(int argc, char *argv[]) {
 	location_time = glGetUniformLocation( shader.programID, "time" );
 	location_tex = glGetUniformLocation( shader.programID, "tex" );
     location_norm = glGetUniformLocation( shader.programID, "norm" );
+    location_l_pos = glGetUniformLocation( shader.programID, "l_pos" );
 
     Plocation_MV = glGetUniformLocation( particleShader.programID, "MV" );
     Plocation_P = glGetUniformLocation( particleShader.programID, "P" );
@@ -198,7 +199,6 @@ int main(int argc, char *argv[]) {
     float leftOrigin[3]{12.0f, -20.0f, 1.0f};
     demWalls = new walls(rightOrigin, leftOrigin);
 
-
     // Main loop
     while(!glfwWindowShouldClose(window) && !gameOver)
     {
@@ -218,7 +218,7 @@ int main(int argc, char *argv[]) {
         fps = tnm061::displayFPS(window);
 
 		// Set the clear color and depth, and clear the buffers for drawing
-        glClearColor(0.5, 0.5, 0.5, 0.0f);       //Background color, should be the same as the fog!
+        glClearColor(0.02, 0.02, 0.05, 0.0f);       //Background color, should be the same as the fog!
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // Set up the viewport

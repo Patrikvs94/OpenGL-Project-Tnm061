@@ -69,5 +69,5 @@ private:
 void printError(const char *errtype, const char *errmsg);
 
 };
-
 #endif // TRIANGLESOUP_H
+
