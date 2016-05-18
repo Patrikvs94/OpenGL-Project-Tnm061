@@ -11,20 +11,20 @@ void Cloud::handleBox(int i ,int maxX ,int maxY ,int maxZ)
 {
         if(particleCount[i]->xPos >= maxX)
         {
-            particleCount[i]->xPos = 28 * ((float)rand()) / (float)RAND_MAX - 14;
+            particleCount[i]->xPos = 20 * ((float)rand()) / (float)RAND_MAX - 10;
             particleCount[i]->yPos = 20 * ((float)rand()) / (float)RAND_MAX  - 10;
             particleCount[i]->zPos = 4 * ((float)rand()) / (float)RAND_MAX - 2;
         }
         //if it goes over maxY randomize the position of the particle
         if(particleCount[i]->yPos >= maxY)
         {
-            particleCount[i]->xPos = 28 * ((float)rand()) / (float)RAND_MAX - 14;
+            particleCount[i]->xPos = 20 * ((float)rand()) / (float)RAND_MAX - 10;
             particleCount[i]->yPos = 20 * ((float)rand()) / (float)RAND_MAX  - 10;
             particleCount[i]->zPos = 4 * ((float)rand()) / (float)RAND_MAX - 2;
         }
         if(particleCount[i]->zPos >= maxZ)
         {
-            particleCount[i]->xPos = 28 * ((float)rand()) / (float)RAND_MAX - 14;
+            particleCount[i]->xPos = 20 * ((float)rand()) / (float)RAND_MAX - 10;
             particleCount[i]->yPos = 20 * ((float)rand()) / (float)RAND_MAX  - 10;
             particleCount[i]->zPos = 4 * ((float)rand()) / (float)RAND_MAX - 2;
         }
@@ -53,7 +53,7 @@ void Cloud::randomizeParticles()
         particleCount[i] = new particle;
         //set the positions with a certain distribution
 
-        particleCount[i]->xPos = 28 * ((float)rand()) / (float)RAND_MAX - 14;
+        particleCount[i]->xPos = 20 * ((float)rand()) / (float)RAND_MAX - 10;
         particleCount[i]->yPos = 20 * ((float)rand()) / (float)RAND_MAX  - 10;
         particleCount[i]->zPos = 4 * ((float)rand()) / (float)RAND_MAX - 2;
         //randomize the colors of the particles.
@@ -109,7 +109,7 @@ void Cloud::renderParticles(MatrixStack &MV, GLint& location_MV)
      //push current pixel
      MV.push();
         //if it goes over x = 10, y = 10, z = 4, randomize them again
-        handleBox(i, 10, 10, 4);
+        handleBox(i, 4, 10, 4);
 
      //render the pixel
      particleCount[i]->render();

@@ -16,7 +16,7 @@ class Cloud
 
     private:
     //max amount of particles.
-    static const int maxParticles = 250;
+    static const int maxParticles = 400;
     //the amount of particles in an array.
     particle *particleCount[maxParticles];
     //used for calculating elapsed time.
