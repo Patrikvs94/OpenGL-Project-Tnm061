@@ -16,6 +16,7 @@ class util
 {
     public:
         util(Player& p, std::vector<Segment*>& segmentVector, std::vector<Collectibles*>& collVector);//, std::vector<TriangleSoup>* obstacleVector);
+        ~util();
         void init(std::vector<Segment*>& segmentVector, std::vector<Collectibles*>& collObjects);      //Init on first run
         void checkCollision(bool jumpFlag, bool& gameOver, bool& invincible);  //Checks collision between two objects
         void updateNodeVector(std::vector<Collectibles*>& collVector); //UPDATES

@@ -20,6 +20,7 @@ class walls
 {
     public:
         walls(float rightPositions[3], float leftPositions[3]);
+        ~walls();
         void render(MatrixStack& inStack, GLint& location_MV, GLuint& texture, GLuint& normal, float dt);
 
         static const int rows = 12;

@@ -7,6 +7,15 @@ Cloud::Cloud()
     //randomize the particle positions
     randomizeParticles();
 }
+
+Cloud::~Cloud()
+{
+    for(int i=0; i<maxParticles; ++i)
+    {
+        delete particleCount[i];
+    }
+}
+
 void Cloud::handleBox(int i ,int maxX ,int maxY ,int maxZ)
 {
         if(particleCount[i]->xPos >= maxX)
