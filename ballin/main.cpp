@@ -62,7 +62,7 @@ int main(int argc, char *argv[]) {
     Texture segmentNormals, earthNormals;
     Shader shader, particleShader;
 
- 	GLint location_time, location_MV, location_P, location_tex, location_norm; // Shader uniforms
+ 	GLint location_time, location_MV, location_P, location_tex, location_norm, location_l_pos;; // Shader uniforms
     GLint Plocation_time, Plocation_MV, Plocation_P, Plocation_Color;
     float time = (float)glfwGetTime();
 	double fps = 0.0;
@@ -164,6 +164,7 @@ int main(int argc, char *argv[]) {
 	location_time = glGetUniformLocation( shader.programID, "time" );
 	location_tex = glGetUniformLocation( shader.programID, "tex" );
     location_norm = glGetUniformLocation( shader.programID, "norm" );
+    location_l_pos = glGetUniformLocation( shader.programID, "l_pos" );
 
     Plocation_MV = glGetUniformLocation( particleShader.programID, "MV" );
     Plocation_P = glGetUniformLocation( particleShader.programID, "P" );
@@ -174,6 +175,7 @@ int main(int argc, char *argv[]) {
     Cloud Particles;
     Player ballin;
     Collectibles coin;
+    float light[4];
 
     //Loop used for "initializing the Segment-vector"
     float zPosition= 0.0f;
@@ -208,7 +210,7 @@ int main(int argc, char *argv[]) {
         fps = tnm061::displayFPS(window);
 
 		// Set the clear color and depth, and clear the buffers for drawing
-        glClearColor(0.5, 0.5, 0.5, 0.0f);       //Background color, should be the same as the fog!
+        glClearColor(0.02, 0.02, 0.05, 0.0f);       //Background color, should be the same as the fog!
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // Set up the viewport
@@ -257,6 +259,13 @@ int main(int argc, char *argv[]) {
 
         // Copy the projection matrix P into the shader.
 		glUniformMatrix4fv( Plocation_P, 1, GL_FALSE, P );
+
+		// Change the light position
+        light[0] = ballin.getX();
+		light[1] = ballin.getY();
+		light[2] = ballin.getZ();
+		light[3] = 1.0f;
+		glUniform4fv( location_l_pos, 1 , light);
 
 
 		// Update the uniform time variable.
