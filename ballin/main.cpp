@@ -153,10 +153,10 @@ int main(int argc, char *argv[]) {
 
 
     // Read the texture data from file and upload it to the GPU
-    earthTexture.createTexture("textures/red.tga");
+    earthTexture.createTexture("textures/energy.tga");
     earthNormals.createTexture("textures/red_norm.tga");
-    segmentTexture.createTexture("textures/coble.tga");
-    segmentNormals.createTexture("textures/coble_norm.tga");
+    segmentTexture.createTexture("textures/scifi.tga");
+    segmentNormals.createTexture("textures/ATASnorm.tga");
     fireTexture.createTexture("textures/fire.tga");
 
 	location_MV = glGetUniformLocation( shader.programID, "MV" );
