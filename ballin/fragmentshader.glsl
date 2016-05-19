@@ -7,6 +7,7 @@ uniform sampler2D norm;
 in vec2 stCoords;
 in vec3 lightDirection;
 in mat3 TBN;
+in float t;
 out vec4 outputColor;
 
 /* Testing linear fog */
@@ -17,6 +18,7 @@ void main() {
     vec3 interpolatedNormal=normalize( vec3(texture(norm, stCoords)));
     interpolatedNormal=normalize(interpolatedNormal * 2.0 - 1.0);
     interpolatedNormal=normalize(TBN*interpolatedNormal);
+    vec4 emission = vec4(0.0, 0.0, 0.0, 0.0);
 
     //Fog parameters (should be uniforms.....)
     //vec4 vFogColor = vec4(0.7*sin(time), 0.7*sin(time*0.5), 0.7*cos(2*time), 1.0f); //Should be the same as the background
@@ -41,7 +43,14 @@ void main() {
     float n = 10;                           // the "shininess" parameter
 
     vec3 V = vec3(0.0, 0.0, 1.0);       //Direction of the viewer. ALWAYS (0,0,1)!
-
+    if(kd[2]>0.99)
+    {
+        emission= vec4(1.0, 1.0, 1.0, 0.0)*abs(sin(2.0*t));
+    }
+    else if(kd[2]>0.65)
+    {
+        emission= vec4(0.4, 0.4, 0.4, 0.0)*abs(sin(0.5*t));
+    }
     vec3 R = 2.0*dot(interpolatedNormal, lightDirection)*interpolatedNormal - lightDirection; //Could also use the function reflect();   // R is the computed reflection direction
 
     float dotNL = max(dot(interpolatedNormal, lightDirection), 0.0);  // Scalar product between light direction and normal. If negative, set to zero.
@@ -55,6 +64,6 @@ void main() {
     float fFogCoord = abs(eyeSpacePos.z/eyeSpacePos.w);
     float fogFactor = 1 - clamp((fEnd-fFogCoord)/(fEnd-fStart), 0.0, 1.0); //Calculate the fog factor (uses a LINEAR equation)
 
-    outputColor = mix(outputColor, vFogColor, fogFactor);   //Create output color by "mixing" (interpolate)
+    outputColor = emission + mix(outputColor, vFogColor, fogFactor);   //Create output color by "mixing" (interpolate)
                                                             //the fog with the color using the chosen fog factor
 }

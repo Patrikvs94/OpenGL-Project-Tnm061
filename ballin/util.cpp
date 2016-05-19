@@ -13,6 +13,18 @@ util::util(Player& p, std::vector<Segment*>& segmentVector, std::vector<Collecti
     init(segmentVector, objects);
 }
 
+util::~util()
+{
+    for(int i=0; i<nodeVector.size();++i)
+    {
+        delete nodeVector.at(i)->segment;
+        for(int j=0;j<nodeVector.at(i)->children.size();++j)
+        {
+            delete nodeVector.at(i)->children.at(j);
+        }
+    }
+}
+
 //Sort collision vectors on constructor call
 void util::init(std::vector<Segment*>& segmentVector, std::vector<Collectibles*>& collVector)
 {

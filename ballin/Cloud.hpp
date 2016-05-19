@@ -9,6 +9,7 @@ class Cloud
     public:
 
     Cloud();
+    ~Cloud();
     //renders the particles.
     void renderParticles(MatrixStack &MV, GLint& location_MV);
     //update the particles

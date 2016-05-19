@@ -13,6 +13,7 @@ out vec2 stCoords;
 out vec3 lightDirection;
 out vec4 eyeSpacePos;
 out mat3 TBN;
+out float t;
 
 void main(){
 
@@ -25,6 +26,7 @@ void main(){
     vec3 B= cross(T,N);
     
     TBN = mat3(T, B, N);
+    t=time;
   stCoords = TexCoord;
 
   lightDirection = normalize(vec3(0.0, 0.5, 1.0));

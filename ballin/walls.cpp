@@ -17,6 +17,23 @@ walls::walls(float rp[3], float lp[3], float gs)
     init();
 }
 
+walls::~walls()
+{
+    for(int i=0;i<rightWall.size();++i)
+    {
+        delete rightWall.at(i)->obj;
+        delete rightWall.at(i)->positions;
+        delete rightWall.at(i);
+    }
+    
+    for(int i=0;i<leftWall.size();++i)
+    {
+        delete leftWall.at(i)->obj;
+        delete leftWall.at(i)->positions;
+        delete leftWall.at(i);
+    }
+}
+
 void walls::init()
 {
     for(int i = 0; i < rows; ++i)
