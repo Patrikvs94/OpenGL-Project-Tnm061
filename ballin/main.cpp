@@ -177,7 +177,6 @@ int main(int argc, char *argv[]) {
     // Declaring objects of type TriangleSoup after all GLFW nonsense is complete
     Cloud Particles;
     Player ballin;
-    Collectibles coin;
     walls *demWalls;
 
     //Loop used for "initializing the Segment-vector"
@@ -195,9 +194,9 @@ int main(int argc, char *argv[]) {
     util tempUtil(ballin, Segments, tempShit);
 
     //WALLS
-    float rightOrigin[3]{-12.0f, -20.0f, 1.0f};
-    float leftOrigin[3]{12.0f, -20.0f, 1.0f};
-    demWalls = new walls(rightOrigin, leftOrigin);
+    float rightOrigin[3]{-12.0f, -20.0f, 1.0f}; //-12.0f, -20.0f, 1.0f
+    float leftOrigin[3]{12.0f, -20.0f, 1.0f};  //12.0f, -20.0f, 1.0f
+    demWalls = new walls(rightOrigin, leftOrigin, gameSpeed);
 
     // Main loop
     while(!glfwWindowShouldClose(window) && !gameOver)
@@ -325,7 +324,6 @@ int main(int argc, char *argv[]) {
                 MVstack.push();
                 MVstack.translate(0.0f, 0.0f, Segments.at(i)->getZ());
                 Segments.at(i)->render(MVstack, location_MV, segmentTexture.texID,segmentNormals.texID);
-                coin.render(MVstack, location_MV, earthTexture.texID);
                 MVstack.pop();
             }
 
