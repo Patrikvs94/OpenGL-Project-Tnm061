@@ -44,6 +44,7 @@
 #include "Collectibles.h"
 #include "Cloud.hpp"
 #include "walls.h"
+#include "obstacles.h"
 
 #include <ctime>
 #include <vector>
@@ -181,6 +182,7 @@ int main(int argc, char *argv[]) {
     Cloud Particles;
     Player ballin;
     walls *demWalls;
+    obstacles *obs;
 
     //Loop used for "initializing the Segment-vector"
     float zPosition= 0.0f;
@@ -200,6 +202,9 @@ int main(int argc, char *argv[]) {
     float rightOrigin[3]{-12.0f, -20.0f, 1.0f}; //-12.0f, -20.0f, 1.0f
     float leftOrigin[3]{12.0f, -20.0f, 1.0f};  //12.0f, -20.0f, 1.0f
     demWalls = new walls(rightOrigin, leftOrigin, gameSpeed);
+
+    //Obstacles
+
 
     // Main loop
     while(!glfwWindowShouldClose(window) && !gameOver)

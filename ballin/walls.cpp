@@ -6,7 +6,9 @@ const float walls::ySize = 1.5f;
 const float walls::zSize = 1.5f;
 const float walls::span = 0.5f;
 const float walls::scaler = 0.5f;
+const float walls::startTime = 8.95f;
 float walls::t = 0.0f;
+float walls::countUp = 0.0f;
 
 walls::walls(float rp[3], float lp[3], float gs)
 {
@@ -65,11 +67,17 @@ float walls::randStartPos()
 
 void walls::updateWalls(float dt)
 {
-    t += dt;
+    countUp +=dt;
+    if(countUp > startTime)
+    {
+        t +=dt;
+    }
+
     for(int i = 0; i < rows; ++i)
     {
         for(int p = 0; p < cols; ++p)
         {
+
             rightWall.at((cols*i)+p)->positions[0] = rightWallOrigin[0] + (scaler*sin(rightWall.at((cols*i)+p)->velocity * t));
             leftWall.at((cols*i)+p)->positions[0] = leftWallOrigin[0] + (scaler*sin(leftWall.at((cols*i)+p)->velocity * t));
 

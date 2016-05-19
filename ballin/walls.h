@@ -23,14 +23,6 @@ class walls
         ~walls();
         void render(MatrixStack& inStack, GLint& location_MV, GLuint& texture, GLuint& normal, float dt);
 
-        static const int rows = 12; //STOCK = 12
-        static const int cols = 17; //STOCK = 14
-        static const float xSize;
-        static const float ySize;
-        static const float zSize;
-        static const float span;
-        static const float scaler;
-
     protected:
     private:
         walls();
@@ -48,6 +40,15 @@ class walls
         float gameSpeed;
 
         static float t;
+        static float countUp;
+        static const int rows = 12; //STOCK = 12
+        static const int cols = 17; //STOCK = 14
+        static const float xSize;
+        static const float ySize;
+        static const float zSize;
+        static const float span;
+        static const float scaler;
+        static const float startTime;
 };
 
 #endif // WALLS_H
