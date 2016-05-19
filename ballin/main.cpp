@@ -68,7 +68,8 @@ int main(int argc, char *argv[]) {
     GLint Plocation_time, Plocation_MV, Plocation_P, Plocation_Color;
     float time = (float)glfwGetTime();
 	double fps = 0.0;
-	float gameSpeed = 10.0f;    //CHANGE VARIALBLE IN CLOAD!
+	float gameSpeed = 10.0f;    // 10 is defailt and 15 is impossible,
+                                    //CHANGE VARIALBLE IN CLOAD!
     float T = 1.5f;         //Maximal time it can jump until it descends.
     float scaleTime = 0.15f;
     const int numberOfSegments = 7;
@@ -204,13 +205,16 @@ int main(int argc, char *argv[]) {
     demWalls = new walls(rightOrigin, leftOrigin, gameSpeed);
 
     //Obstacles
-
+    obs = new obstacles(Segments);
 
     // Main loop
     while(!glfwWindowShouldClose(window) && !gameOver)
     {
         deltaTime   = glfwGetTime()-currentTime; //calculate time since last frame
         currentTime = glfwGetTime();
+
+        //countDown for obstacles
+        obs->countDown(deltaTime);
 
         if(glfwGetTime()-chargeTime > 5.0 && !jumpFlag)
         {
@@ -225,7 +229,7 @@ int main(int argc, char *argv[]) {
         fps = tnm061::displayFPS(window);
 
 		// Set the clear color and depth, and clear the buffers for drawing
-        glClearColor(0.4, 0.4, 0.4, 1.0);       //Background color, should be the same as the fog!
+        glClearColor(0.3, 0.3, 0.3, 1.0);       //Background color, should be the same as the fog!
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // Set up the viewport
@@ -325,6 +329,7 @@ int main(int argc, char *argv[]) {
                 temp->reInit();
                 temp->setZPos((Segments.at(Segments.size()-1)->getZ()) -(Segments.at(Segments.size()-1)->getLength() + temp->getLength() + segmentDistance));
                 Segments.push_back(temp);
+                obs->reInit();
             }
 
             //render segments at correct positions
@@ -341,6 +346,8 @@ int main(int argc, char *argv[]) {
                 // Render the player
                 ballin.render(MVstack, location_MV, earthTexture.texID, time, gameSpeed, earthNormals.texID);
                 demWalls->render(MVstack, location_MV, wallTexture.texID,wallNormals.texID, deltaTime);
+                obs->updatePositon(deltaTime*gameSpeed);
+                obs->render(MVstack, location_MV, wallTexture.texID,wallNormals.texID);
 
             MVstack.pop(); // Restore the matrix we saved above
 

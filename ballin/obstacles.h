@@ -13,31 +13,44 @@
 struct item{
     TriangleSoup* pillar;
     float* positions;
-    float* hitBozSize;
+    float* hitBoxSize;
+    ~item()
+    {
+        delete pillar;
+        delete positions;
+        delete hitBoxSize;
+    }
 };
 
 class obstacles : public Element
 {
     public:
         obstacles();
-        obstacles(float x, float y, float z, std::vector<Segment*>& segmentVector);
+        obstacles(std::vector<Segment*>& segmentVector);
+        void updatePositon(float zChange);
+        void render(MatrixStack& p, GLint& location_MV, GLuint& texture, GLuint& normal);
+        void reInit();
+        void countDown(float dt);
+
     protected:
     private:
+        static bool goodToGo;
+        static float t;
         static const float xSize;
         static const float ySize;
         static const float zSize;
-        static std::vector<Segment*> segVec;
+        static std::vector<Segment*>* segVec;
+        static const float threshold;
+        static const float zNear;
 
-        static const int maxNumber = 10;
+        static int maxNumber;
         std::vector<item*> items;
 
-        void createObstacle();
-        void updatePositon();
-        void init();
         void performAction(bool& gameOver);
         float* getCollisionData();
-
-        void render();
+        int randPos();
+        void checkAndMove();
+        void createPillar(int segVecIndex);
 };
 
 #endif // OBSTACLES_H

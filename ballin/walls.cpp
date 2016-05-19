@@ -90,17 +90,17 @@ void walls::updateWalls(float dt)
 
 void walls::render(MatrixStack& inStack, GLint& location_MV, GLuint& texture, GLuint& normal, float dt)
 {
+    glBindTexture(GL_TEXTURE_2D, texture);
+    glActiveTexture(GL_TEXTURE1);
+    glBindTexture(GL_TEXTURE_2D, normal);
+    glActiveTexture(GL_TEXTURE0);
+
     inStack.push();
 
     for(int i = 0; i < rows; ++i)
     {
         for(int p = 0; p < cols; ++p)
         {
-            glBindTexture(GL_TEXTURE_2D, texture);
-            glActiveTexture(GL_TEXTURE1);
-            glBindTexture(GL_TEXTURE_2D, normal);
-            glActiveTexture(GL_TEXTURE0);
-
             inStack.push();
                 inStack.translate(rightWall.at((cols*i)+p)->positions[0],rightWall.at((cols*i)+p)->positions[1],rightWall.at((cols*i)+p)->positions[2]);
                 glUniformMatrix4fv(location_MV, 1, GL_FALSE, inStack.getCurrentMatrix());
