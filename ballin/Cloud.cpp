@@ -127,7 +127,7 @@ void Cloud::renderParticles(MatrixStack &MV, GLint& location_MV)
 
     }
     //kill and update particle position, dont do this in the rendering loop!!
-    updateParticles(0.0f, 0.0f, 2*elapsedTime());
+    updateParticles(0.0f, 0.0f, 10*elapsedTime());
 
     MV.pop(); //restore init matrix.
 }

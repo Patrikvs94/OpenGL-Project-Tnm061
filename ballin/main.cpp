@@ -67,11 +67,14 @@ int main(int argc, char *argv[]) {
     GLint Plocation_time, Plocation_MV, Plocation_P, Plocation_Color;
     float time = (float)glfwGetTime();
 	double fps = 0.0;
-	float gameSpeed = 10.0f;
+	float gameSpeed = 10.0f;    //CHANGE VARIALBLE IN CLOAD!
     float T = 1.5f;         //Maximal time it can jump until it descends.
     float scaleTime = 0.15f;
     const int numberOfSegments = 7;
     float segmentDistance = 0.0f;
+    float cameraPosition[5]{0.0f, -2.0f, -10.0f, M_PI/9, 0};   //x,y,z,rot
+                            //DEFAULT: 0.0f, -2.0f, -10.0f, M_PI/9, 0
+                            //DEMO CAM: -35.0f, 0.0f, -65.0f, M_PI/2, -M_PI/2
 
     //Variables used for animation
     double jumpTime       = glfwGetTime(); //when the player jumps
@@ -277,8 +280,9 @@ int main(int argc, char *argv[]) {
 
             // Modify MV according to user input
             // First, do the view transformations ("camera motion")
-            MVstack.translate(0.0f, -2.0f, -10.0f);
-            MVstack.rotX(M_PI/9);
+            MVstack.translate(cameraPosition[0], cameraPosition[1], cameraPosition[2]);
+            MVstack.rotX(cameraPosition[3]);
+            MVstack.rotY(cameraPosition[4]);
             //render the particles
             Particles.renderParticles(MVstack,location_MV);
         glUseProgram(0);

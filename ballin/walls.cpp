@@ -25,7 +25,7 @@ walls::~walls()
         delete rightWall.at(i)->positions;
         delete rightWall.at(i);
     }
-    
+
     for(int i=0;i<leftWall.size();++i)
     {
         delete leftWall.at(i)->obj;
@@ -116,7 +116,6 @@ void walls::checkAndMove()
 {
     if(rightWall.at(0)->positions[2] > 5.0f)
     {
-
         int c = 0;
         while(c < rows)
         {
@@ -137,7 +136,5 @@ void walls::checkAndMove()
 
             c++;
         }
-
-        //std::cout << "TRIGGER" << std::endl;
     }
 }
