@@ -98,7 +98,7 @@ void obstacles::createPillar(int segVecIndex)
     items.at(place)->pillar = new TriangleSoup();
     items.at(place)->pillar->createBox(xSize, ySize, zSize);
     items.at(place)->hitBoxSize = new float[3]{xSize, ySize, zSize};
-    items.at(items.size()-1)->positions = new float[3]{randPos(), 0.0f, segVec->at(segVecIndex)->getZ()};
+    items.at(items.size()-1)->positions = new float[3]{(float)randPos(), 0.0f, segVec->at(segVecIndex)->getZ()};
     //items.at(items.size()-1)->positions = new float[3]{randPos(), segVec->at(segVecIndex)->getY() + ySize - segVec->at(segVecIndex)->xsize, segVec->at(segVecIndex)->getZ()};
 }
 
