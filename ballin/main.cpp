@@ -77,6 +77,7 @@ int main(int argc, char *argv[]) {
     float cameraPosition[5]{0.0f, -2.0f, -10.0f, M_PI/9, 0};   //x,y,z,rot
                             //DEFAULT: 0.0f, -2.0f, -10.0f, M_PI/9, 0
                             //DEMO CAM: -35.0f, 0.0f, -65.0f, M_PI/2, -M_PI/2
+    const float segmentZNear = 10.0f;
 
     //Variables used for animation
     double jumpTime       = glfwGetTime(); //when the player jumps
@@ -89,7 +90,7 @@ int main(int argc, char *argv[]) {
     bool leftFlag  = false;
     bool rightFlag = false;
     bool gameOver = false;
-    bool invincible = true;
+    bool invincible = false;
 
     MatrixStack MVstack; // The matrix stack we are going to use to set MV
 
@@ -197,17 +198,17 @@ int main(int argc, char *argv[]) {
         Segments.at(i)->changeZPos(zPosition);
     }
 
+    //Obstacles
+    obs = new obstacles(Segments);
+
     //DEBUG FOR UTIL
     std::vector<Collectibles*> tempShit;
-    util tempUtil(ballin, Segments, tempShit);
+    util tempUtil(ballin, Segments, tempShit, obs);
 
     //WALLS
     float rightOrigin[3]{-12.0f, -20.0f, 1.0f}; //-12.0f, -20.0f, 1.0f
     float leftOrigin[3]{12.0f, -20.0f, 1.0f};  //12.0f, -20.0f, 1.0f
     demWalls = new walls(rightOrigin, leftOrigin, gameSpeed);
-
-    //Obstacles
-    obs = new obstacles(Segments);
 
     // Main loop
     while(!glfwWindowShouldClose(window) && !gameOver)
@@ -324,14 +325,18 @@ int main(int argc, char *argv[]) {
             }
 
             //Moves the segment closest to the camera to the back if it reaches z=0
-            if(Segments.at(0)->getZ()>10.0f)
+            if(Segments.at(0)->getZ()>segmentZNear)
             {
                 Segment* temp = Segments.at(0);
                 Segments.erase(Segments.begin());
                 temp->reInit();
                 temp->setZPos((Segments.at(Segments.size()-1)->getZ()) -(Segments.at(Segments.size()-1)->getLength() + temp->getLength() + segmentDistance));
                 Segments.push_back(temp);
-                obs->reInit();
+                if(obs->checkGoodToGo())
+                {
+                  obs->reInit();
+                }
+                tempUtil.updateNodeVector(tempShit);
             }
 
             //render segments at correct positions

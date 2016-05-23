@@ -5,17 +5,19 @@
 #include <vector>
 #include "Player.hpp"
 #include "Collectibles.h"
+#include "obstacles.h"
 
 struct node{
     Segment* segment;
     std::vector<Collectibles*> children;
+    item* pillar = nullptr;
 };
 
 
 class util
 {
     public:
-        util(Player& p, std::vector<Segment*>& segmentVector, std::vector<Collectibles*>& collVector);//, std::vector<TriangleSoup>* obstacleVector);
+        util(Player& p, std::vector<Segment*>& segmentVector, std::vector<Collectibles*>& collVector, obstacles* obs);//, std::vector<TriangleSoup>* obstacleVector);
         ~util();
         void init(std::vector<Segment*>& segmentVector, std::vector<Collectibles*>& collObjects);      //Init on first run
         void checkCollision(bool jumpFlag, bool& gameOver, bool& invincible);  //Checks collision between two objects
@@ -32,7 +34,9 @@ class util
         const double logRate = 60.0; //Logs/s (Hz)
             //OBS! MÅSTE KALLA PÅ DELETE MANUELLT OM ERASE ANVÄNDS.
         double deltaLogTime = 0.0;
+        static obstacles* obs;
         void updateLogData(float dt, float gameSpeed);
+        void commonCollision(bool& invincible, int nodeVectorIndex, bool& gameOver);
 };
 
 #endif // UTIL_H

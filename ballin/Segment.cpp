@@ -113,5 +113,5 @@ float* Segment::getBoundaries()
 void Segment::performAction(bool& gameOver)
 {
     gameOver = true;
-    std::cout << "DEAD @ " << glfwGetTime() << std::endl;
+    std::cout << "DEATH BY FALLING @ " << glfwGetTime() << std::endl;
 }
