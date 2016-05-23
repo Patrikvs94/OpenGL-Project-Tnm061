@@ -5,7 +5,7 @@ const float obstacles::ySize = 40.0f;
 const float obstacles::zSize = 1.0f;
 const float obstacles::threshold = 0.9f;
 const float obstacles::zNear = 10.0f;
-const float obstacles::spawnTime = 30.0f;
+const float obstacles::spawnTime = 0.0f;
 float obstacles::t = 0.0f;
 int obstacles::maxNumber;
 std::vector<Segment*>* obstacles::segVec;
@@ -67,7 +67,7 @@ float* obstacles::getCollisionData()
 void obstacles::performAction(bool& gameOver)
 {
     gameOver = true;
-    std::cout << "DEATH BY PILLAR @ " << glfwGetTime() << std::endl;
+    //std::cout << "DEATH BY PILLAR @ " << glfwGetTime() << std::endl;
 }
 
 int obstacles::randPos()

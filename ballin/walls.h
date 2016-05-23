@@ -40,9 +40,9 @@ class walls
         float gameSpeed;
 
         static float t;
-        static float countUp;
-        static const int rows = 12; //STOCK = 12
-        static const int cols = 17; //STOCK = 14
+        static float countUp;       //TOTAL: 972           448
+        static const int rows = 16; //1x1x1 = 18,   2x2x2 = 16
+        static const int cols = 14; //1x1x1 = 27,   2x2x2 = 14
         static const float xSize;
         static const float ySize;
         static const float zSize;

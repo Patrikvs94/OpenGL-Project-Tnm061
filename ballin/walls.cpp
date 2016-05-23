@@ -17,6 +17,7 @@ walls::walls(float rp[3], float lp[3], float gs)
     leftWallOrigin = new float[3]{lp[0], lp[1], lp[2]};
     srand(time(NULL));
     init();
+    countUp = 0.0f;
 }
 
 walls::~walls()
@@ -28,11 +29,23 @@ walls::~walls()
         delete rightWall.at(i);
     }
 
+    std::vector<wallBlock*>::iterator itR = rightWall.begin();
+    while (itR != rightWall.end())
+    {
+        itR = rightWall.erase(itR);
+    }
+
     for(int i=0;i<leftWall.size();++i)
     {
         delete leftWall.at(i)->obj;
         delete leftWall.at(i)->positions;
         delete leftWall.at(i);
+    }
+
+    std::vector<wallBlock*>::iterator itL = leftWall.begin();
+    while (itL != leftWall.end())
+    {
+        itL = leftWall.erase(itL);
     }
 }
 
@@ -50,8 +63,8 @@ void walls::init()
             leftWall.at(vecPos)->obj = new TriangleSoup();
             rightWall.at(vecPos)->obj->createBox(xSize, ySize, zSize);
             leftWall.at(vecPos)->obj->createBox(xSize, ySize, zSize);
-            rightWall.at(vecPos)->positions = new float[3]{rightWallOrigin[0] + randStartPos()-xSize, rightWallOrigin[1] + (i*2*ySize)-ySize, rightWallOrigin[2] - (p*2*zSize) - zSize};
-            leftWall.at(vecPos)->positions = new float[3]{leftWallOrigin[0] + randStartPos()+xSize, leftWallOrigin[1] + (i*2*ySize)-ySize, leftWallOrigin[2] - (p*2*zSize) - zSize};
+            rightWall.at(vecPos)->positions = new float[3]{rightWallOrigin[0] -xSize, rightWallOrigin[1] + (i*2*ySize)-ySize, rightWallOrigin[2] - (p*2*zSize) - zSize};
+            leftWall.at(vecPos)->positions = new float[3]{leftWallOrigin[0] +xSize, leftWallOrigin[1] + (i*2*ySize)-ySize, leftWallOrigin[2] - (p*2*zSize) - zSize};
 
             //FULHACK FÖR ATT UNDVIKA DUBBLA LIKNANDE FUNKTIONER
             rightWall.at(vecPos)->velocity = randStartPos() * gameSpeed;

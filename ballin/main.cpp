@@ -132,10 +132,12 @@ int main(int argc, char *argv[]) {
     // to query for those extensions and connect to instances of them.
     tnm061::loadExtensions();
 
+    /*
     printf("GL vendor:       %s\n", glGetString(GL_VENDOR));
     printf("GL renderer:     %s\n", glGetString(GL_RENDERER));
     printf("GL version:      %s\n", glGetString(GL_VERSION));
     printf("Desktop size:    %d x %d pixels\n", vidmode->width, vidmode->height);
+    */
 
     glfwSwapInterval(0); // Do not wait for screen refresh between frames
 
@@ -188,6 +190,11 @@ int main(int argc, char *argv[]) {
     walls *demWalls;
     obstacles *obs;
 
+    //Disable or enable printing of debug-messages
+    Texture::setDebugMode(false);
+    Player::setDebugMode(false);
+    Segment::setDebugMode(false);
+
     //Loop used for "initializing the Segment-vector"
     float zPosition= 0.0f;
     Segments.push_back(new Segment());
@@ -209,6 +216,16 @@ int main(int argc, char *argv[]) {
     float rightOrigin[3]{-12.0f, -20.0f, 1.0f}; //-12.0f, -20.0f, 1.0f
     float leftOrigin[3]{12.0f, -20.0f, 1.0f};  //12.0f, -20.0f, 1.0f
     demWalls = new walls(rightOrigin, leftOrigin, gameSpeed);
+
+    //Score-keeping
+    double score = 0.0;
+
+    //Starting message
+    std::cout << "Currently crushing high scores...";
+    std::cout << std::string(10, '\n');
+
+    //Hack
+    std::string pause = "";
 
     // Main loop
     while(!glfwWindowShouldClose(window) && !gameOver)
@@ -337,6 +354,8 @@ int main(int argc, char *argv[]) {
                   obs->reInit();
                 }
                 tempUtil.updateNodeVector(tempShit);
+                //Give Score
+                score += 10.0;
             }
 
             //render segments at correct positions
@@ -365,7 +384,9 @@ int main(int argc, char *argv[]) {
         {
             tempUtil.checkCollision(jumpFlag, gameOver, invincible);
         }
-        //tempUtil.logPlayerPosition(ballin, glfwGetTime(), gameSpeed);
+
+        //New score
+        score += deltaTime;
 
 		// Play nice and deactivate the shader program
 		glUseProgram(0);
@@ -383,13 +404,16 @@ int main(int argc, char *argv[]) {
 
     }
 
-    // Close the OpenGL window and terminate GLFW.
-    glfwDestroyWindow(window);
-    glfwTerminate();
+    std::cout << "Game Over" << std::endl;
+    std::cout << std::endl << "Congratulations!" << std::endl << "You got " << (int)score << " points." << std::endl;
+    std::cout << std::string(3, '\n') << "Try again and see if you can beat it" << std::endl << "...like Michael Jackson" << std::string(5, '\n');
+    std::cout << "Write anything to and press 'Enter' to exit" << std::string(100, '\n');
 
-    for(int i = 0; i < 20; ++i)
+    // Close the OpenGL window and terminate GLFW.
+    if(std::cin >> pause != "hejdettakandualdriggissahahhaahahah")
     {
-        std::cout << "GAME OVER" << std::endl;
+        glfwDestroyWindow(window);
+        glfwTerminate();
     }
 
     return 0;

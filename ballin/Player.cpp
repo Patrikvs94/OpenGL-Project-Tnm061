@@ -3,6 +3,7 @@
 
 const float Player::G = 9.82f;
 const int Player::maxCharges = 2;
+bool Player::DEBUG = false;
 
 Player::Player(): Element(0.0f,0.0f,0.0f), moveLength(laneMargin), gravityMultiplier(2.0f)
 {
@@ -108,11 +109,17 @@ void Player::addCharge()
     if(currentCharges < maxCharges)
     {
         ++currentCharges;
-        std::cout << "Added, " << this->currentCharges << " charges left." << std::endl;
+        if(DEBUG)
+        {
+            std::cout << "Added, " << this->currentCharges << " charges left." << std::endl;
+        }
     }
     else
     {
-        std::cout << "Full" << std::endl;
+        if(DEBUG)
+        {
+            std::cout << "Full" << std::endl;
+        }
     }
 }
 
@@ -121,11 +128,17 @@ void Player::removeCharge()
     if(currentCharges > 0)
     {
         --currentCharges;
-        std::cout << "Removed, " << this->currentCharges << " charges left." << std::endl;
+        if(DEBUG)
+        {
+            std::cout << "Removed, " << this->currentCharges << " charges left." << std::endl;
+        }
     }
     else
     {
-        std::cout << "Empty" << std::endl;
+        if(DEBUG)
+        {
+            std::cout << "Empty" << std::endl;
+        }
     }
 }
 
@@ -137,4 +150,9 @@ bool Player::gotCharges()
 float Player::getRadius()
 {
     return radius;
+}
+
+void Player::setDebugMode(bool flag)
+{
+    DEBUG = flag;
 }

@@ -26,6 +26,7 @@ class Segment : public Element
 
         float* getBoundaries(); //returns lower and upper bounderies
         void performAction(bool& gameOver);
+        static void setDebugMode(bool flag);
 
         //Block dimensions
         static const float xsize;
@@ -41,6 +42,7 @@ class Segment : public Element
         float zMax;
         float segmentMax;
         float segmentMin;
+        static bool DEBUG;
 
 };
 
