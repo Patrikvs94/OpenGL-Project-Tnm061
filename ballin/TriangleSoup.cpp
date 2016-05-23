@@ -341,7 +341,7 @@ void TriangleSoup::createSphere(float radius, int segments) {
             y = R*sin(phi);
             
             double radiusT=sqrt(pow(radius, 2.0) +1);
-            double phiT = phi + asin(1/(radiusT));
+            double thetaT = theta + asin(1/(radiusT));
             
             base = (1+j*(hsegs+1)+i)*stride;
             vertexarray[base] = radius*x;
@@ -352,8 +352,8 @@ void TriangleSoup::createSphere(float radius, int segments) {
             vertexarray[base+5] = z;
             vertexarray[base+6] = (float)i/hsegs;
             vertexarray[base+7] = 1.0f-(float)(j+1)/vsegs;
-            vertexarray[base+8] = radiusT*sin(theta)*cos(phiT)-x;
-            vertexarray[base+9] = radiusT*sin(theta)*sin(phiT)-y;
+            vertexarray[base+8] = radiusT*sin(thetaT)*cos(phi)-x;
+            vertexarray[base+9] = radiusT*sin(thetaT)*sin(phi)-y;
             vertexarray[base+10] = radiusT*cos(theta)-z;
         }
     }
