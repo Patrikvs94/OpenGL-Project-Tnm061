@@ -166,8 +166,8 @@ int main(int argc, char *argv[]) {
     fireTexture.createTexture("textures/fire.tga");
     wallTexture.createTexture("textures/sciwall.tga");
     wallNormals.createTexture("textures/scinorm.tga");
-    pillarTexture.createTexture("textures/scipil.tga");
-    pillarNormals.createTexture("textures/scifipil_norm.tga");
+    pillarTexture.createTexture("textures/sciwall.tga");
+    pillarNormals.createTexture("textures/scinorm.tga");
 
 	location_MV = glGetUniformLocation( shader.programID, "MV" );
 	location_P = glGetUniformLocation( shader.programID, "P" );
