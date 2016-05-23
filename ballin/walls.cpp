@@ -1,9 +1,9 @@
 #include "walls.h"
 #include<iostream>
 
-const float walls::xSize = 1.5f;
-const float walls::ySize = 1.5f;
-const float walls::zSize = 1.5f;
+const float walls::xSize = 2.0f;
+const float walls::ySize = 2.0f;
+const float walls::zSize = 2.0f;
 const float walls::span = 0.5f;
 const float walls::scaler = 0.5f;
 const float walls::startTime = 8.95f;

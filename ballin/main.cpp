@@ -60,12 +60,12 @@ void handleInput(Player &player, bool &lFlag, bool &rFlag, bool &jFlag, float ho
 
 int main(int argc, char *argv[]) {
 
-    Texture earthTexture, segmentTexture,fireTexture, wallTexture;
-    Texture segmentNormals, earthNormals, wallNormals;
+    Texture earthTexture, segmentTexture,fireTexture, wallTexture, pillarTexture;
+    Texture segmentNormals, earthNormals, wallNormals, pillarNormals;
     Shader shader, particleShader;
 
  	GLint location_time, location_MV, location_P, location_tex, location_norm, location_l_pos;; // Shader uniforms
-    GLint Plocation_time, Plocation_MV, Plocation_P, Plocation_Color;
+    GLint Plocation_time, Plocation_MV, Plocation_P;
     float time = (float)glfwGetTime();
 	double fps = 0.0;
 	float gameSpeed = 10.0f;    // 10 is defailt and 15 is impossible,
@@ -162,10 +162,12 @@ int main(int argc, char *argv[]) {
     earthTexture.createTexture("textures/energy.tga");
     earthNormals.createTexture("textures/red_norm.tga");
     segmentTexture.createTexture("textures/scifi.tga");
-    segmentNormals.createTexture("textures/coble_norm.tga");
+    segmentNormals.createTexture("textures/scinorm.tga");
     fireTexture.createTexture("textures/fire.tga");
-    wallTexture.createTexture("textures/brickwall.tga");
-    wallNormals.createTexture("textures/brickwall_normal.tga");
+    wallTexture.createTexture("textures/sciwall.tga");
+    wallNormals.createTexture("textures/scinorm.tga");
+    pillarTexture.createTexture("textures/scipil.tga");
+    pillarNormals.createTexture("textures/scifipil_norm.tga");
 
 	location_MV = glGetUniformLocation( shader.programID, "MV" );
 	location_P = glGetUniformLocation( shader.programID, "P" );
@@ -347,7 +349,7 @@ int main(int argc, char *argv[]) {
                 ballin.render(MVstack, location_MV, earthTexture.texID, time, gameSpeed, earthNormals.texID);
                 demWalls->render(MVstack, location_MV, wallTexture.texID,wallNormals.texID, deltaTime);
                 obs->updatePositon(deltaTime*gameSpeed);
-                obs->render(MVstack, location_MV, wallTexture.texID,wallNormals.texID);
+                obs->render(MVstack, location_MV, pillarTexture.texID,pillarNormals.texID);
 
             MVstack.pop(); // Restore the matrix we saved above
 

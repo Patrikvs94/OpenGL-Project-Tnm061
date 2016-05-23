@@ -43,11 +43,7 @@ void main() {
     float n = 10;                           // the "shininess" parameter
 
     vec3 V = vec3(0.0, 0.0, 1.0);       //Direction of the viewer. ALWAYS (0,0,1)!
-    if(kd[2]>0.99)
-    {
-        emission= vec4(1.0, 1.0, 1.0, 0.0)*abs(sin(2.0*t));
-    }
-    else if(kd[2]>0.65)
+    if(kd[2]>0.65)
     {
         emission= vec4(0.4, 0.4, 0.4, 0.0)*abs(sin(0.5*t));
     }
