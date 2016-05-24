@@ -24,6 +24,7 @@ class Player : public Element
 
         float* getCollisionData();
         void performAction(bool& gameOver);
+        static void setDebugMode(bool flag);
 
     protected:
 
@@ -36,6 +37,7 @@ class Player : public Element
         int currentCharges;
         float angle;
         float radius;
+        static bool DEBUG;
 
 
 

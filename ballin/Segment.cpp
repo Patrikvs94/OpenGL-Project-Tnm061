@@ -4,7 +4,7 @@
 
 const float Segment::xsize = 1.0f;  //Note: Same as the radius of the player
 const float Segment::ysize = 0.2f;
-
+bool Segment::DEBUG = false;
 
 Segment::Segment(): Element(0.0f,0.0f,0.0f), segmentMin(7*xsize), segmentMax(7*xsize)
 {
@@ -113,5 +113,13 @@ float* Segment::getBoundaries()
 void Segment::performAction(bool& gameOver)
 {
     gameOver = true;
-    std::cout << "DEAD @ " << glfwGetTime() << std::endl;
+    if(DEBUG)
+    {
+        std::cout << "DEATH BY FALLING @ " << glfwGetTime() << std::endl;
+    }
+}
+
+void Segment::setDebugMode(bool flag)
+{
+    DEBUG = flag;
 }

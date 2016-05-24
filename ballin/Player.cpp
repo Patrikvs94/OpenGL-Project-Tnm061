@@ -3,6 +3,7 @@
 
 const float Player::G = 9.82f;
 const int Player::maxCharges = 2;
+bool Player::DEBUG = false;
 
 Player::Player(): Element(0.0f,0.0f,0.0f), moveLength(laneMargin), gravityMultiplier(2.0f)
 {
@@ -56,7 +57,6 @@ void Player::render(MatrixStack& p, GLint& location_MV, GLuint& texture, float t
     p.push(); //Save the current matrix before performing multiplications
 
         p.translate(xPos, yPos, zPos);
-        //p.rotZ(-5 * angle); //This does not quite work
         p.rotX(-speed*time*0.7);
         p.rotY(M_PI/2);
         glUniformMatrix4fv( location_MV, 1, GL_FALSE, p.getCurrentMatrix() );
@@ -109,11 +109,17 @@ void Player::addCharge()
     if(currentCharges < maxCharges)
     {
         ++currentCharges;
-        std::cout << "Added, " << this->currentCharges << " charges left." << std::endl;
+        if(DEBUG)
+        {
+            std::cout << "Added, " << this->currentCharges << " charges left." << std::endl;
+        }
     }
     else
     {
-        std::cout << "Full" << std::endl;
+        if(DEBUG)
+        {
+            std::cout << "Full" << std::endl;
+        }
     }
 }
 
@@ -122,11 +128,17 @@ void Player::removeCharge()
     if(currentCharges > 0)
     {
         --currentCharges;
-        std::cout << "Removed, " << this->currentCharges << " charges left." << std::endl;
+        if(DEBUG)
+        {
+            std::cout << "Removed, " << this->currentCharges << " charges left." << std::endl;
+        }
     }
     else
     {
-        std::cout << "Empty" << std::endl;
+        if(DEBUG)
+        {
+            std::cout << "Empty" << std::endl;
+        }
     }
 }
 
@@ -138,4 +150,9 @@ bool Player::gotCharges()
 float Player::getRadius()
 {
     return radius;
+}
+
+void Player::setDebugMode(bool flag)
+{
+    DEBUG = flag;
 }

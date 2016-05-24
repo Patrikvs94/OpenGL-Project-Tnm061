@@ -31,6 +31,9 @@ class obstacles : public Element
         void render(MatrixStack& p, GLint& location_MV, GLuint& texture, GLuint& normal);
         void reInit();
         void countDown(float dt);
+        std::vector<item*> items;
+        bool checkGoodToGo();
+        void performAction(bool& gameOver);
 
     protected:
     private:
@@ -42,11 +45,10 @@ class obstacles : public Element
         static std::vector<Segment*>* segVec;
         static const float threshold;
         static const float zNear;
+        static const float spawnTime;
 
         static int maxNumber;
-        std::vector<item*> items;
 
-        void performAction(bool& gameOver);
         float* getCollisionData();
         int randPos();
         void checkAndMove();

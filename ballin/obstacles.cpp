@@ -5,6 +5,7 @@ const float obstacles::ySize = 40.0f;
 const float obstacles::zSize = 1.0f;
 const float obstacles::threshold = 0.9f;
 const float obstacles::zNear = 10.0f;
+const float obstacles::spawnTime = 0.0f;
 float obstacles::t = 0.0f;
 int obstacles::maxNumber;
 std::vector<Segment*>* obstacles::segVec;
@@ -65,7 +66,8 @@ float* obstacles::getCollisionData()
 
 void obstacles::performAction(bool& gameOver)
 {
-
+    gameOver = true;
+    //std::cout << "DEATH BY PILLAR @ " << glfwGetTime() << std::endl;
 }
 
 int obstacles::randPos()
@@ -85,7 +87,7 @@ void obstacles::checkAndMove()
 void obstacles::countDown(float dt)
 {
     t +=dt;
-    if(t > 30.0f && !goodToGo)
+    if(t > spawnTime && !goodToGo)
     {
         goodToGo = true;
     }
@@ -109,4 +111,9 @@ void obstacles::reInit()    //CALLED WHEN SEGMENT CHANGES
     {
         createPillar(i);
     }
+}
+
+bool obstacles::checkGoodToGo()
+{
+    return goodToGo;
 }

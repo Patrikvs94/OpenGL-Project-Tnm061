@@ -38,9 +38,10 @@ GLuint	type;		// Image type (3 bytes per pixel: GL_RGB, 4 bytes: GL_RGBA)
 
 private:
 
-GLubyte	*imageData;	// Image data (3 or 4 bytes per pixel)
-GLuint	bpp;		// Image color depth in bits per pixel
-
+    GLubyte	*imageData;	// Image data (3 or 4 bytes per pixel)
+    GLuint	bpp;	// Image color depth in bits per pixel
+    static bool DEBUG;
+    
 public:
 
 /* Constructor */
@@ -54,12 +55,14 @@ Texture(const char *filename);
 
 // The external entry point for loading a texture from a TGA file
 void createTexture(const char *filename); // Load GL texture from file
+static void setDebugMode(bool flag);
 
 private:
 
 // Internal "private" funtions, called internally by createTexture()
 int loadUncompressedTGA(FILE *tgafile); // Load data from an uncompressed TGA file
 int loadTGA(const char *filename);		    // Open, check and load a TGA file
+
 
 };
 

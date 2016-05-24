@@ -7,6 +7,10 @@
 #include <GL/glext.h>
 #endif
 
+#ifndef M_PI
+#define M_PI (3.141592653589793)
+#endif
+
 #include "tnm061.hpp"  // To be able to use OpenGL extensions
 
 

@@ -2,15 +2,18 @@
 #include <typeinfo>
 #include <iostream>
 
+obstacles* util::obs;
+
 util::util()
 {
     std::cout << "util::util() - Default constructor should not be called." << std::endl;
 }
 
-util::util(Player& p, std::vector<Segment*>& segmentVector, std::vector<Collectibles*>& objects)//, std::vector<TriangleSoup>* obstacleVector)
+util::util(Player& p, std::vector<Segment*>& segmentVector, std::vector<Collectibles*>& collVector, obstacles* ob)//, std::vector<TriangleSoup>* obstacleVector)
 {
     player = &p;
-    init(segmentVector, objects);
+    obs = ob;
+    init(segmentVector, collVector);
 }
 
 util::~util()
@@ -41,6 +44,17 @@ void util::init(std::vector<Segment*>& segmentVector, std::vector<Collectibles*>
             {
                 nodeVector.at(i)->children.push_back(collVector.at(p));
             }
+            delete boundaries;
+        }
+        for(int q = 0; q < obs->items.size(); ++q)
+        {
+            float pillarZPos = obs->items.at(q)->positions[2];
+            float* boundaries = nodeVector.at(i)->segment->getBoundaries();
+            if(pillarZPos>=boundaries[0] && pillarZPos<=boundaries[1])
+            {
+                nodeVector.at(i)->pillar = obs->items.at(q);
+            }
+            delete boundaries;
         }
     }
 }
@@ -48,7 +62,7 @@ void util::init(std::vector<Segment*>& segmentVector, std::vector<Collectibles*>
 //Kollar kollision mellan en player samt objekt i nodeVector
 void util::checkCollision(bool jumpFlag, bool& gameOver, bool& invincible)
 {
-    if(!jumpFlag)
+    if(!jumpFlag && !invincible)
     {
 
         //{xPos, yPos, zPos, xsize, ysize, zsize[0], zsize[1], zsize[2], zDif[0], zDif[1], zDif[2], laneMargin}
@@ -81,16 +95,27 @@ void util::checkCollision(bool jumpFlag, bool& gameOver, bool& invincible)
 
         if(playerPosX == lanePositions[index] && !(playerPosZ <= (s1Boundaries[2] + s1Boundaries[8+index] + s1Boundaries[5+index]) && playerPosZ >= (s1Boundaries[2] + s1Boundaries[8+index] - s1Boundaries[5+index])))
         {
-            if(!invincible)
-            {
-                nodeVector.at(index)->segment->performAction(gameOver);
-            }
+            nodeVector.at(index)->segment->performAction(gameOver);
         }
         delete s1Boundaries;
 
+        commonCollision(invincible, q, gameOver);
     }
-    else{
-        //std::cout << "CHECK COLLISION WITH OTHER OBJECTS" << std::endl;
+    else
+    {
+        float q;
+        float playerPosZ = player->getZ();
+        for(int i = 0; i < nodeVector.size(); ++i)
+        {
+            float* segBound = nodeVector.at(i)->segment->getBoundaries();
+            if(playerPosZ <= segBound[1] && playerPosZ>= segBound[0])
+            {
+                q = i;
+                break;
+            }
+            delete segBound;
+        }
+        //commonCollision(invincible,q);
     }
 }
 
@@ -107,6 +132,7 @@ void util::updateNodeVector(std::vector<Collectibles*>& collVector)
 
     //Ta bort alla element i children då nya kan ha slumpgenererats
     nodeVector.back()->children.clear();
+    nodeVector.back()->pillar = nullptr;
 
     //Kollar vilka nya objekt som ska appendas till children.
     for(int p = 0; p < collVector.size(); ++p)
@@ -117,6 +143,17 @@ void util::updateNodeVector(std::vector<Collectibles*>& collVector)
         {
             nodeVector.back()->children.push_back(collVector.at(p));
         }
+        delete boundaries;
+    }
+    for(int q = 0; q < obs->items.size(); ++q)
+    {
+        float pillarZPos = obs->items.at(q)->positions[2];
+        float* boundaries = nodeVector.back()->segment->getBoundaries();
+        if(pillarZPos>=boundaries[0] && pillarZPos<=boundaries[1])
+        {
+            nodeVector.back()->pillar = obs->items.at(q);
+        }
+        delete boundaries;
     }
 }
 
@@ -149,5 +186,27 @@ void util::updateLogData(float dt, float gameSpeed)
     {
         //index 2 holds z-values
         positionData.at(i)[2] *= (gameSpeed*dt);
+    }
+}
+
+//EFTERBLIVET pga tidsbrist + felimplementation av obstacles...
+void util::commonCollision(bool& invincible, int nodeVectorIndex, bool& gameOver)
+{
+    if(!invincible)
+    {
+        if(nodeVector.at(nodeVectorIndex)->pillar != nullptr && nodeVector.at(nodeVectorIndex)->pillar->positions[0] == player->getX())
+        {
+
+            float* obsPositions = nodeVector.at(nodeVectorIndex)->pillar->positions;
+            float* hitboxData = nodeVector.at(nodeVectorIndex)->pillar->hitBoxSize;
+
+            float r = player->getRadius();
+            float pp[3]{player->getX(), player->getY(), player->getZ()};
+
+            if((pp[0]+r >= obsPositions[0]-hitboxData[0] && pp[0]-r <= obsPositions[0]+hitboxData[0]) && (pp[1]-r <= obsPositions[1]+hitboxData[1]) && (pp[2]-r <= obsPositions[2]+hitboxData[2]))
+            {
+                obs->performAction(gameOver);
+            }
+        }
     }
 }
