@@ -61,8 +61,8 @@ void handleInput(Player &player, bool &lFlag, bool &rFlag, bool &jFlag, float ho
 
 int main(int argc, char *argv[]) {
 
-    Texture earthTexture, segmentTexture,fireTexture, wallTexture, pillarTexture;
-    Texture segmentNormals, earthNormals, wallNormals, pillarNormals;
+    Texture earthTexture, segmentTexture,fireTexture, wallTexture, pillarTexture, chargeTexture;
+    Texture segmentNormals, earthNormals, wallNormals, pillarNormals, chargeNormals;
     Shader shader, particleShader;
 
  	GLint location_time, location_MV, location_P, location_tex, location_norm; // Shader uniforms
@@ -162,6 +162,11 @@ int main(int argc, char *argv[]) {
     glEnable(GL_CULL_FACE);  // Use back face culling
     glCullFace(GL_BACK);
 
+    //Disable or enable printing of debug-messages
+    Texture::setDebugMode(false);
+    Player::setDebugMode(false);
+    Segment::setDebugMode(false);
+
 
     // Read the texture data from file and upload it to the GPU
     earthTexture.createTexture("textures/energy.tga");
@@ -173,6 +178,8 @@ int main(int argc, char *argv[]) {
     wallNormals.createTexture("textures/scinorm.tga");
     pillarTexture.createTexture("textures/sciwall.tga");
     pillarNormals.createTexture("textures/scinorm.tga");
+    chargeTexture.createTexture("textures/redSquare.tga");
+    chargeNormals.createTexture("textures/red_norm.tga");
 
 	location_MV = glGetUniformLocation( shader.programID, "MV" );
 	location_P = glGetUniformLocation( shader.programID, "P" );
@@ -204,11 +211,6 @@ int main(int argc, char *argv[]) {
     walls *demWalls;
     obstacles *obs;
     lightsource lights[10];
-
-    //Disable or enable printing of debug-messages
-    Texture::setDebugMode(false);
-    Player::setDebugMode(false);
-    Segment::setDebugMode(false);
 
     //Loop used for "initializing the Segment-vector"
     float zPosition= 0.0f;
@@ -416,6 +418,9 @@ int main(int argc, char *argv[]) {
 
             MVstack.pop(); // Restore the matrix we saved above
 
+            //Ui Stuff
+            tempUtil.renderCharges(MVstack, location_MV, chargeTexture.texID, chargeNormals.texID);
+
         MVstack.pop(); // Restore the initial, untouched matrix
 
         //COLLISION CHECKING
@@ -446,7 +451,7 @@ int main(int argc, char *argv[]) {
     std::cout << "Game Over" << std::endl;
     std::cout << std::endl << "Congratulations!" << std::endl << "You got " << (int)score << " points." << std::endl;
     std::cout << std::string(3, '\n') << "Try again and see if you can beat it" << std::endl << "...like Michael Jackson" << std::string(5, '\n');
-    std::cout << "Write anything to and press 'Enter' to exit" << std::string(100, '\n');
+    std::cout << "Write anything to and press 'Enter' to exit" << std::endl;
 
     // Close the OpenGL window and terminate GLFW.
     if(std::cin >> pause != "hejdettakandualdriggissahahhaahahah")

@@ -156,3 +156,8 @@ void Player::setDebugMode(bool flag)
 {
     DEBUG = flag;
 }
+
+int Player::getCurrentCharges()
+{
+    return currentCharges;
+}

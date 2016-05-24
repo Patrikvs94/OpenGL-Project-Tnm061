@@ -57,6 +57,11 @@ void util::init(std::vector<Segment*>& segmentVector, std::vector<Collectibles*>
             delete boundaries;
         }
     }
+    for(int i = 0; i < player->maxCharges; ++i)
+    {
+        chargesVector.push_back(new TriangleSoup());
+        chargesVector.at(i)->createBox(0.4f,0.4f,0.01f);
+    }
 }
 
 //Kollar kollision mellan en player samt objekt i nodeVector
@@ -209,4 +214,23 @@ void util::commonCollision(bool& invincible, int nodeVectorIndex, bool& gameOver
             }
         }
     }
+}
+
+void util::renderCharges(MatrixStack& p, GLint& location_MV, GLuint& texture, GLuint& normal)
+{
+    glBindTexture(GL_TEXTURE_2D, texture);
+    glActiveTexture(GL_TEXTURE1);
+    glBindTexture(GL_TEXTURE_2D, normal);
+    glActiveTexture(GL_TEXTURE0);
+
+    for(int i = 0; i < player->getCurrentCharges(); ++i)
+    {
+        p.push();
+            p.translate(-7.8f + i*1.0f, 6.0f, -1.0f);
+            p.rotX(-M_PI/9.0);
+            glUniformMatrix4fv( location_MV, 1, GL_FALSE, p.getCurrentMatrix());
+            chargesVector.at(i)->render();
+        p.pop();
+    }
+
 }

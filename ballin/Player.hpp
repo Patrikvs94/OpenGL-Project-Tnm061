@@ -21,6 +21,8 @@ class Player : public Element
         void removeCharge();
         bool gotCharges();
         float getRadius();
+        int getCurrentCharges();
+        static const int maxCharges;
 
         float* getCollisionData();
         void performAction(bool& gameOver);
@@ -33,7 +35,6 @@ class Player : public Element
         float moveLength;
         TriangleSoup mesh;
         static const float G;
-        static const int maxCharges;
         int currentCharges;
         float angle;
         float radius;

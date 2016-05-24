@@ -6,6 +6,7 @@
 #include "Player.hpp"
 #include "Collectibles.h"
 #include "obstacles.h"
+#include "matrixStack.hpp"
 
 struct node{
     Segment* segment;
@@ -23,6 +24,7 @@ class util
         void checkCollision(bool jumpFlag, bool& gameOver, bool& invincible);  //Checks collision between two objects
         void updateNodeVector(std::vector<Collectibles*>& collVector); //UPDATES
         void logPlayerPosition(Player& p, double t, float gameSpeed);
+        void renderCharges(MatrixStack& p, GLint& location_MV, GLuint& texture, GLuint& normal);
 
     protected:
     private:
@@ -37,6 +39,7 @@ class util
         static obstacles* obs;
         void updateLogData(float dt, float gameSpeed);
         void commonCollision(bool& invincible, int nodeVectorIndex, bool& gameOver);
+        std::vector<TriangleSoup*> chargesVector;
 };
 
 #endif // UTIL_H
