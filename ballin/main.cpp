@@ -35,7 +35,7 @@
 #endif
 
 // Headers for the other source files that make up this program.
-#include "Texture.hpp"
+
 #include "Rotator.hpp"
 #include "Segment.h"
 #include "Element.h"
@@ -45,6 +45,7 @@
 #include "Cloud.hpp"
 #include "walls.h"
 #include "obstacles.h"
+#include "lightsource.hpp"
 
 #include <ctime>
 #include <vector>
@@ -64,7 +65,8 @@ int main(int argc, char *argv[]) {
     Texture segmentNormals, earthNormals, wallNormals, pillarNormals;
     Shader shader, particleShader;
 
- 	GLint location_time, location_MV, location_P, location_tex, location_norm, location_l_pos;; // Shader uniforms
+ 	GLint location_time, location_MV, location_P, location_tex, location_norm; // Shader uniforms
+    GLint location_ligtPos[10];
     GLint Plocation_time, Plocation_MV, Plocation_P;
     float time = (float)glfwGetTime();
 	double fps = 0.0;
@@ -174,11 +176,23 @@ int main(int argc, char *argv[]) {
 	location_time = glGetUniformLocation( shader.programID, "time" );
 	location_tex = glGetUniformLocation( shader.programID, "tex" );
     location_norm = glGetUniformLocation( shader.programID, "norm" );
-    location_l_pos = glGetUniformLocation( shader.programID, "l_pos" );
 
     Plocation_MV = glGetUniformLocation( particleShader.programID, "MV" );
     Plocation_P = glGetUniformLocation( particleShader.programID, "P" );
     Plocation_time = glGetUniformLocation( particleShader.programID, "time" );
+    
+    
+    //stupid lights
+    location_ligtPos[0] =glGetUniformLocation(shader.programID, "l_pos[0]");
+    location_ligtPos[1] =glGetUniformLocation(shader.programID, "l_pos[1]");
+    location_ligtPos[2] =glGetUniformLocation(shader.programID, "l_pos[2]");
+    location_ligtPos[3] =glGetUniformLocation(shader.programID, "l_pos[3]");
+    location_ligtPos[4] =glGetUniformLocation(shader.programID, "l_pos[4]");
+    location_ligtPos[5] =glGetUniformLocation(shader.programID, "l_pos[5]");
+    location_ligtPos[6] =glGetUniformLocation(shader.programID, "l_pos[6]");
+    location_ligtPos[7] =glGetUniformLocation(shader.programID, "l_pos[7]");
+    location_ligtPos[8] =glGetUniformLocation(shader.programID, "l_pos[8]");
+    location_ligtPos[9] =glGetUniformLocation(shader.programID, "l_pos[9]");
 
 
     // Declaring objects of type TriangleSoup after all GLFW nonsense is complete
@@ -186,6 +200,7 @@ int main(int argc, char *argv[]) {
     Player ballin;
     walls *demWalls;
     obstacles *obs;
+    lightsource lights[10];
 
     //Loop used for "initializing the Segment-vector"
     float zPosition= 0.0f;
@@ -195,6 +210,18 @@ int main(int argc, char *argv[]) {
         Segments.push_back(new Segment());
         zPosition-=(Segments.at(i-1)->getLength()+Segments.at(i)->getLength()+segmentDistance);
         Segments.at(i)->changeZPos(zPosition);
+    }
+    
+    //set positions for lights
+    for(int i=0;i<(sizeof(lights)/sizeof(lightsource))/2;++i)
+    {
+        lights[2*i+1].setX(4.0f);
+        lights[2*i+1].setY(2.5f);
+        lights[2*i+1].setZ(Segments.at(i+1)->getZ());
+        
+        lights[2*i].setX(-4.0f);
+        lights[2*i].setY(2.5f);
+        lights[2*i].setZ(Segments.at(i+1)->getZ());
     }
 
     //DEBUG FOR UTIL
@@ -208,6 +235,7 @@ int main(int argc, char *argv[]) {
 
     //Obstacles
     obs = new obstacles(Segments);
+    //const GLfloat stuff[] = {0.0f, 10.0f, 5.0f};
 
     // Main loop
     while(!glfwWindowShouldClose(window) && !gameOver)
@@ -303,6 +331,19 @@ int main(int argc, char *argv[]) {
 
         // Copy the projection matrix P into the shader.
         glUniformMatrix4fv( location_P, 1, GL_FALSE, P );
+        
+        //send lights to shader
+        for(int i=0; i<sizeof(lights)/sizeof(lightsource);++i)
+        {
+            lights[i].setupLight(location_ligtPos[i]);
+        }
+        
+        /*//Render the location of light sources
+        for(int i=0; i<sizeof(lights)/sizeof(lightsource);++i)
+        {
+            lights[i].renderlight(MVstack, location_MV);
+        }
+        */
 
         // Tell the shader to use texture unit 0.
         glUniform1i ( location_tex , 0);
@@ -317,11 +358,6 @@ int main(int argc, char *argv[]) {
             //We used the known int of 10 for testing purposes
             MVstack.push();
 
-            //Sets z-coordinates for segments
-            for(int i=0;i<Segments.size();++i)
-            {
-                Segments.at(i)->changeZPos(gameSpeed*(deltaTime));
-            }
 
             //Moves the segment closest to the camera to the back if it reaches z=0
             if(Segments.at(0)->getZ()>10.0f)
@@ -337,6 +373,7 @@ int main(int argc, char *argv[]) {
             //render segments at correct positions
             for(int i = 0; i<Segments.size(); i++)
             {
+                Segments.at(i)->changeZPos(gameSpeed*(deltaTime));
                 MVstack.push();
                 MVstack.translate(0.0f, 0.0f, Segments.at(i)->getZ());
                 Segments.at(i)->render(MVstack, location_MV, segmentTexture.texID,segmentNormals.texID);
