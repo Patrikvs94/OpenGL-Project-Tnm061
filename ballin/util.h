@@ -36,7 +36,7 @@ class util
         const double logRate = 60.0; //Logs/s (Hz)
             //OBS! MÅSTE KALLA PÅ DELETE MANUELLT OM ERASE ANVÄNDS.
         double deltaLogTime = 0.0;
-        static obstacles* obs;
+        obstacles* obs;
         void updateLogData(float dt, float gameSpeed);
         void commonCollision(bool& invincible, int nodeVectorIndex, bool& gameOver);
         std::vector<TriangleSoup*> chargesVector;

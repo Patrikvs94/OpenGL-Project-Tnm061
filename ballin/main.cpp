@@ -190,8 +190,8 @@ int main(int argc, char *argv[]) {
     Plocation_MV = glGetUniformLocation( particleShader.programID, "MV" );
     Plocation_P = glGetUniformLocation( particleShader.programID, "P" );
     Plocation_time = glGetUniformLocation( particleShader.programID, "time" );
-    
-    
+
+
     //stupid lights
     location_ligtPos[0] =glGetUniformLocation(shader.programID, "l_pos[0]");
     location_ligtPos[1] =glGetUniformLocation(shader.programID, "l_pos[1]");
@@ -221,14 +221,14 @@ int main(int argc, char *argv[]) {
         zPosition-=(Segments.at(i-1)->getLength()+Segments.at(i)->getLength()+segmentDistance);
         Segments.at(i)->changeZPos(zPosition);
     }
-    
+
     //set positions for lights
     for(int i=0;i<(sizeof(lights)/sizeof(lightsource))/2;++i)
     {
         lights[2*i+1].setX(4.0f);
         lights[2*i+1].setY(2.5f);
         lights[2*i+1].setZ(Segments.at(i+1)->getZ());
-        
+
         lights[2*i].setX(-4.0f);
         lights[2*i].setY(2.5f);
         lights[2*i].setZ(Segments.at(i+1)->getZ());
@@ -245,9 +245,7 @@ int main(int argc, char *argv[]) {
     float rightOrigin[3]{-12.0f, -20.0f, 1.0f}; //-12.0f, -20.0f, 1.0f
     float leftOrigin[3]{12.0f, -20.0f, 1.0f};  //12.0f, -20.0f, 1.0f
     demWalls = new walls(rightOrigin, leftOrigin, gameSpeed);
-    
-    //Obstacles
-    obs = new obstacles(Segments);
+
     //const GLfloat stuff[] = {0.0f, 10.0f, 5.0f};
     //Score-keeping
     double score = 0.0;
@@ -353,13 +351,13 @@ int main(int argc, char *argv[]) {
 
         // Copy the projection matrix P into the shader.
         glUniformMatrix4fv( location_P, 1, GL_FALSE, P );
-        
+
         //send lights to shader
         for(int i=0; i<sizeof(lights)/sizeof(lightsource);++i)
         {
             lights[i].setupLight(location_ligtPos[i]);
         }
-        
+
         /*//Render the location of light sources
         for(int i=0; i<sizeof(lights)/sizeof(lightsource);++i)
         {

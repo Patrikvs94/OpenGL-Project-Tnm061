@@ -73,6 +73,7 @@ PFNGLDISABLEVERTEXATTRIBARRAYPROC glDisableVertexAttribArray = NULL;
 PFNGLGENERATEMIPMAPPROC           glGenerateMipmap           = NULL;
 PFNGLBUFFERSUBDATAPROC            glBufferSubData            = NULL;
 PFNGLACTIVETEXTUREPROC            glActiveTexture            = NULL;
+PFNGLUNIFORM3FVPROC               glUniform3fv               = NULL;
 #endif
 
 
@@ -114,6 +115,7 @@ void tnm061::loadExtensions() {
     glUniform1i          = (PFNGLUNIFORM1IPROC)glfwGetProcAddress("glUniform1i");
 	glUniformMatrix4fv   = (PFNGLUNIFORMMATRIX4FVPROC)glfwGetProcAddress("glUniformMatrix4fv");
     glActiveTexture   = (PFNGLACTIVETEXTUREPROC)glfwGetProcAddress("glActiveTexture");
+    glUniform3fv         = (PFNGLUNIFORM3FVPROC)glfwGetProcAddress("glUniform3fv");
 
 
     if( !glCreateProgram || !glDeleteProgram || !glUseProgram ||

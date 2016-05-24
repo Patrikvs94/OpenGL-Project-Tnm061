@@ -2,8 +2,6 @@
 #include <typeinfo>
 #include <iostream>
 
-obstacles* util::obs;
-
 util::util()
 {
     std::cout << "util::util() - Default constructor should not be called." << std::endl;
@@ -108,7 +106,7 @@ void util::checkCollision(bool jumpFlag, bool& gameOver, bool& invincible)
     }
     else
     {
-        float q;
+        int q = 0;
         float playerPosZ = player->getZ();
         for(int i = 0; i < nodeVector.size(); ++i)
         {
@@ -120,7 +118,7 @@ void util::checkCollision(bool jumpFlag, bool& gameOver, bool& invincible)
             }
             delete segBound;
         }
-        //commonCollision(invincible,q);
+        commonCollision(invincible,q, gameOver);
     }
 }
 
@@ -199,9 +197,8 @@ void util::commonCollision(bool& invincible, int nodeVectorIndex, bool& gameOver
 {
     if(!invincible)
     {
-        if(nodeVector.at(nodeVectorIndex)->pillar != nullptr && nodeVector.at(nodeVectorIndex)->pillar->positions[0] == player->getX())
+        if(nodeVector.at(nodeVectorIndex)->pillar != nullptr)
         {
-
             float* obsPositions = nodeVector.at(nodeVectorIndex)->pillar->positions;
             float* hitboxData = nodeVector.at(nodeVectorIndex)->pillar->hitBoxSize;
 
@@ -210,8 +207,10 @@ void util::commonCollision(bool& invincible, int nodeVectorIndex, bool& gameOver
 
             if((pp[0]+r >= obsPositions[0]-hitboxData[0] && pp[0]-r <= obsPositions[0]+hitboxData[0]) && (pp[1]-r <= obsPositions[1]+hitboxData[1]) && (pp[2]-r <= obsPositions[2]+hitboxData[2]))
             {
+                std::cout << "CALLED" << std::endl;
                 obs->performAction(gameOver);
             }
+
         }
     }
 }
@@ -226,7 +225,7 @@ void util::renderCharges(MatrixStack& p, GLint& location_MV, GLuint& texture, GL
     for(int i = 0; i < player->getCurrentCharges(); ++i)
     {
         p.push();
-            p.translate(-7.8f + i*1.0f, 6.0f, -1.0f);
+            p.translate(-7.8f + i*1.2f, 6.0f, -1.0f);
             p.rotX(-M_PI/9.0);
             glUniformMatrix4fv( location_MV, 1, GL_FALSE, p.getCurrentMatrix());
             chargesVector.at(i)->render();
