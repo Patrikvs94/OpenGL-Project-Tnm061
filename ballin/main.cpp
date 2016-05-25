@@ -93,7 +93,7 @@ int main(int argc, char *argv[]) {
     bool leftFlag  = false;
     bool rightFlag = false;
     bool gameOver = false;
-    bool invincible = false;
+    bool invincible = true;
 
     MatrixStack MVstack; // The matrix stack we are going to use to set MV
 
@@ -175,7 +175,7 @@ int main(int argc, char *argv[]) {
     segmentTexture.createTexture("textures/scifi.tga");
     segmentNormals.createTexture("textures/scinorm.tga");
     fireTexture.createTexture("textures/fire.tga");
-    wallTexture.createTexture("textures/sciwall.tga");
+    wallTexture.createTexture("textures/moarsci.tga");
     wallNormals.createTexture("textures/scinorm.tga");
     pillarTexture.createTexture("textures/sciwall.tga");
     pillarNormals.createTexture("textures/scinorm.tga");

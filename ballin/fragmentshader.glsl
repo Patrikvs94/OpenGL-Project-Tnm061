@@ -39,9 +39,9 @@ void main() {
     vec3 ka = vec3(0.5, 0.5, 0.5);          // ambient reflection color
     vec3 Ia = vec3(0.2, 0.2, 0.2);          // ambient illumination color
     vec3 kd = vec3(texture(tex, stCoords));   // diffuse surface reflection color
-    vec3 Id = vec3(0.05, 0.05, 0.05);          // diffuse illumination color
+    vec3 Id = vec3(0.03, 0.03, 0.03);          // diffuse illumination color
     vec3 ks = vec3(0.1, 0.1, 0.1);          // specular surface reflection color
-    vec3 Is = vec3(0.3, 0.3, 0.3);          // specular illumination color
+    vec3 Is = vec3(0.15, 0.15, 0.15);          // specular illumination color
     float n = 10;
     // the "shininess" parameter
     
@@ -63,7 +63,8 @@ void main() {
         vec3 R = 2.0*dot(interpolatedNormal, lightDirection[i])*interpolatedNormal - lightDirection[i]; //Could also use the function reflect();   // R is the computed reflection direction
         
         float dotNL = max(dot(interpolatedNormal, lightDirection[i]), 0.0);  // Scalar product between light direction and normal. If negative, set to zero.
-        float dotRV = max(dot(R,V), 0.0);                           //Scalar product between computed reflection direction and view direction
+        vec3 H = normalize(V+lightDirection[i]);
+        float dotRV = max(dot(interpolatedNormal,H), 0.0);                           //Scalar product between computed reflection direction and view direction
         if (dotNL == 0.0) dotRV = 0.0;                              //Do not show highlight on the dark side
         
         vec3 shadedcolor = Id*kd*dotNL + Is*ks*pow(dotRV, n);   //Final color (for each pixel)
