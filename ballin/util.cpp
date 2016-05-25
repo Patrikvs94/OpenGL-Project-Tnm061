@@ -205,9 +205,8 @@ void util::commonCollision(bool& invincible, int nodeVectorIndex, bool& gameOver
             float r = player->getRadius();
             float pp[3]{player->getX(), player->getY(), player->getZ()};
 
-            if((pp[0]+r >= obsPositions[0]-hitboxData[0] && pp[0]-r <= obsPositions[0]+hitboxData[0]) && (pp[1]-r <= obsPositions[1]+hitboxData[1]) && (pp[2]-r <= obsPositions[2]+hitboxData[2]))
+            if((pp[0]+r >= obsPositions[0]-hitboxData[0] && pp[0]-r <= obsPositions[0]+hitboxData[0]) && (pp[1]-r <= obsPositions[1]+hitboxData[1]) && (pp[2]-r <= obsPositions[2]+hitboxData[2] && pp[2]+r >= obsPositions[2]-hitboxData[2]))
             {
-                std::cout << "CALLED" << std::endl;
                 obs->performAction(gameOver);
             }
 
@@ -225,7 +224,7 @@ void util::renderCharges(MatrixStack& p, GLint& location_MV, GLuint& texture, GL
     for(int i = 0; i < player->getCurrentCharges(); ++i)
     {
         p.push();
-            p.translate(-7.8f + i*1.2f, 6.0f, -1.0f);
+            p.translate(-7.0f + i*1.2f, 6.0f, -1.0f);
             p.rotX(-M_PI/9.0);
             glUniformMatrix4fv( location_MV, 1, GL_FALSE, p.getCurrentMatrix());
             chargesVector.at(i)->render();
