@@ -93,7 +93,7 @@ int main(int argc, char *argv[]) {
     bool leftFlag  = false;
     bool rightFlag = false;
     bool gameOver = false;
-    bool invincible = true;
+    bool invincible = false;
 
     MatrixStack MVstack; // The matrix stack we are going to use to set MV
 
