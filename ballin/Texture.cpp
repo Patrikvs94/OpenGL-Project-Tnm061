@@ -5,7 +5,7 @@
 
 #include "Texture.hpp"
 
-bool Texture::DEBUG = false;
+bool Texture::debug = false;
 
 /* Constructor */
 Texture::Texture() {
@@ -29,7 +29,7 @@ Texture::~Texture() {
 /* Enables Debug mode */
 void Texture::setDebugMode(bool flag)
 {
-    DEBUG = flag;
+    debug = flag;
 }
 
 
@@ -74,7 +74,7 @@ int Texture::loadUncompressedTGA(FILE *TGAfile) // Load an uncompressed TGA
 	if(bpp == 24)										// If the the image is 24 BPP
 	{
 		this->type	= GL_RGB;								// Set image type to GL_RGB
-		if(DEBUG)
+		if(debug)
         {
           printf("Texture type is GL_RGB\n");
         }
@@ -82,7 +82,7 @@ int Texture::loadUncompressedTGA(FILE *TGAfile) // Load an uncompressed TGA
 	else														// Else it's 32 BPP
 	{
 		this->type	= GL_RGBA;								// Set image type to GL_RGBA
-		if(DEBUG)
+		if(debug)
         {
             printf("Texture type is GL_RGBA\n");
         }

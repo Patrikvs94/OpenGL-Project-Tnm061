@@ -38,7 +38,7 @@ class Player : public Element
         int currentCharges;
         float angle;
         float radius;
-        static bool DEBUG;
+        static bool debug;
 
 
 

@@ -40,7 +40,7 @@ private:
 
     GLubyte	*imageData;	// Image data (3 or 4 bytes per pixel)
     GLuint	bpp;	// Image color depth in bits per pixel
-    static bool DEBUG;
+    static bool debug;
     
 public:
 

@@ -3,7 +3,7 @@
 
 const float Player::G = 9.82f;
 const int Player::maxCharges = 2;
-bool Player::DEBUG = false;
+bool Player::debug = false;
 
 Player::Player(): Element(0.0f,0.0f,0.0f), moveLength(laneMargin), gravityMultiplier(2.0f)
 {
@@ -58,7 +58,7 @@ void Player::render(MatrixStack& p, GLint& location_MV, GLuint& texture, float t
 
         p.translate(xPos, yPos, zPos);
         p.rotX(-speed*time*0.7);
-        p.rotY(M_PI/2);
+    
         glUniformMatrix4fv( location_MV, 1, GL_FALSE, p.getCurrentMatrix() );
         glBindTexture(GL_TEXTURE_2D, texture);
         glActiveTexture(GL_TEXTURE1);
@@ -109,14 +109,14 @@ void Player::addCharge()
     if(currentCharges < maxCharges)
     {
         ++currentCharges;
-        if(DEBUG)
+        if(debug)
         {
             std::cout << "Added, " << this->currentCharges << " charges left." << std::endl;
         }
     }
     else
     {
-        if(DEBUG)
+        if(debug)
         {
             std::cout << "Full" << std::endl;
         }
@@ -128,14 +128,14 @@ void Player::removeCharge()
     if(currentCharges > 0)
     {
         --currentCharges;
-        if(DEBUG)
+        if(debug)
         {
             std::cout << "Removed, " << this->currentCharges << " charges left." << std::endl;
         }
     }
     else
     {
-        if(DEBUG)
+        if(debug)
         {
             std::cout << "Empty" << std::endl;
         }
@@ -154,7 +154,7 @@ float Player::getRadius()
 
 void Player::setDebugMode(bool flag)
 {
-    DEBUG = flag;
+    debug = flag;
 }
 
 int Player::getCurrentCharges()

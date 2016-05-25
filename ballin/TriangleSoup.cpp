@@ -341,7 +341,13 @@ void TriangleSoup::createSphere(float radius, int segments) {
             y = R*sin(phi);
             
             double radiusT=sqrt(pow(radius, 2.0) +1);
+            double phiT=phi;
             double thetaT = theta + asin(1/(radiusT));
+            if(thetaT>M_PI)
+            {
+                thetaT=2*M_PI-thetaT;
+                phiT+=2*M_PI;
+            }
             
             base = (1+j*(hsegs+1)+i)*stride;
             vertexarray[base] = radius*x;

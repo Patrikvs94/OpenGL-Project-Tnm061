@@ -7,6 +7,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <cmath>
+#include <string>
 
 #ifndef M_PI
 #define M_PI (3.141592653589793)
@@ -452,7 +453,9 @@ int main(int argc, char *argv[]) {
     std::cout << "Write anything to and press 'Enter' to exit" << std::endl;
 
     // Close the OpenGL window and terminate GLFW.
-    if(std::cin >> pause != "hejdettakandualdriggissahahhaahahah")
+    std::string input= "";
+    getline(std::cin, input);
+    if(input != "hejdettakandualdriggissahahhaahahah")
     {
         glfwDestroyWindow(window);
         glfwTerminate();

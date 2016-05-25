@@ -42,7 +42,7 @@ class Segment : public Element
         float zMax;
         float segmentMax;
         float segmentMin;
-        static bool DEBUG;
+        static bool debug;
 
 };
 
