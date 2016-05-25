@@ -180,7 +180,7 @@ int main(int argc, char *argv[]) {
     pillarTexture.createTexture("textures/sciwall.tga");
     pillarNormals.createTexture("textures/scinorm.tga");
     chargeTexture.createTexture("textures/redSquare.tga");
-    chargeNormals.createTexture("textures/red_norm.tga");
+    chargeNormals.createTexture("textures/scinorm.tga");
 
 	location_MV = glGetUniformLocation( shader.programID, "MV" );
 	location_P = glGetUniformLocation( shader.programID, "P" );

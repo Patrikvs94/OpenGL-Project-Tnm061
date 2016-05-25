@@ -58,7 +58,7 @@ void util::init(std::vector<Segment*>& segmentVector, std::vector<Collectibles*>
     for(int i = 0; i < player->maxCharges; ++i)
     {
         chargesVector.push_back(new TriangleSoup());
-        chargesVector.at(i)->createBox(0.4f,0.4f,0.01f);
+        chargesVector.at(i)->createBox(0.3f,0.3f,0.01f);
     }
 }
 
@@ -224,7 +224,7 @@ void util::renderCharges(MatrixStack& p, GLint& location_MV, GLuint& texture, GL
     for(int i = 0; i < player->getCurrentCharges(); ++i)
     {
         p.push();
-            p.translate(-7.0f + i*1.2f, 6.0f, -1.0f);
+            p.translate(-0.5f + i*1.0f, 6.2f, -1.0f);
             p.rotX(-M_PI/9.0);
             glUniformMatrix4fv( location_MV, 1, GL_FALSE, p.getCurrentMatrix());
             chargesVector.at(i)->render();

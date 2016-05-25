@@ -67,8 +67,8 @@ void walls::init()
             leftWall.at(vecPos)->positions = new float[3]{leftWallOrigin[0] +xSize, leftWallOrigin[1] + (i*2*ySize)-ySize, leftWallOrigin[2] - (p*2*zSize) - zSize};
 
             //FULHACK FÖR ATT UNDVIKA DUBBLA LIKNANDE FUNKTIONER
-            rightWall.at(vecPos)->velocity = randStartPos() * gameSpeed;
-            leftWall.at(vecPos)->velocity = randStartPos() * gameSpeed;
+            rightWall.at(vecPos)->velocity = randStartPos() * gameSpeed * 1.3f;
+            leftWall.at(vecPos)->velocity = randStartPos() * gameSpeed* 1.3f;
         }
     }
 }
