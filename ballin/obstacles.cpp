@@ -3,9 +3,9 @@
 const float obstacles::xSize = 1.0f;
 const float obstacles::ySize = 40.0f;
 const float obstacles::zSize = 1.0f;
-const float obstacles::threshold = 0.9f;
+const float obstacles::threshold = 0.85f;
 const float obstacles::zNear = 10.0f;
-const float obstacles::spawnTime = 0.0f;
+const float obstacles::spawnTime = 10.0f;
 float obstacles::t = 0.0f;
 int obstacles::maxNumber;
 std::vector<Segment*>* obstacles::segVec;

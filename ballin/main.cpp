@@ -118,7 +118,7 @@ int main(int argc, char *argv[]) {
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
-    // Open a square window (aspect 1:1) to fill half the screen height
+    // Open a window (same aspect as screen) to fill half the screen height
     window = glfwCreateWindow(vidmode->width/2, vidmode->height/2, "GLprimer", NULL, NULL);
     if (!window)
     {
@@ -243,20 +243,12 @@ int main(int argc, char *argv[]) {
     util tempUtil(ballin, Segments, tempShit, obs);
 
     //WALLS
-    float rightOrigin[3]{-12.0f, -20.0f, 1.0f}; //-12.0f, -20.0f, 1.0f
-    float leftOrigin[3]{12.0f, -20.0f, 1.0f};  //12.0f, -20.0f, 1.0f
+    float rightOrigin[3]{-12.0f, -40.0f, 1.0f};
+    float leftOrigin[3]{12.0f, -40.0f, 1.0f};
     demWalls = new walls(rightOrigin, leftOrigin, gameSpeed);
 
-    //const GLfloat stuff[] = {0.0f, 10.0f, 5.0f};
     //Score-keeping
     double score = 0.0;
-
-    //Starting message
-    std::cout << "Currently crushing high scores...";
-    std::cout << std::string(10, '\n');
-
-    //Hack
-    std::string pause = "";
 
     // Main loop
     while(!glfwWindowShouldClose(window) && !gameOver)
@@ -344,7 +336,7 @@ int main(int argc, char *argv[]) {
             MVstack.rotX(cameraPosition[3]);
             MVstack.rotY(cameraPosition[4]);
             //render the particles
-            Particles.renderParticles(MVstack,location_MV);
+            Particles.renderParticles(MVstack,Plocation_MV);
         glUseProgram(0);
 
         // Activate our shader program.
@@ -358,13 +350,6 @@ int main(int argc, char *argv[]) {
         {
             lights[i].setupLight(location_ligtPos[i]);
         }
-
-        /*//Render the location of light sources
-        for(int i=0; i<sizeof(lights)/sizeof(lightsource);++i)
-        {
-            lights[i].renderlight(MVstack, location_MV);
-        }
-        */
 
         // Tell the shader to use texture unit 0.
         glUniform1i ( location_tex , 0);
@@ -449,17 +434,13 @@ int main(int argc, char *argv[]) {
 
     std::cout << "Game Over" << std::endl;
     std::cout << std::endl << "Congratulations!" << std::endl << "You got " << (int)score << " points." << std::endl;
-    std::cout << std::string(3, '\n') << "Try again and see if you can beat it" << std::endl << "...like Michael Jackson" << std::string(5, '\n');
-    std::cout << "Write anything to and press 'Enter' to exit" << std::endl;
+    std::cout << std::string(3, '\n') << "Try again and see if you can beat it." << std::endl << std::string(10, '\n');
+    glfwDestroyWindow(window);
+    glfwTerminate();
 
-    // Close the OpenGL window and terminate GLFW.
-    std::string input= "";
-    getline(std::cin, input);
-    if(input != "hejdettakandualdriggissahahhaahahah")
-    {
-        glfwDestroyWindow(window);
-        glfwTerminate();
-    }
+    std::string input ="";
+    std::getline(std::cin, input);
+
 
     return 0;
 }
