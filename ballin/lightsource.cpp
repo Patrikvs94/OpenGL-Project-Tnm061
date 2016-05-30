@@ -12,6 +12,11 @@ lightsource::lightsource()
     sphere.createSphere(0.5f, 2);
 }
 
+lightsource::~lightsource()
+{
+    delete pos;
+}
+
 void lightsource::setX(float x)
 {
     pos->x=x;
@@ -32,12 +37,16 @@ cordinate* lightsource::cordinates()
     return pos;
 }
 
+
+//sends lightsource to shader
 void lightsource::setupLight(GLint location_l)
 {
     glUniform3fv(location_l, 1, (const GLfloat*)pos);
     
 }
 
+
+//renders a "spehre" at location of lightsource
 void lightsource::renderlight(MatrixStack& MV, GLint location_MV)
 {
     MV.push();

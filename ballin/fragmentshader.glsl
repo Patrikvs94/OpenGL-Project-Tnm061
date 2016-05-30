@@ -50,6 +50,8 @@ void main() {
     outputColor= vec4(Ia*ka, 1.0);
 
     vec3 V = vec3(0.0, 0.0, 1.0);       //Direction of the viewer. ALWAYS (0,0,1)!
+    
+    //makes stuff glow(not a very smart way to do so)
     if(kd[2]>0.65)
     {
         emission= vec4(0.5, 0.5, 0.5, 0.0)*abs(sin(0.5*t));
