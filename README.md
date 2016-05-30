@@ -17,3 +17,5 @@ Detta är ett "endless runner" spel som gjordes som ett projektarbete i kursen T
 
   
 ###**DET INGÅR INGEN PROJEKTFIL!!!**
+**Här är en link: https://goo.gl/yfpMRH**
+__(Ladda ner så får du ne .cbp-fil)__
