@@ -65,7 +65,7 @@ void util::init(std::vector<Segment*>& segmentVector, std::vector<Collectibles*>
 //Kollar kollision mellan en player samt objekt i nodeVector
 void util::checkCollision(bool jumpFlag, bool& gameOver, bool& invincible)
 {
-    if(!jumpFlag && !invincible)
+    if(!jumpFlag && !invincible)    //Kollar när spelaren är på marken (mellan spelare och segment)
     {
 
         //{xPos, yPos, zPos, xsize, ysize, zsize[0], zsize[1], zsize[2], zDif[0], zDif[1], zDif[2], laneMargin}
@@ -102,7 +102,7 @@ void util::checkCollision(bool jumpFlag, bool& gameOver, bool& invincible)
         }
         delete s1Boundaries;
 
-        commonCollision(invincible, q, gameOver);
+        commonCollision(invincible, q, gameOver);   //Kollar mellan spelare och obstacles (tanken var att även kolla mellan olika power-ips och dylikt)
     }
     else
     {
@@ -159,7 +159,10 @@ void util::updateNodeVector(std::vector<Collectibles*>& collVector)
         delete boundaries;
     }
 }
-
+/*
+    Funktion för att logga positionen för spelaren.
+    Skulle användas för att skapa ett spår av partiklar efter spelaren.
+*/
 void util::logPlayerPosition(Player& p, double t, float gameSpeed)
 {
     double dt = t-deltaLogTime;
