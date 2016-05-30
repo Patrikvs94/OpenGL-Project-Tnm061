@@ -7,7 +7,7 @@ lightsource::lightsource()
     pos->x=0.0f;
     pos->y=0.0f;
     pos->z=0.0f;
-    tex.createTexture("textures/sun.tga");
+    tex.createTexture("textures/red.tga");
     norm.createTexture("textures/red_norm.tga");
     sphere.createSphere(0.5f, 2);
 }

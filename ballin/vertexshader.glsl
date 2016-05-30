@@ -34,7 +34,7 @@ void main(){
     
     for(int i=0;i<10;++i)
     {
-        lightDirection[i] = (pos-l_pos[i]);
+        lightDirection[i] = (l_pos[i]-pos);
         lightDistance[i]=length(lightDirection[i]);
         lightDirection[i]=normalize(lightDirection[i]);
     }

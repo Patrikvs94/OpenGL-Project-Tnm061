@@ -36,7 +36,7 @@ void main() {
 //    outputColor = texcolor * diffuse;
 
     //Create specular shading (assumes that interpolatedNormal, lightDirection and V are normalized)
-    vec3 ka = vec3(0.5, 0.5, 0.5);          // ambient reflection color
+    vec3 ka = vec3(texture(tex, stCoords));          // ambient reflection color
     vec3 Ia = vec3(0.2, 0.2, 0.2);          // ambient illumination color
     vec3 kd = vec3(texture(tex, stCoords));   // diffuse surface reflection color
     vec3 Id = vec3(0.03, 0.03, 0.03);          // diffuse illumination color

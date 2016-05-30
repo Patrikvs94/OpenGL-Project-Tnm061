@@ -228,11 +228,11 @@ int main(int argc, char *argv[]) {
     {
         lights[2*i+1].setX(4.0f);
         lights[2*i+1].setY(2.5f);
-        lights[2*i+1].setZ(Segments.at(i+1)->getZ());
+        lights[2*i+1].setZ(Segments.at(i+1)->getZ()+50.0f);
 
         lights[2*i].setX(-4.0f);
         lights[2*i].setY(2.5f);
-        lights[2*i].setZ(Segments.at(i+1)->getZ());
+        lights[2*i].setZ(Segments.at(i+1)->getZ()+50.0f);
     }
 
     //Obstacles
@@ -350,6 +350,13 @@ int main(int argc, char *argv[]) {
         {
             lights[i].setupLight(location_ligtPos[i]);
         }
+        /* //shows the location of light sources
+        for(int i=0;i<sizeof(lights)/sizeof(lightsource);++i)
+        {
+            lights[i].renderlight(MVstack, location_MV);
+        }
+         */
+         
 
         // Tell the shader to use texture unit 0.
         glUniform1i ( location_tex , 0);
