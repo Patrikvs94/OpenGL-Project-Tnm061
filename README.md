@@ -14,7 +14,7 @@ Detta är ett "endless runner" spel som gjordes som ett projektarbete i kursen T
   5. **Partiklarna är dumt implementerade.** Det vi egentligen ville göra var att använda oss utav "instansing". Detta fungerade dock inte då det krånglade kring inkludering av dem funktionerna. Det systemet som används nu är väldigt krävande...
   6. **Det läcker!** Vi har inte lagt så mycket tid på korrekt hantering utav pointers (dvs destructors samt användning av 'delete'). 
 
-
+BLABLABLAL
 
   
 ###**DET INGÅR INGEN PROJEKTFIL!!!**
